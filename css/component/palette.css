@@ -6,6 +6,7 @@
   --color-bg-element: rgb(236, 236, 236);
   --color-nav-element: rgb(0, 114, 153);
   --color-text: rgb(17, 17, 17);
+  --color-nav-text: rgb(236, 236, 236);
   --color-text-button: rgb(236, 236, 236);
   --color-featured: rgb(230, 169, 64);
 }
@@ -19,6 +20,7 @@
   --color-nav-element: rgb(2, 71, 95);
   --color-text-button: rgb(252, 255, 255);
   --color-text: rgb(0, 0, 0);
+  --color-nav-text: rgb(0, 0, 0);
   --color-featured: rgb(2, 71, 95);
 }
 
@@ -27,9 +29,10 @@
   --color-bg: rgba(36, 36, 36, 0.884);
   --color-bg-element: rgb(98, 98, 99);
   --color-bg-button: rgba(36, 36, 36, 0.884);
-  --color-nav-element: rgb(127, 182, 209);
-  --color-bg-buy-button: rgb(127, 182, 209);
+  --color-nav-element: rgb(21, 120, 170);
+  --color-bg-buy-button: rgb(21, 120, 170);
   --color-text: rgb(212, 212, 212);
+  --color-nav-text: rgb(212, 212, 212);
   --color-text-button: rgb(212, 212, 212);
   --color-featured: rgb(209, 87, 39);
 }
@@ -38,10 +41,11 @@
 .palette-dark-contrast {
   --color-bg: rgba(52, 48, 48, 0.959);
   --color-bg-element: rgba(52, 48, 48, 0.959);
-  --color-bg-button: rgb(112, 174, 206);
-  --color-bg-buy-button: rgb(112, 174, 206);
-  --color-nav-element: rgb(112, 174, 206);
+  --color-bg-button: rgb(21, 120, 170);
+  --color-bg-buy-button: rgb(21, 120, 170);
+  --color-nav-element: rgb(21, 120, 170);
   --color-text: rgb(255, 255, 255);
+  --color-nav-text: rgb(255, 255, 255);
   --color-text-button: rgb(255, 255, 255);
   --color-featured: rgb(233, 13, 13);
 }

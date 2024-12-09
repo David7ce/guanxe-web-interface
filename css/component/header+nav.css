@@ -121,6 +121,7 @@ header div p {
 .navegation {
   font-family: "Playwrite GB S", sans-serif;
   background-color: var(--color-nav-element);
+  margin-bottom: 1em;
 }
 
 .navegation ul {
@@ -140,7 +141,7 @@ header div p {
 
 .navegation ul li a {
   text-decoration: none;
-  color: var(--color-bg-element);
+  color: var(--color-nav-text);
   transition: color 0.3s ease;
 }
 
@@ -156,7 +157,7 @@ header div p {
 }
 
 .nav-bar a {
-  color: var(--color-nav-element);
+  color: var(--color-text);
   text-decoration: none;
 }
 

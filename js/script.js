@@ -52,6 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.remove("palette-light", "palette-dark");
     document.body.classList.add(theme);
 
+    // Save theme to localStorage
+    localStorage.setItem('theme', theme);
+
     // Toggle icons visibility
     sunIcon.style.display = theme === "palette-light" ? "block" : "none";
     moonIcon.style.display = theme === "palette-dark" ? "block" : "none";
@@ -100,8 +103,10 @@ document.addEventListener("DOMContentLoaded", () => {
     applyContrast(newContrast);
   }
 
-  // Initialize theme based on system preference
-  applyTheme(prefersDarkScheme ? "palette-dark" : "palette-light");
+  // Initialize theme based on saved preference or system preference
+  const savedTheme = localStorage.getItem('theme');
+  const initialTheme = savedTheme || (prefersDarkScheme ? "palette-dark" : "palette-light");
+  applyTheme(initialTheme);
 
   // Initialize contrast icons
   const initialContrast = document.body.classList.contains("palette-light-contrast") || document.body.classList.contains("palette-dark-contrast");
