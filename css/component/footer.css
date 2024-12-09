@@ -1,0 +1,52 @@
+@import url('./palette.css');
+
+footer {
+  background-color: var(--color-nav-element);
+  color: var(--color-text);
+  padding: 1em;
+}
+
+footer div {
+  background-color: var(--color-bg-element);
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0.6em;
+}
+
+footer span {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+footer span:nth-of-type(2) {
+  display: block;
+  margin-top: 2em;
+}
+
+footer p {
+  margin: 0.5em 0;
+}
+
+footer a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* --- Pantallas de ancho mínimo 576px --- */
+@media (min-width: 576px) {
+  footer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* --- Pantallas entre 912px y 1023 px, o entre 576 y 1023 px --- */
+/* @media (min-width: 912px), (min-width: 576px) and (orientation: landscape) { } */
+
+/* --- Pantallas de mínimo 1024px de ancho --- */
+/* @media (min-width: 1024px) { } */

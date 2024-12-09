@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Guanche" />
+    <link
+      rel="shortcut icon"
+      href="../../../img/icon/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="../../css/component/header+nav.css" />
+    <link rel="stylesheet" href="../../../css/component/footer.css" />
+    <link rel="stylesheet" href="../../../css/product.css" />
+    <script src="../../js/script.js"></script>
+    <title>Guanxe.com</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo icon">
+        <a href="../../../index.html" aria-label="Guanxe Home">
+          <img src="../../../img/icon/guanxe-logo.svg" alt="guanxe" />
+        </a>
+      </div>
+      <div class="search">
+        <input
+          type="search"
+          name=""
+          id=""
+          placeholder="Tenis de vestir"
+          aria-label="Buscar productos"
+        />
+      </div>
+      <div class="flag zona-geo">
+        <a href="../../../index.html#" aria-label="Región Canarias">
+          <img src="../../../img/icon/canary-islands.svg" alt="Canarias" />
+          <p>Canarias</p>
+        </a>
+      </div>
+      <div class="icon user-account">
+        <a href="../../../index.html#" aria-label="Cuenta de usuario">
+          <img src="../../../img/icon/user.svg" alt="user" />
+          <p>Cuenta</p>
+        </a>
+      </div>
+      <div class="icon shopping-cart">
+        <a href="../../../index.html#" aria-label="Carrito de compras">
+          <img src="../../../img/icon/shopping-cart.svg" alt="shopping-cart" />
+          <p>Cesta</p>
+        </a>
+      </div>
+    </header>
+
+    <div class="accessibility">
+      <div class="theme-settings">
+        <!-- Theme Switcher (Light/Dark) -->
+        <img
+          id="sun-icon"
+          class="theme-icon"
+          src="../../img/icon/sun.svg"
+          alt="Tema claro"
+        />
+        <img
+          id="moon-icon"
+          class="theme-icon"
+          src="../../img/icon/moon-stars.svg"
+          alt="Tema oscuro"
+        />
+
+        <div class="change-font-size">
+          <button
+            id="decrease-font-size"
+            class="font-size-icon"
+            aria-label="Disminuir tamaño de letra"
+          >
+            A-
+          </button>
+
+          <button
+            id="reset-font-size"
+            class="font-size-icon"
+            aria-label="Resetear tamaño de letra"
+          >
+            ⥻
+          </button>
+          <button
+            class="font-size-icon"
+            id="increase-font-size"
+            aria-label="Aumentar tamaño de letra"
+          >
+            A+
+          </button>
+        </div>
+
+        <!-- Contrast Switcher -->
+        <img
+          id="high-contrast-icon"
+          class="contrast-icon"
+          src="../../img/icon/high-contrast.svg"
+          alt="Alto contraste"
+        />
+        <img
+          id="low-contrast-icon"
+          class="contrast-icon"
+          src="../../img/icon/low-contrast.svg"
+          alt="Bajo contraste"
+        />
+      </div>
+    </div>
+
+    <div class="grid-container">
+      <nav class="navegation">
+        <ul>
+          <li><a href="#">Ofertas</a></li>
+          <li><a href="#">Nuevos</a></li>
+          <li><a href="#">Tendencias</a></li>
+          <li><a href="#">Top ventas</a></li>
+          <li><a href="#">Top valorados</a></li>
+          <li><a href="#">Top visitas</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-bar">
+        <a href="../../index.html">Home</a>
+        <a href="./index.html">Catálogo</a>
+        <a href="#">Zapatillas Vans OldSkool</a>
+      </div>
+
+      <main>
+        <div class="product">
+          <div class="product-images">
+            <img
+              src="../../../img/products/zapatillas/vans-old-skool-1.png"
+              alt="Zapatillas Vans Old Skool - Imagen 1"
+            />
+            <div class="list-img">
+              <img
+                src="../../../img/products/zapatillas/vans-old-skool-2.png"
+                alt="Zapatillas Vans Old Skool - Imagen 2"
+              />
+              <img
+                src="../../../img/products/zapatillas/vans-old-skool-3.png"
+                alt="Zapatillas Vans Old Skool - Imagen 3"
+              />
+              <img
+                src="../../../img/products/zapatillas/vans-old-skool-4.png"
+                alt="Zapatillas Vans Old Skool - Imagen 4"
+              />
+              <img
+                src="../../../img/products/zapatillas/vans-old-skool-5.png"
+                alt="Zapatillas Vans Old Skool - Imagen 5"
+              />
+              <img
+                src="../../../img/products/zapatillas/vans-old-skool-6.png"
+                alt="Zapatillas Vans Old Skool - Imagen 6"
+              />
+            </div>
+          </div>
+          <div class="product-info">
+            <p class="name">Tenis deportivos Vans</p>
+            <p class="offer">-30% dto</p>
+            <p class="brand">Marca: Vans</p>
+            <p class="ref">Ref: 1112341</p>
+            <p class="rating">★★★☆☆</p>
+
+            <div class="price-section">
+              <p class="final-price">Precio final: 80€</p>
+              <p class="initial-price">Precio inicial: 120€</p>
+            </div>
+
+            <!-- Cantidad -->
+            <div class="quantity-section">
+              <label for="quantity">Cantidad</label>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                value="1"
+                min="1"
+                max="10"
+              />
+            </div>
+
+            <!-- Tallas -->
+            <div class="size-section">
+              <label for="size">Tallas:</label>
+              <select id="size" name="size">
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </select>
+            </div>
+          </div>
+          <div class="product-buy">
+            <!-- Información de envío -->
+            <p class="ship-info">Envío gratis para pedidos superiores a 50€</p>
+
+            <!-- Botones de acción -->
+            <button type="button" class="button buy-now">
+              <a href="#" aria-label="Comprar ahora">Comprar ahora</a>
+            </button>
+
+            <button type="button" class="button add-to-cart">
+              <a href="#" aria-label="Añadir al carrito">Añadir al carrito</a>
+            </button>
+            <button type="button" class="button add-to-favs">
+              <a href="#" aria-label="Añadir a favoritos"
+                ><img src="../../img/icon/heart.svg" alt="Añadir a favoritos"
+              /></a>
+            </button>
+          </div>
+          <div class="product-description">
+            <span class="techincal-data">Ficha técnica</span>
+            <div class="details">
+              <table class="product-details">
+                <tr>
+                  <td>Modelo</td>
+                  <td>Old Skool</td>
+                </tr>
+                <tr>
+                  <td>Color</td>
+                  <td>Verde con blanco</td>
+                </tr>
+                <tr>
+                  <td>Material suela</td>
+                  <td>Lona y gamuza</td>
+                </tr>
+                <tr>
+                  <td>Tipo piel calzado</td>
+                  <td>Textil</td>
+                </tr>
+                <tr>
+                  <td>Tipo de corte</td>
+                  <td>Deportivo</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <footer>
+      <div class="conditions-and-legal">
+        <span>Condiciones</span>
+        <p><a href="#">Condiciones de contratación</a></p>
+        <p><a href="#">Condiciones de uso</a></p>
+        <span>Legalidad</span>
+        <p><a href="#">Aviso legal</a></p>
+        <p><a href="#">Reclamaciones</a></p>
+      </div>
+      <div class="help">
+        <span>Ayuda</span>
+        <p><a href="#">Cómo comprar</a></p>
+        <p><a href="#">Envíos</a></p>
+        <p><a href="#">Devoluciones</a></p>
+        <p><a href="#">Bases promocionales</a></p>
+      </div>
+      <div class="corpo-side">
+        <span>Quiénes somos</span>
+        <p><a href="#">Misión</a></p>
+        <p><a href="#">Visión</a></p>
+        <p><a href="#">Valores</a></p>
+        <p><a href="#">Responsabilidad social</a></p>
+        <p><a href="#">Tiendas</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
