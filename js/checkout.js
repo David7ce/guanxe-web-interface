@@ -9,6 +9,10 @@ document.addEventListener("DOMContentLoaded", function () {
     showShippingMethodByZone();
     updateTotalPriceWithShipping();
     initializePaymentMethodSelection();
+    selectPaymentMethod();
+    validatePaymentForm();
+
+
 
     // Inicializar los botones para eliminar producto del carrito
     function initializeRemoveButtons() {
@@ -166,8 +170,11 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if (currentStep.id === "step2") {
             validateClientDataForm();
         } else if (currentStep.id === "step3") {
-            // Aquí puedes agregar la lógica para el paso de pago y descuento
-            alert("Formulario de pago y descuento enviado.");
+            initializePaymentMethodSelection();
+            selectPaymentMethod();
+            validatePaymentForm();
+        } else if (currentStep.id === "step4") {
+            alert("Compra finalizada. Gracias por su compra.");
         }
     });
 
@@ -212,9 +219,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         if (errors.length > 0) {
-            generateErrorListDataClient(errors);
+            generateErrorList(errors, "step2");
         } else {
-            document.getElementById("data-client-errors").innerHTML = "";
+            let existingErrorList = document.getElementById("data-client-errors");
+            if (existingErrorList != null) {
+                existingErrorList.remove();
+            }
             document.getElementById("step2").classList.remove("active");
             document.getElementById("step2").setAttribute("aria-hidden", "true");
             document.getElementById("step3").classList.add("active");
@@ -222,29 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Genearar listado de errores de validaación del formulario de datos del cliente
-    function generateErrorListDataClient(errors) {
-        const clientDataElement = document.getElementById("client-data-form");
-        let errorList = document.getElementById("data-client-errors");
-
-        if (!errorList) {
-            errorList = document.createElement("div");
-            errorList.id = 'data-client-errors';
-            errorList.classList.add("error-list");
-        } else {
-            errorList.innerHTML = "";
-        }
-
-        const ul = document.createElement("ul");
-        errors.forEach(function (error) {
-            const errorItem = document.createElement("li");
-            errorItem.textContent = error;
-            ul.appendChild(errorItem);
-        });
-
-        errorList.appendChild(ul);
-        clientDataElement.appendChild(errorList);
-    }
 
     function markInvalidField(field) {
         field.classList.add("invalid-field");
@@ -297,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Set the value of the shipping zone
         shippingZone.textContent = countrySelect.value;
     }
-    
+
     function showShippingMethodByZone() {
         const shippingMethod = document.getElementById("shipping-method");
         const countrySelect = document.getElementById("country");
@@ -339,14 +326,15 @@ document.addEventListener("DOMContentLoaded", function () {
         countrySelect.addEventListener("change", updateShippingMethods);
         updateShippingMethods();
     }
-    
+
     function updateTotalPriceWithShipping() {
         const shippingMethod = document.getElementById("shipping-method");
-        
+
         // valor del option seleccionado con dataset.price
         shippingMethod.addEventListener("change", updateTotalPrice);
     }
 
+    
     function initializePaymentMethodSelection() {
         const paymentMethodSelect = document.getElementById("payment-method");
         const paymentDetails = document.getElementById("payment-details");
@@ -372,4 +360,103 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    function selectPaymentMethod() {
+        // Selecciona entre: Tarjeta de débito/crédito, PayPal, Transferencia bancaria
+        const paymentMethod = document.getElementById("payment-method");
+
+        paymentMethod.addEventListener("change", function () {
+            // If the user select one payment-method option, show the corresponding payment-details
+            // If the user select another payment-method option, hide the previous payment-details and show the new one
+            const selectedMethod = paymentMethod.value;
+            const cardDetails = document.getElementById("card-details");
+            const paypalDetails = document.getElementById("paypal-details");
+            const bankTransferDetails = document.getElementById("bank-transfer-details");
+
+            // Hide all payment details
+            cardDetails.classList.add("hidden");
+            paypalDetails.classList.add("hidden");
+            bankTransferDetails.classList.add("hidden");
+
+            // Show the selected payment details
+            if (selectedMethod === "card") {
+                cardDetails.classList.remove("hidden");
+            } else if (selectedMethod === "paypal") {
+                paypalDetails.classList.remove("hidden");
+            } else if (selectedMethod === "bank-transfer") {
+                bankTransferDetails.classList.remove("hidden");
+            }
+        });
+    }
+
+    function validatePaymentForm() {
+        const paymentForm = document.getElementById("payment-form");
+        const formData = new FormData(paymentForm);
+        const errors = [];
+
+        // Clear previous error markings
+        unmarkInvalidFields(paymentForm);
+
+        const paymentMethod = document.getElementById("payment-method").value;
+        let requiredFields = [];
+
+        if (paymentMethod === "card") {
+            requiredFields = [
+                { name: "card-number", label: "Número de tarjeta", validate: value => /^\d{16}$/.test(value), errorMessage: "El número de tarjeta debe tener 16 dígitos." },
+                { name: "card-expiration", label: "Fecha de caducidad", validate: value => /^\d{2}\/\d{2}$/.test(value), errorMessage: "La fecha de caducidad debe tener el formato MM/AA." },
+                { name: "card-cvv", label: "CVV", validate: value => /^\d{3}$/.test(value), errorMessage: "El CVV debe tener 3 dígitos." },
+            ];
+        } else if (paymentMethod === "paypal") {
+            requiredFields = [
+                { name: "paypal-email", label: "Correo electrónico de PayPal", validate: value => /\S+@\S+\.\S+/.test(value), errorMessage: "El correo electrónico de PayPal no es válido." },
+            ];
+        } else if (paymentMethod === "bank-transfer") {
+            requiredFields = [
+                { name: "bank-transfer-proof", label: "Justificante de transferencia bancaria", validate: value => value, errorMessage: "Debe subir un justificante de transferencia bancaria." },
+            ];
+        }
+
+        requiredFields.forEach(field => {
+            const fieldValue = formData.get(field.name);
+            if (!fieldValue || !fieldValue.trim()) {
+                errors.push(`El campo '${field.label}' es obligatorio.`);
+                markInvalidField(document.getElementById(field.name));
+            } else if (field.validate && !field.validate(fieldValue.trim())) {
+                errors.push(field.errorMessage);
+                markInvalidField(document.getElementById(field.name));
+            }
+        });
+
+        if (errors.length > 0) {
+            generateErrorList(errors, "step3");
+        } else {
+            document.getElementById("payment-errors").innerHTML = "";
+            alert("Formulario de pago enviado.");
+        }
+    }
+
+    function generateErrorList(errors, elementId) {
+        const element = document.getElementById(elementId);
+        let errorList = document.getElementById("generic-errors");
+
+        if (!errorList) {
+            errorList = document.createElement("div");
+            errorList.id = 'generic-errors';
+            errorList.classList.add("error-list");
+        } else {
+            errorList.innerHTML = "";
+        }
+
+        const ul = document.createElement("ul");
+        errors.forEach(function (error) {
+            const errorItem = document.createElement("li");
+            errorItem.textContent = error;
+            ul.appendChild(errorItem);
+        });
+
+        errorList.appendChild(ul);
+        element.appendChild(errorList);
+    }
+
+
 });
