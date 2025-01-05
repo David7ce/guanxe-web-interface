@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="../../img/icon/favicon.ico" type="image/x-icon">
+  <title>Carrito de la compra</title>
+  <link rel="stylesheet" href="../../css/checkout.css" />
+  <script src="../../js/checkout.js"></script>
+</head>
+
+<body>
+  <main>
+    <h1>Completa tu compra</h1>
+
+    <!-- Navegación entre las secciones -->
+    <nav class="navegation">
+      <ul>
+        <li>
+          <a href="#" id="step1-nav" class="active">Carrito de la compra</a>
+        </li>
+        <li><a href="#" id="step2-nav">Datos del cliente</a></li>
+        <li><a href="#" id="step3-nav">Pago y descuento</a></li>
+        <li><a href="#" id="step4-nav">Confirmación</a></li>
+      </ul>
+    </nav>
+
+    <span>
+      <a href="../../index.html" aria-label="Volver a la tienda">Seguir comprando</a>
+    </span>
+
+    <div class="cart">
+      <div class="cart-main">
+        <div class="products-cart-main" id="products-cart-main">
+          <!-- Sección Carrito de la Compra -->
+          <div class="shopping-cart section checkout active" id="step1" aria-label="Carrito de la compra">
+            <div class="selected-products" id="selected-products">
+              <h2>Carrito de la compra</h2>
+              <article class="product out-of-stock" id="product-1">
+                <figure class="product-img">
+                  <img src="../../img/products/zapatillas/vans-old-skool-1.png" alt="Zapatillas Vans Old Skool" />
+                </figure>
+                <section class="product-info">
+                  <div class="product-name">
+                    <h2 id="product-1-name">Vans Old Skool</h2>
+                    <button class="remove-product" id="remove-product-1" aria-label="Eliminar producto">
+                      <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
+                    </button>
+                  </div>
+                  <div class="product-quantity">
+                    <label for="product-1-quantity">Unidades:</label>
+                    <input type="number" id="product-1-quantity" value="1" min="0" max="99"
+                      aria-label="Número de unidades disponibles" />
+                  </div>
+                  <div class="product-pricing">
+                    <p>
+                      Precio por unidad: <span id="product-1-price">15€</span>
+                    </p>
+                    <p>Total: <span id="product-1-total"></span></p>
+                  </div>
+                </section>
+              </article>
+
+              <!-- Producto fuera de stock -->
+              <article class="product out-of-stock" id="product-2">
+                <figure class="product-img">
+                  <img src="../../img/products/bolso.webp" alt="Bolso" />
+                </figure>
+                <section class="product-info">
+                  <div class="product-name">
+                    <h2 id="product-2-name">Bolso</h2>
+                    <button class="remove-product" id="remove-product-2"
+                      aria-label="Producto fuera de stock no se puede eliminar">
+                      <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
+                    </button>
+                  </div>
+                  <div class="product-quantity">
+                    <label for="product-2-quantity">Unidades:</label>
+                    <input type="number" id="product-2-quantity" value="1" min="0" max="99"
+                      aria-label="Número de unidades disponibles" />
+                  </div>
+                  <div class="product-pricing">
+                    <p>
+                      Precio por unidad: <span id="product-2-price">15€</span>
+                    </p>
+                    <p>Total: <span id="product-2-total"></span></p>
+                  </div>
+                </section>
+              </article>
+
+              <!-- Additional products -->
+              <article class="product" id="product-3" aria-labelledby="product-name">
+                <figure class="product-img">
+                  <img src="../../img/products/camiseta-asillas.jpg" alt="Camiseta de asillas" />
+                </figure>
+                <section class="product-info">
+                  <div class="product-name">
+                    <h2 id="product-3-name">Camiseta de asillas</h2>
+                    <button class="remove-product" id="remove-product-3" aria-label="Eliminar producto">
+                      <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
+                    </button>
+                  </div>
+                  <div class="product-quantity">
+                    <label for="product-3-quantity">Unidades:</label>
+                    <input type="number" id="product-3-quantity" value="1" min="0" max="99"
+                      aria-label="Número de unidades disponibles" />
+                  </div>
+                  <div class="product-pricing">
+                    <p>
+                      Precio por unidad: <span id="product-3-price">20€</span>
+                    </p>
+                    <p>Total: <span id="product-3-total"></span></p>
+                  </div>
+                </section>
+              </article>
+
+              <article class="product" id="product-4" aria-labelledby="product-4-name">
+                <figure class="product-img">
+                  <img src="../../img/products/jersey-hackett.jpg" alt="Jersey Hackett" />
+                </figure>
+                <section class="product-info">
+                  <div class="product-name">
+                    <h2 id="product-4-name">Jersey Hackett</h2>
+                    <button class="remove-product" id="remove-product-4" aria-label="Eliminar producto">
+                      <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
+                    </button>
+                  </div>
+                  <div class="product-quantity">
+                    <label for="product-4-quantity">Unidades:</label>
+                    <input type="number" id="product-4-quantity" value="1" min="0" max="99"
+                      aria-label="Número de unidades disponibles" />
+                  </div>
+                  <div class="product-pricing">
+                    <p>
+                      Precio por unidad: <span id="product-4-price">25€</span>
+                    </p>
+                    <p>Total: <span id="product-4-total"></span></p>
+                  </div>
+                </section>
+              </article>
+
+              <article class="product" id="product-5" aria-labelledby="product-5-name">
+                <figure class="product-img">
+                  <img src="../../img/products/sandalias.jpg" alt="Sandalias" />
+                </figure>
+                <section class="product-info">
+                  <div class="product-name">
+                    <h2 id="product-5-name">Sandalias</h2>
+                    <button class="remove-product" id="remove-product-5" aria-label="Eliminar producto">
+                      <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
+                    </button>
+                  </div>
+                  <div class="product-quantity">
+                    <label for="product-5-quantity">Unidades:</label>
+                    <input type="number" id="product-5-quantity" value="1" min="0" max="99"
+                      aria-label="Número de unidades disponibles" />
+                  </div>
+                  <div class="product-pricing">
+                    <p>
+                      Precio por unidad: <span id="product-5-price">30€</span>
+                    </p>
+                    <p>Total: <span id="product-5-total"></span></p>
+                  </div>
+                </section>
+              </article>
+            </div>
+
+            <!-- Productos recomendados -->
+            <div class="recommended-products">
+              <h3>Productos recomendados</h3>
+
+              <article class="product" id="product-6" aria-labelledby="product-6-name">
+                <figure class="product-img">
+                  <img src="../../img/products/gorra.jpg" alt="Gorra" />
+                </figure>
+                <section class="product-info">
+                  <div class="product-name">
+                    <h2 id="product-6-name">Gorra</h2>
+                  </div>
+                  <div class="product-pricing">
+                    <p>
+                      Precio por unidad: <span id="product-6-price">30€</span>
+                    </p>
+                  </div>
+                  <button class="add-product" aria-label="Agregar producto recomendado al carrito">
+                    Agregar
+                  </button>
+                </section>
+              </article>
+
+              <article class="product" id="product-7" aria-labelledby="product-7-name">
+                <figure class="product-img">
+                  <img src="../../img/products/anorak.jpg" alt="Anorak" />
+                </figure>
+                <section class="product-info">
+                  <div class="product-name">
+                    <h2 id="product-7-name">Anorak</h2>
+                  </div>
+                  <div class="product-pricing">
+                    <p>
+                      Precio por unidad: <span id="product-7-price">30€</span>
+                    </p>
+                  </div>
+                  <button class="add-product" aria-label="Agregar producto recomendado al carrito">
+                    Agregar
+                  </button>
+                </section>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <!-- Datos del cliente -->
+        <div class="section data-client" id="step2" aria-label="Datos del cliente" aria-hidden="true">
+          <h2>Datos del cliente</h2>
+
+          <!-- Formulario de Datos del Cliente -->
+          <form id="client-data-form" aria-labelledby="client-data-form">
+            <!-- Datos personales -->
+            <fieldset>
+              <div class="row-fieldset">
+                <legend>Datos personales</legend>
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required aria-required="true" placeholder="Nombre completo" />
+                <label for="surname1">Apellido 1:</label>
+                <input type="text" id="surname1" name="surname1" required aria-required="true"
+                  placeholder="Primer apellido" />
+                <label for="surname2">Apellido 2:</label>
+                <input type="text" id="surname2" name="surname2" placeholder="Segundo apellido" />
+              </div>
+              <div class="row-fieldset">
+                <label for="nationality">Nacionalidad:</label>
+                <select id="nationality" name="nationality" required aria-required="true">
+                  <option value="">Seleccione la nacionalidad</option>
+                  <option value="american">Americana</option>
+                  <option value="argentinian">Argentina</option>
+                  <option value="australian">Australiana</option>
+                  <option value="brazilian">Brasileña</option>
+                  <option value="british">Británica</option>
+                  <option value="canadian">Canadiense</option>
+                  <option value="chinese">China</option>
+                  <option value="french">Francesa</option>
+                  <option value="german">Alemana</option>
+                  <option value="andorran">Andorrense</option>
+                  <option value="indian">India</option>
+                  <option value="indonesian">Indonesia</option>
+                  <option value="italian">Italiana</option>
+                  <option value="japanese">Japonesa</option>
+                  <option value="mexican">Mexicana</option>
+                  <option value="portuguese">Portugués</option>
+                  <option value="russian">Rusa</option>
+                  <option value="saudi">Saudí</option>
+                  <option value="south-african">Sudafricana</option>
+                  <option value="south-korean">Surcoreana</option>
+                  <option value="spanish">Española</option>
+                  <option value="turkish">Turca</option>
+                </select>
+                <label for="dni">DNI:</label>
+                <input type="text" id="dni" name="dni" required aria-required="true" placeholder="12345678Z" required
+                  pattern="\d{8}[A-Z]" />
+              </div>
+            </fieldset>
+
+            <!-- Datos de contacto -->
+            <fieldset>
+              <legend>Datos de contacto</legend>
+              <div class="row-fieldset">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required aria-required="true"
+                  placeholder="correo@email.com" />
+                <label for="email-confirm">Confirmar correo electrónico:</label>
+                <input type="email" id="email-confirm" name="email-confirm" required aria-required="true"
+                  placeholder="Repite el correo electrónico" />
+              </div>
+              <div class="row-fieldset">
+                <label for="phone-prefix">Prefijo telefónico:</label>
+                <select id="phone-prefix" name="phone-prefix" required aria-required="true">
+                  <option value="">Seleccione un prefijo</option>
+                  <option value="+1">+1 (Estados Unidos)</option>
+                  <option value="+7">+7 (Rusia)</option>
+                  <option value="+20">+20 (Egipto)</option>
+                  <option value="+27">+27 (Sudáfrica)</option>
+                  <option value="+30">+30 (Grecia)</option>
+                  <option value="+31">+31 (Países Bajos)</option>
+                  <option value="+32">+32 (Bélgica)</option>
+                  <option value="+33">+33 (Francia)</option>
+                  <option value="+34">+34 (España)</option>
+                  <option value="+36">+36 (Hungría)</option>
+                  <option value="+39">+39 (Italia)</option>
+                  <option value="+40">+40 (Rumania)</option>
+                  <option value="+44">+44 (Reino Unido)</option>
+                  <option value="+49">+49 (Alemania)</option>
+                  <option value="+52">+52 (México)</option>
+                  <option value="+54">+54 (Argentina)</option>
+                  <option value="+55">+55 (Brasil)</option>
+                  <option value="+56">+56 (Chile)</option>
+                  <option value="+57">+57 (Colombia)</option>
+                  <option value="+58">+58 (Venezuela)</option>
+                  <option value="+60">+60 (Malasia)</option>
+                  <option value="+61">+61 (Australia)</option>
+                  <option value="+62">+62 (Indonesia)</option>
+                  <option value="+63">+63 (Filipinas)</option>
+                  <option value="+64">+64 (Nueva Zelanda)</option>
+                  <option value="+65">+65 (Singapur)</option>
+                  <option value="+66">+66 (Tailandia)</option>
+                  <option value="+81">+81 (Japón)</option>
+                  <option value="+82">+82 (Corea del Sur)</option>
+                  <option value="+84">+84 (Vietnam)</option>
+                  <option value="+86">+86 (China)</option>
+                  <option value="+90">+90 (Turquía)</option>
+                  <option value="+91">+91 (India)</option>
+                  <option value="+92">+92 (Pakistán)</option>
+                  <option value="+93">+93 (Afganistán)</option>
+                  <option value="+94">+94 (Sri Lanka)</option>
+                  <option value="+95">+95 (Myanmar)</option>
+                  <option value="+98">+98 (Irán)</option>
+                  <option value="+211">+211 (Sudán del Sur)</option>
+                  <option value="+212">+212 (Marruecos)</option>
+                  <option value="+213">+213 (Argelia)</option>
+                  <option value="+216">+216 (Túnez)</option>
+                  <option value="+218">+218 (Libia)</option>
+                  <option value="+220">+220 (Gambia)</option>
+                  <option value="+221">+221 (Senegal)</option>
+                  <option value="+222">+222 (Mauritania)</option>
+                  <option value="+223">+223 (Mali)</option>
+                  <option value="+224">+224 (Guinea)</option>
+                  <option value="+225">+225 (Costa de Marfil)</option>
+                  <option value="+226">+226 (Burkina Faso)</option>
+                  <option value="+227">+227 (Níger)</option>
+                  <option value="+228">+228 (Togo)</option>
+                  <option value="+229">+229 (Benín)</option>
+                  <option value="+230">+230 (Mauricio)</option>
+                  <option value="+231">+231 (Liberia)</option>
+                  <option value="+232">+232 (Sierra Leona)</option>
+                  <option value="+233">+233 (Ghana)</option>
+                  <option value="+234">+234 (Nigeria)</option>
+                  <option value="+235">+235 (Chad)</option>
+                  <option value="+236">+236 (República Centroafricana)</option>
+                  <option value="+237">+237 (Camerún)</option>
+                  <option value="+238">+238 (Cabo Verde)</option>
+                  <option value="+239">+239 (Santo Tomé y Príncipe)</option>
+                  <option value="+240">+240 (Guinea Ecuatorial)</option>
+                  <option value="+241">+241 (Gabón)</option>
+                  <option value="+242">+242 (República del Congo)</option>
+                  <option value="+243">+243 (República Democrática del Congo)</option>
+                  <option value="+244">+244 (Angola)</option>
+                  <option value="+245">+245 (Guinea-Bisáu)</option>
+                  <option value="+246">+246 (Territorio Británico del Océano Índico)</option>
+                  <option value="+248">+248 (Seychelles)</option>
+                  <option value="+249">+249 (Sudán)</option>
+                  <option value="+250">+250 (Ruanda)</option>
+                  <option value="+251">+251 (Etiopía)</option>
+                  <option value="+252">+252 (Somalia)</option>
+                  <option value="+253">+253 (Yibuti)</option>
+                  <option value="+254">+254 (Kenia)</option>
+                  <option value="+255">+255 (Tanzania)</option>
+                  <option value="+256">+256 (Uganda)</option>
+                  <option value="+257">+257 (Burundi)</option>
+                  <option value="+258">+258 (Mozambique)</option>
+                  <option value="+260">+260 (Zambia)</option>
+                  <option value="+261">+261 (Madagascar)</option>
+                  <option value="+262">+262 (Reunión)</option>
+                  <option value="+263">+263 (Zimbabue)</option>
+                  <option value="+264">+264 (Namibia)</option>
+                  <option value="+265">+265 (Malaui)</option>
+                  <option value="+266">+266 (Lesoto)</option>
+                  <option value="+267">+267 (Botsuana)</option>
+                  <option value="+268">+268 (Suazilandia)</option>
+                  <option value="+269">+269 (Comoras)</option>
+                  <option value="+290">+290 (Santa Elena)</option>
+                  <option value="+291">+291 (Eritrea)</option>
+                  <option value="+297">+297 (Aruba)</option>
+                  <option value="+298">+298 (Islas Feroe)</option>
+                  <option value="+299">+299 (Groenlandia)</option>
+                  <option value="+350">+350 (Gibraltar)</option>
+                  <option value="+351">+351 (Portugal)</option>
+                  <option value="+352">+352 (Luxemburgo)</option>
+                  <option value="+353">+353 (Irlanda)</option>
+                  <option value="+354">+354 (Islandia)</option>
+                  <option value="+355">+355 (Albania)</option>
+                  <option value="+356">+356 (Malta)</option>
+                  <option value="+357">+357 (Chipre)</option>
+                  <option value="+358">+358 (Finlandia)</option>
+                  <option value="+359">+359 (Bulgaria)</option>
+                  <option value="+370">+370 (Lituania)</option>
+                  <option value="+371">+371 (Letonia)</option>
+                  <option value="+372">+372 (Estonia)</option>
+                  <option value="+373">+373 (Moldavia)</option>
+                  <option value="+374">+374 (Armenia)</option>
+                  <option value="+375">+375 (Bielorrusia)</option>
+                  <option value="+376">+376 (Andorra)</option>
+                  <option value="+377">+377 (Mónaco)</option>
+                  <option value="+378">+378 (San Marino)</option>
+                  <option value="+380">+380 (Ucrania)</option>
+                  <option value="+381">+381 (Serbia)</option>
+                  <option value="+382">+382 (Montenegro)</option>
+                  <option value="+383">+383 (Kosovo)</option>
+                  <option value="+385">+385 (Croacia)</option>
+                  <option value="+386">+386 (Eslovenia)</option>
+                  <option value="+387">+387 (Bosnia y Herzegovina)</option>
+                  <option value="+389">+389 (Macedonia del Norte)</option>
+                  <option value="+420">+420 (República Checa)</option>
+                  <option value="+421">+421 (Eslovaquia)</option>
+                  <option value="+423">+423 (Liechtenstein)</option>
+                  <option value="+500">+500 (Islas Malvinas)</option>
+                  <option value="+501">+501 (Belice)</option>
+                  <option value="+502">+502 (Guatemala)</option>
+                  <option value="+503">+503 (El Salvador)</option>
+                  <option value="+504">+504 (Honduras)</option>
+                  <option value="+505">+505 (Nicaragua)</option>
+                  <option value="+506">+506 (Costa Rica)</option>
+                  <option value="+507">+507 (Panamá)</option>
+                  <option value="+508">+508 (San Pedro y Miquelón)</option>
+                  <option value="+509">+509 (Haití)</option>
+                  <option value="+590">+590 (Guadalupe)</option>
+                  <option value="+591">+591 (Bolivia)</option>
+                  <option value="+592">+592 (Guyana)</option>
+                  <option value="+593">+593 (Ecuador)</option>
+                  <option value="+594">+594 (Guayana Francesa)</option>
+                  <option value="+595">+595 (Paraguay)</option>
+                  <option value="+596">+596 (Martinica)</option>
+                  <option value="+597">+597 (Surinam)</option>
+                  <option value="+598">+598 (Uruguay)</option>
+                  <option value="+599">+599 (Antillas Neerlandesas)</option>
+                  <option value="+670">+670 (Timor Oriental)</option>
+                  <option value="+672">+672 (Islas Norfolk)</option>
+                  <option value="+673">+673 (Brunéi)</option>
+                  <option value="+674">+674 (Nauru)</option>
+                  <option value="+675">+675 (Papúa Nueva Guinea)</option>
+                  <option value="+676">+676 (Tonga)</option>
+                  <option value="+677">+677 (Islas Salomón)</option>
+                  <option value="+678">+678 (Vanuatu)</option>
+                  <option value="+679">+679 (Fiyi)</option>
+                  <option value="+680">+680 (Palaos)</option>
+                  <option value="+681">+681 (Wallis y Futuna)</option>
+                  <option value="+682">+682 (Islas Cook)</option>
+                  <option value="+683">+683 (Niue)</option>
+                  <option value="+685">+685 (Samoa)</option>
+                  <option value="+686">+686 (Kiribati)</option>
+                  <option value="+687">+687 (Nueva Caledonia)</option>
+                  <option value="+688">+688 (Tuvalu)</option>
+                  <option value="+689">+689 (Polinesia Francesa)</option>
+                  <option value="+690">+690 (Tokelau)</option>
+                  <option value="+691">+691 (Micronesia)</option>
+                  <option value="+692">+692 (Islas Marshall)</option>
+                  <option value="+850">+850 (Corea del Norte)</option>
+                  <option value="+852">+852 (Hong Kong)</option>
+                  <option value="+853">+853 (Macao)</option>
+                  <option value="+855">+855 (Camboya)</option>
+                  <option value="+856">+856 (Laos)</option>
+                  <option value="+880">+880 (Bangladés)</option>
+                  <option value="+886">+886 (Taiwán)</option>
+                  <option value="+960">+960 (Maldivas)</option>
+                  <option value="+961">+961 (Líbano)</option>
+                  <option value="+962">+962 (Jordania)</option>
+                  <option value="+963">+963 (Siria)</option>
+                  <option value="+964">+964 (Irak)</option>
+                  <option value="+965">+965 (Kuwait)</option>
+                  <option value="+966">+966 (Arabia Saudita)</option>
+                  <option value="+967">+967 (Yemen)</option>
+                  <option value="+968">+968 (Omán)</option>
+                  <option value="+971">+971 (Emiratos Árabes Unidos)</option>
+                  <option value="+972">+972 (Israel)</option>
+                  <option value="+973">+973 (Baréin)</option>
+                  <option value="+974">+974 (Catar)</option>
+                  <option value="+975">+975 (Bután)</option>
+                  <option value="+976">+976 (Mongolia)</option>
+                  <option value="+977">+977 (Nepal)</option>
+                  <option value="+992">+992 (Tayikistán)</option>
+                  <option value="+993">+993 (Turkmenistán)</option>
+                  <option value="+994">+994 (Azerbaiyán)</option>
+                  <option value="+995">+995 (Georgia)</option>
+                  <option value="+996">+996 (Kirguistán)</option>
+                  <option value="+998">+998 (Uzbekistán)</option>
+                </select>
+
+
+                <label for="mobile-phone">Número de móvil:</label>
+                <input type="tel" id="mobile-phone" name="mobile-phone" required aria-required="true"
+                  placeholder="600123400" />
+              </div>
+            </fieldset>
+
+            <!-- Datos de dirección -->
+            <fieldset>
+              <legend>Dirección de envío</legend>
+              <div class="row-fieldset">
+                <label for="address">Calle:</label>
+                <input type="text" id="address" name="address" required aria-required="true"
+                  placeholder="Calle Pepito Pérez, 12, 2º Der." />
+              </div>
+              <div class="row-fieldset">
+                <label for="city">Ciudad:</label>
+                <input type="text" id="city" name="city" required aria-required="true" placeholder="Ciudad" />
+                <label for="country">País:</label>
+                <select id="country" name="country" required aria-required="true">
+                  <option value="">Seleccione un país</option>
+                  <option value="andorra">Andorra</option>
+                  <option value="spain">España</option>
+                  <option value="france">Francia</option>
+                  <option value="portugal">Portugal</option>
+                </select>
+              </div>
+              <div class="row-fieldset">
+                <label for="postal-code">Código postal:</label>
+                <input type="text" id="postal-code" name="postal-code" required aria-required="true" placeholder="38132"
+                  required pattern="^38\d{3}$" />
+              </div>
+            </fieldset>
+
+            <!-- Checkbox de facturación si es la misma que la dirección de envío -->
+            <fieldset>
+              <legend>Dirección de facturación</legend>
+              <label for="same-billing">
+                <input type="checkbox" id="same-billing" name="same-billing" />
+                Usar la misma dirección para facturación
+              </label>
+            </fieldset>
+
+            <!-- Métodos de envío -->
+            <fieldset>
+              <legend>Método de envío</legend>
+              <div class="row-fieldset">
+                <p>Envíos express y standard a España, envío standar a Portugal y Andorra. No enviamos a más sitios.</p>
+              </div>
+              <div class="row-fieldset">
+                <label for="shipping-zone">Zona de envío: <span id="shipping-zone"></span></label>
+              </div>
+              <div class="row-fieldset">
+                <label for="shipping-method">Método de envío:</label>
+                <select id="shipping-method" name="shipping-method" required aria-required="true" disabled>
+                  <option value="">Seleccione un método de envío</option>
+                </select>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+
+        <!-- Zona de pago -->
+        <div class="section payment" id="step3" aria-label="Zona de pago" aria-hidden="true">
+          <h2>Zona de pago</h2>
+          <form id="payment-form">
+            <fieldset>
+              <legend>Método de pago</legend>
+              <label for="payment-method">Seleccione un método de pago:</label>
+              <select id="payment-method" name="payment-method" required aria-required="true">
+                <option value="">Seleccione un método de pago</option>
+                <option value="card">Tarjeta de débito/crédito</option>
+                <option value="paypal">Paypal</option>
+                <option value="bank-transfer">Transferencia bancaria</option>
+              </select>
+              <div id="payment-details">
+                <!-- Detalles del pago se cargarán aquí dinámicamente -->
+                <div id="card-details" class="payment-detail">
+                  <label for="card-name">Nombre en la tarjeta:</label>
+                  <input type="text" id="card-name" name="card-name" required aria-required="true"
+                    placeholder="Nombre completo" />
+                  <label for="card-number">Número de tarjeta:</label>
+                  <input type="text" id="card-number" name="card-number" required aria-required="true"
+                    placeholder="1234 5678 9012 3456" pattern="\d{4} \d{4} \d{4} \d{4}" />
+                  <label for="card-expiry">Fecha de caducidad:</label>
+                  <input type="text" id="card-expiry" name="card-expiry" required aria-required="true"
+                    placeholder="MM/AA" pattern="\d{2}/\d{2}" />
+                  <label for="card-cvc">CVC:</label>
+                  <input type="text" id="card-cvc" name="card-cvc" required aria-required="true" placeholder="123"
+                    pattern="\d{3}" />
+                </div>
+                <div id="paypal-details" class="payment-detail">
+                  <label for="paypal-email">Correo electrónico de PayPal:</label>
+                  <input type="email" id="paypal-email" name="paypal-email" required aria-required="true"
+                    placeholder="correo@paypal.com" />
+                </div>
+                <div id="bank-transfer-details" class="payment-detail">
+                  <label for="bank-transfer-proof">Subir justificante de transferencia bancaria (PDF):</label>
+                  <input type="file" id="bank-transfer-proof" name="bank-transfer-proof" accept="application/pdf"
+                    required aria-required="true" />
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+
+        <!-- Confirmación de compra -->
+        <div class="section purchase-confirmation" id="step4" aria-label="Confirmación de compra" aria-hidden="true">
+          <h2>Confirmación de compra</h2>
+          <div id="confirmation-details">
+            <!-- Detalles de la confirmación se cargarán aquí dinámicamente -->
+          </div>
+        </div>
+      </div>
+      <div class="cart-side">
+        <div class="cart-summary-item">
+          <p>Subtotal: <span id="subtotal-price"></span></p>
+        </div>
+        <div class="cart-summary-item">
+          <p>IGIC: <span id="igic">7%</span></p>
+        </div>
+        <div class="cart-summary-item">
+          <p>Precio total: <span id="total-price"></span></p>
+        </div>
+        <button type="button" id="continue-button" aria-label="Continuar">
+          Continuar
+        </button>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
