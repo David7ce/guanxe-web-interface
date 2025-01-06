@@ -152,11 +152,11 @@ section[aria-hidden="false"] {
     border-radius: 15px;
 }
 
-.invalid-field {
+.invalid {
     border: 1px solid red;
 }
 
-.error-message {
+.validation-error-list {
     color: red;
     font-size: 0.875em;
     margin-top: 0.25em;

@@ -559,11 +559,11 @@
                 <label for="card-number">Número de tarjeta:</label>
                 <input type="text" id="card-number" name="card-number" required aria-required="true"
                   placeholder="1234 5678 9012 3456" pattern="\d{4} \d{4} \d{4} \d{4}" />
-                <label for="card-expiry">Fecha de caducidad:</label>
-                <input type="text" id="card-expiry" name="card-expiry" required aria-required="true" placeholder="MM/AA"
-                  pattern="\d{2}/\d{2}" />
-                <label for="card-cvc">CVC:</label>
-                <input type="text" id="card-cvc" name="card-cvc" required aria-required="true" placeholder="123"
+                <label for="card-expiration">Fecha de caducidad:</label>
+                <input type="text" id="card-expiration" name="card-expiration" required aria-required="true"
+                  placeholder="MM/AA" pattern="\d{2}/\d{2}" />
+                <label for="card-cvv">CVV:</label>
+                <input type="text" id="card-cvv" name="card-cvv" required aria-required="true" placeholder="123"
                   pattern="\d{3}" />
               </div>
               <div id="paypal-details" class="payment-detail">
@@ -571,7 +571,7 @@
                 <input type="email" id="paypal-email" name="paypal-email" required aria-required="true"
                   placeholder="correo@paypal.com" />
               </div>
-              <div id="bank-transfer-details" class="payment-detail">
+              <div id="bank-transfer-details" class="payment-detail hidden">
                 <label for="bank-transfer-proof">Subir justificante de transferencia bancaria (PDF):</label>
                 <input type="file" id="bank-transfer-proof" name="bank-transfer-proof" accept="application/pdf" required
                   aria-required="true" />

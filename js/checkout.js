@@ -1,20 +1,116 @@
 document.addEventListener("DOMContentLoaded", function () {
-    initializeRemoveButtons();
-    initializeAddProductButtons();
-    updateProductPriceOnQuantityChange();
-    updateTotalProductPrice();
-    updateTotalPrice();
-    autoCompleteDataUserForm();
-    addCountryToShippingZone();
-    showShippingMethodByZone();
-    updateTotalPriceWithShipping();
-    initializePaymentMethodSelection();
-    selectPaymentMethod();
-    validatePaymentForm();
+    initializeCheckout();
 
+    // -- Inicilization functions --
+    function initializeCheckout() {
+        initializeContinueButton();
+        initializeRemoveButtons();
+        initializeAddProductButtons();
+        updateProductPriceOnQuantityChange();
+        updateTotalProductPrice();
+        updateTotalPrice();
+        autoCompleteDataUserForm();
+        addCountryToShippingZone();
+        showShippingMethodByZone();
+        updateTotalPriceWithShipping();
+        initializePaymentMethodSelection();
+    }
 
+    function initializeContinueButton() {
+        document.querySelector('#continue-button').addEventListener("click", function () {
+            const currentStep = document.querySelector(".section.active");
 
-    // Inicializar los botones para eliminar producto del carrito
+            if (currentStep.id === "step1") {
+                handleStep1ContinueClick(currentStep);
+            } else if (currentStep.id === "step2") {
+                handleStep2ContinueClick(currentStep);
+            } else if (currentStep.id === "step3") {
+                handleStep3ContinueClick();
+            } else if (currentStep.id === "step4") {
+                showConfirmationView();
+                alert("Compra finalizada. Gracias por su compra.");
+            }
+        });
+    }
+
+    function goToNextStep(currentStep) {
+        const currentStepElement = document.getElementById(`step${currentStep}`);
+        const nextStepElement = document.getElementById(`step${parseInt(currentStep) + 1}`);
+
+        if (!currentStepElement) {
+            console.error(`Current step element not found: step${currentStep}`);
+            return;
+        }
+
+        if (!nextStepElement) {
+            console.error(`Next step element not found: step${parseInt(currentStep) + 1}`);
+            return;
+        }
+
+        currentStepElement.classList.remove("active");
+        currentStepElement.setAttribute("aria-hidden", "true");
+        nextStepElement.classList.add("active");
+        nextStepElement.setAttribute("aria-hidden", "false");
+    }
+
+    // --- Utility functions ---
+    function markInvalidField(form, fieldName) {
+        const field = form.querySelector(`[name='${fieldName}']`);
+        if (field) {
+            field.classList.add("invalid");
+        }
+    }
+
+    function unmarkInvalidFields(form) {
+        const invalidFields = form.querySelectorAll(".invalid");
+        invalidFields.forEach(field => {
+            field.classList.remove("invalid");
+        });
+    }
+
+    function generateErrorList(errors, step) {
+        const stepElement = document.getElementById(step);
+
+        // Eliminar la lista de errores existente si existe
+        const existingErrorList = document.getElementById(`${step}-errors`);
+        if (existingErrorList) {
+            existingErrorList.remove();
+        }
+
+        const errorList = document.createElement("ul");
+        errorList.id = `${step}-errors`;
+        errorList.classList.add("validation-error-list");
+
+        errors.forEach(error => {
+            const listItem = document.createElement("li");
+            listItem.textContent = error;
+            errorList.appendChild(listItem);
+        });
+
+        stepElement.appendChild(errorList); // añadir al final del formulario
+    }
+
+    function validateFields(fields, formData, errors) {
+        fields.forEach(field => {
+            const value = formData.get(field);
+            if (!value) {
+                errors.push(`El campo ${field} es obligatorio.`);
+            }
+        });
+    }
+
+    // --- Products ZONE ---
+    function handleStep1ContinueClick() {
+        const selectedProducts = document.getElementById("selected-products");
+        const products = selectedProducts.querySelectorAll("article.product");
+
+        if (products.length > 0) {
+            goToNextStep('1');
+        } else {
+            alert("La cesta está vacía. Por favor, añade productos antes de continuar.");
+        }
+    }
+
     function initializeRemoveButtons() {
         const removeButtons = document.querySelectorAll(".remove-product");
 
@@ -29,7 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Inicializar los botones para agregar producto al carrito
     function initializeAddProductButtons() {
         const addProductButtons = document.querySelectorAll(".add-product");
 
@@ -50,7 +145,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Add event listeners to existing quantity inputs
     function updateProductPriceOnQuantityChange() {
         const quantityInputs = document.querySelectorAll(".product-quantity input");
         quantityInputs.forEach((input) => {
@@ -67,7 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Call updateTotalProductPrice after adding a new product to the cart
     function addProductToCart(event) {
         const product = event.target.closest("article.product");
         const productId = product.id;
@@ -120,7 +213,18 @@ document.addEventListener("DOMContentLoaded", function () {
         updateProductPriceOnQuantityChange();
     }
 
-    // Calcular el precio total de los productos en el carrito
+    function updateTotalProductPrice() {
+        const totalUnitPrice = document.querySelectorAll(".product-pricing span[id$='-total']");
+
+        totalUnitPrice.forEach((totalUnitePrice) => {
+            const productId = totalUnitePrice.id.replace("-total", "");
+            const quantity = parseInt(document.getElementById(`${productId}-quantity`).value);
+            const unitPrice = parseFloat(document.getElementById(`${productId}-price`).textContent.replace("€", ""));
+            const modifiedPrice = unitPrice * quantity;
+            totalUnitePrice.textContent = `${modifiedPrice.toFixed(2)}€`;
+        });
+    }
+
     function updateTotalPrice() {
         const subtotalElement = document.getElementById("subtotal-price");
         const totalElement = document.getElementById("total-price");
@@ -146,40 +250,47 @@ document.addEventListener("DOMContentLoaded", function () {
         totalElement.textContent = `${total.toFixed(2)}€`;
     }
 
-    // Botón para continuar la compra y pasar a la siguiente página
-    const continueButton = document.getElementById("continue-button");
 
-    continueButton.addEventListener("click", function () {
-        const currentStep = document.querySelector(".section.active");
+    // --- Client data ZONE ---
+    function handleStep2ContinueClick() {
+        const errors = validateClientData();
 
-        if (currentStep.id === "step1") {
-            const selectedProducts = document.getElementById("selected-products");
-            const products = selectedProducts.querySelectorAll("article.product");
-
-            if (products.length > 0) {
-                // Ocultar la sección actual
-                currentStep.classList.remove("active");
-                currentStep.setAttribute("aria-hidden", "true");
-
-                // Mostrar la sección "Datos del cliente"
-                document.getElementById("step2").classList.add("active");
-                document.getElementById("step2").setAttribute("aria-hidden", "false");
-            } else {
-                alert("La cesta está vacía. Por favor, añade productos antes de continuar.");
-            }
-        } else if (currentStep.id === "step2") {
-            validateClientDataForm();
-        } else if (currentStep.id === "step3") {
-            initializePaymentMethodSelection();
-            selectPaymentMethod();
-            validatePaymentForm();
-        } else if (currentStep.id === "step4") {
-            alert("Compra finalizada. Gracias por su compra.");
+        if (errors.length > 0) {
+            generateErrorList(errors, "step2");
+        } else {
+            goToNextStep('2');
         }
-    });
+    }
 
-    // Validar los datos del formulario de datos del cliente
-    function validateClientDataForm() {
+    function autoCompleteDataUserForm() {
+        const dniInput = document.getElementById("dni");
+        const nameInput = document.getElementById("name");
+        const surname1Input = document.getElementById("surname1");
+        const surname2Input = document.getElementById("surname2");
+        const emailInput = document.getElementById("email");
+        const emailConfirmInput = document.getElementById("email-confirm");
+        const phonePrefixInput = document.getElementById("phone-prefix");
+        const mobilePhoneInput = document.getElementById("mobile-phone");
+        const addressInput = document.getElementById("address");
+        const cityInput = document.getElementById("city");
+        const countryInput = document.getElementById("country");
+        const postalCodeInput = document.getElementById("postal-code");
+
+        dniInput.value = "12345678Z";
+        nameInput.value = "Juan";
+        surname1Input.value = "García";
+        surname2Input.value = "Pérez";
+        emailInput.value = "test@email.com";
+        emailConfirmInput.value = "test@email.com";
+        phonePrefixInput.value = "+34";
+        addressInput.value = "Calle Falsa 123";
+        cityInput.value = "Madrid";
+        countryInput.value = "spain";
+        postalCodeInput.value = "28080";
+        mobilePhoneInput.value = "666777888";
+    }
+
+    function validateClientData() {
         const clientDataForm = document.getElementById("client-data-form");
         const formData = new FormData(clientDataForm);
         const errors = [];
@@ -211,65 +322,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const fieldValue = formData.get(field.name);
             if (!fieldValue || !fieldValue.trim()) {
                 errors.push(`El campo '${field.label}' es obligatorio.`);
-                markInvalidField(document.getElementById(field.name));
+                markInvalidField(clientDataForm, field.name);
             } else if (field.validate && !field.validate(fieldValue.trim())) {
                 errors.push(field.errorMessage);
-                markInvalidField(document.getElementById(field.name));
+                markInvalidField(clientDataForm, field.name);
             }
         });
 
-        if (errors.length > 0) {
-            generateErrorList(errors, "step2");
-        } else {
-            let existingErrorList = document.getElementById("data-client-errors");
-            if (existingErrorList != null) {
-                existingErrorList.remove();
-            }
-            document.getElementById("step2").classList.remove("active");
-            document.getElementById("step2").setAttribute("aria-hidden", "true");
-            document.getElementById("step3").classList.add("active");
-            document.getElementById("step3").setAttribute("aria-hidden", "false");
-        }
-    }
-
-
-    function markInvalidField(field) {
-        field.classList.add("invalid-field");
-    }
-
-    function unmarkInvalidFields(form) {
-        const invalidFields = form.querySelectorAll(".invalid-field");
-        invalidFields.forEach(function (field) {
-            field.classList.remove("invalid-field");
-        });
-    }
-
-    function autoCompleteDataUserForm() {
-        const dniInput = document.getElementById("dni");
-        const nameInput = document.getElementById("name");
-        const surname1Input = document.getElementById("surname1");
-        const surname2Input = document.getElementById("surname2");
-        const emailInput = document.getElementById("email");
-        const emailConfirmInput = document.getElementById("email-confirm");
-        const phonePrefixInput = document.getElementById("phone-prefix");
-        const mobilePhoneInput = document.getElementById("mobile-phone");
-        const addressInput = document.getElementById("address");
-        const cityInput = document.getElementById("city");
-        const countryInput = document.getElementById("country");
-        const postalCodeInput = document.getElementById("postal-code");
-
-        dniInput.value = "12345678Z";
-        nameInput.value = "Juan";
-        surname1Input.value = "García";
-        surname2Input.value = "Pérez";
-        emailInput.value = "test@email.com";
-        emailConfirmInput.value = "test@email.com";
-        phonePrefixInput.value = "+34";
-        addressInput.value = "Calle Falsa 123";
-        cityInput.value = "Madrid";
-        countryInput.value = "spain";
-        postalCodeInput.value = "28080";
-        mobilePhoneInput.value = "666777888";
+        return errors;
     }
 
     function addCountryToShippingZone() {
@@ -334,23 +394,38 @@ document.addEventListener("DOMContentLoaded", function () {
         shippingMethod.addEventListener("change", updateTotalPrice);
     }
 
-    
+    // -- Payment method ZONE --
+    function handleStep3ContinueClick() {
+        const errors = validatePaymentMethodSelection();
+
+        if (errors.length > 0) {
+            generateErrorList(errors, "payment-details");
+        } else {
+            // Proceed to the next step
+            goToNextStep('3');
+        }
+    }
+
     function initializePaymentMethodSelection() {
         const paymentMethodSelect = document.getElementById("payment-method");
-        const paymentDetails = document.getElementById("payment-details");
         const cardDetails = document.getElementById("card-details");
         const paypalDetails = document.getElementById("paypal-details");
         const bankTransferDetails = document.getElementById("bank-transfer-details");
-
+    
+        if (!paymentMethodSelect || !cardDetails || !paypalDetails || !bankTransferDetails) {
+            console.error("One or more payment method elements are missing");
+            return;
+        }
+    
         paymentMethodSelect.addEventListener("change", function () {
             const selectedMethod = paymentMethodSelect.value;
-
-            // Hide all payment details
+    
+            // Hide all payment details sections
             cardDetails.classList.add("hidden");
             paypalDetails.classList.add("hidden");
             bankTransferDetails.classList.add("hidden");
-
-            // Show the selected payment details
+    
+            // Show the selected payment method details
             if (selectedMethod === "card") {
                 cardDetails.classList.remove("hidden");
             } else if (selectedMethod === "paypal") {
@@ -361,102 +436,180 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function selectPaymentMethod() {
-        // Selecciona entre: Tarjeta de débito/crédito, PayPal, Transferencia bancaria
-        const paymentMethod = document.getElementById("payment-method");
+    function validatePaymentMethodSelection() {
+        const paymentMethodSelect = document.getElementById("payment-method");
+        const selectedMethod = paymentMethodSelect.value;
+        let errors = [];
 
-        paymentMethod.addEventListener("change", function () {
-            // If the user select one payment-method option, show the corresponding payment-details
-            // If the user select another payment-method option, hide the previous payment-details and show the new one
-            const selectedMethod = paymentMethod.value;
-            const cardDetails = document.getElementById("card-details");
-            const paypalDetails = document.getElementById("paypal-details");
-            const bankTransferDetails = document.getElementById("bank-transfer-details");
+        if (selectedMethod === "card") {
+            errors = validateCardPaymentMethodSelection();
+        } else if (selectedMethod === "paypal") {
+            errors = validatePaypalMethodSelection();
+        } else if (selectedMethod === "bank-transfer") {
+            errors = validateBankMethodSelection();
+        }
 
-            // Hide all payment details
-            cardDetails.classList.add("hidden");
-            paypalDetails.classList.add("hidden");
-            bankTransferDetails.classList.add("hidden");
-
-            // Show the selected payment details
-            if (selectedMethod === "card") {
-                cardDetails.classList.remove("hidden");
-            } else if (selectedMethod === "paypal") {
-                paypalDetails.classList.remove("hidden");
-            } else if (selectedMethod === "bank-transfer") {
-                bankTransferDetails.classList.remove("hidden");
-            }
-        });
+        return errors;
     }
 
-    function validatePaymentForm() {
-        const paymentForm = document.getElementById("payment-form");
-        const formData = new FormData(paymentForm);
+    function validateCardPaymentMethodSelection() {
+        const cardNameInput = document.getElementById("card-name");
+        const cardNumberInput = document.getElementById("card-number");
+        const cardExpirationInput = document.getElementById("card-expiration");
+        const cardCvvInput = document.getElementById("card-cvv");
         const errors = [];
 
         // Clear previous error markings
-        unmarkInvalidFields(paymentForm);
+        unmarkInvalidFields(document.getElementById("payment-details"));
 
-        const paymentMethod = document.getElementById("payment-method").value;
-        let requiredFields = [];
-
-        if (paymentMethod === "card") {
-            requiredFields = [
-                { name: "card-number", label: "Número de tarjeta", validate: value => /^\d{16}$/.test(value), errorMessage: "El número de tarjeta debe tener 16 dígitos." },
-                { name: "card-expiration", label: "Fecha de caducidad", validate: value => /^\d{2}\/\d{2}$/.test(value), errorMessage: "La fecha de caducidad debe tener el formato MM/AA." },
-                { name: "card-cvv", label: "CVV", validate: value => /^\d{3}$/.test(value), errorMessage: "El CVV debe tener 3 dígitos." },
-            ];
-        } else if (paymentMethod === "paypal") {
-            requiredFields = [
-                { name: "paypal-email", label: "Correo electrónico de PayPal", validate: value => /\S+@\S+\.\S+/.test(value), errorMessage: "El correo electrónico de PayPal no es válido." },
-            ];
-        } else if (paymentMethod === "bank-transfer") {
-            requiredFields = [
-                { name: "bank-transfer-proof", label: "Justificante de transferencia bancaria", validate: value => value, errorMessage: "Debe subir un justificante de transferencia bancaria." },
-            ];
+        if (!cardNameInput.value || cardNameInput.value.length < 3) {
+            errors.push("El nombre del titular de la tarjeta debe tener al menos 3 caracteres.");
+            markInvalidField(document.getElementById("payment-details"), "card-holder");
         }
 
-        requiredFields.forEach(field => {
-            const fieldValue = formData.get(field.name);
-            if (!fieldValue || !fieldValue.trim()) {
-                errors.push(`El campo '${field.label}' es obligatorio.`);
-                markInvalidField(document.getElementById(field.name));
-            } else if (field.validate && !field.validate(fieldValue.trim())) {
-                errors.push(field.errorMessage);
-                markInvalidField(document.getElementById(field.name));
+        if (!cardNumberInput.value || !/^\d{16}$/.test(cardNumberInput.value)) {
+            errors.push("El número de tarjeta debe tener 16 dígitos.");
+            markInvalidField(document.getElementById("payment-details"), "card-number");
+        }
+
+        if (!cardExpirationInput.value || !/^\d{2}\/\d{2}$/.test(cardExpirationInput.value)) {
+            errors.push("La fecha de caducidad de la tarjeta debe tener el formato MM/AA.");
+            markInvalidField(document.getElementById("payment-details"), "card-expiration");
+        }
+
+        if (!cardCvvInput.value || !/^\d{3}$/.test(cardCvvInput.value)) {
+            errors.push("El código CVC de la tarjeta debe tener 3 dígitos.");
+            markInvalidField(document.getElementById("payment-details"), "card-cvc");
+        }
+
+        return errors;
+    }
+
+    function validatePaypalMethodSelection() {
+        const paypalEmailInput = document.getElementById("paypal-email");
+        const errors = [];
+
+        // Clear previous error markings
+        unmarkInvalidFields(document.getElementById("payment-details"));
+
+        if (!paypalEmailInput.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(paypalEmailInput.value)) {
+            errors.push("El correo electrónico de PayPal no es válido.");
+            markInvalidField(document.getElementById("payment-details"), "paypal-email");
+        }
+
+        return errors;
+    }
+
+    function validateBankMethodSelection() {
+        const bankReceiptFile = document.getElementById("bank-transfer-proof");
+        const errors = [];
+
+        if (!bankReceiptFile || !bankReceiptFile.files || bankReceiptFile.files.length === 0) {
+            errors.push("Debe haber subido un archivo.");
+        } else {
+            const file = bankReceiptFile.files[0];
+            if (file.type !== "application/pdf") {
+                errors.push("Debe haber subido un archivo PDF válido.");
             }
-        });
-
-        if (errors.length > 0) {
-            generateErrorList(errors, "step3");
-        } else {
-            document.getElementById("payment-errors").innerHTML = "";
-            alert("Formulario de pago enviado.");
-        }
-    }
-
-    function generateErrorList(errors, elementId) {
-        const element = document.getElementById(elementId);
-        let errorList = document.getElementById("generic-errors");
-
-        if (!errorList) {
-            errorList = document.createElement("div");
-            errorList.id = 'generic-errors';
-            errorList.classList.add("error-list");
-        } else {
-            errorList.innerHTML = "";
         }
 
-        const ul = document.createElement("ul");
-        errors.forEach(function (error) {
-            const errorItem = document.createElement("li");
-            errorItem.textContent = error;
-            ul.appendChild(errorItem);
-        });
-
-        errorList.appendChild(ul);
-        element.appendChild(errorList);
+        return errors;
     }
 
+    // --- Confirmation ZONE ---
+    showConfirmationView = () => {
+        const step4 = document.getElementById("step4");
+        step4.classList.remove("active");
+        step4.setAttribute("aria-hidden", "true");
 
+        const confirmationView = document.getElementById("confirmation");
+        confirmationView.classList.add("active");
+        confirmationView.setAttribute("aria-hidden", "false");
+
+        // Mostrar los datos de la compra
+        showPurchaseData();
+    };
+
+    showPurchaseData = () => {
+        const selectedProducts = document.getElementById("selected-products");
+        const confirmationProducts = document.getElementById("confirmation-products");
+        const products = selectedProducts.querySelectorAll("article.product");
+
+        products.forEach((product) => {
+            const productId = product.id.replace("-cart", "");
+            const productName = product.querySelector(".product-name h2").textContent;
+            const productPrice = product.querySelector(".product-pricing span").textContent;
+            const productQuantity = product.querySelector(".product-quantity input").value;
+            const productTotal = product.querySelector(".product-pricing p:last-child span").textContent;
+
+            const productTemplate = `
+            <article class="product" id="${productId}-confirmation">
+              <div class="product-info">
+                <h2>${productName}</h2>
+                <p>Precio por unidad: ${productPrice}</p>
+                <p>Cantidad: ${productQuantity}</p>
+                <p>Total: ${productTotal}</p>
+              </div>
+            </article>
+            `;
+
+            confirmationProducts.insertAdjacentHTML("beforeend", productTemplate);
+        });
+
+        // Mostrar el resto de datos de la compra
+        showPurchaseDetails();
+    }
+
+    showPurchaseDetails = () => {
+        const clientDataForm = document.getElementById("client-data-form");
+        const formData = new FormData(clientDataForm);
+        const confirmationDetails = document.getElementById("confirmation-details");
+
+        const clientData = [
+            { name: "name", label: "Nombre" },
+            { name: "surname1", label: "Apellido 1" },
+            { name: "surname2", label: "Apellido 2" },
+            { name: "dni", label: "DNI" },
+            { name: "email", label: "Correo electrónico" },
+            { name: "phone-prefix", label: "Prefijo telefónico" },
+            { name: "mobile-phone", label: "Número de móvil" },
+            { name: "address", label: "Dirección" },
+            { name: "city", label: "Ciudad" },
+            { name: "country", label: "País" },
+            { name: "postal-code", label: "Código postal" },
+        ];
+
+        clientData.forEach(field => {
+            const fieldValue = formData.get(field.name);
+            const fieldLabel = field.label;
+            const fieldTemplate = `
+            <p><strong>${fieldLabel}:</strong> ${fieldValue}</p>
+            `;
+
+            confirmationDetails.insertAdjacentHTML("beforeend", fieldTemplate);
+        });
+
+        // Mostrar el resto de datos de la compra
+        showShippingMethod();
+        showTotalPrice();
+    }
+
+    showShippingMethod = () => {
+        const shippingMethodSelect = document.getElementById("shipping-method");
+        const selectedMethod = shippingMethodSelect.options[shippingMethodSelect.selectedIndex].textContent;
+        const confirmationShippingMethod = document.getElementById("confirmation-shipping-method");
+
+        confirmationShippingMethod.innerHTML = `<p><strong>Método de envío:</strong> ${selectedMethod}</p>`;
+    }
+
+    showTotalPrice = () => {
+        const subtotalPrice = document.getElementById("subtotal-price").textContent;
+        const totalPrice = document.getElementById("total-price").textContent;
+        const confirmationTotalPrice = document.getElementById("confirmation-total-price");
+
+        confirmationTotalPrice.innerHTML = `
+        <p><strong>Subtotal:</strong> ${subtotalPrice}</p>
+        <p><strong>Total:</strong> ${totalPrice}</p>
+        `;
+    }
 });
