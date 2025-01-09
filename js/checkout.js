@@ -1,19 +1,37 @@
 document.addEventListener("DOMContentLoaded", function () {
-    initializeCheckout();
+    initializeContinueButton();
+    step1();
+    step2();
+    step3();
+    step4();
 
     // -- Inicilization functions --
-    function initializeCheckout() {
-        initializeContinueButton();
-        initializeRemoveButtons();
-        initializeAddProductButtons();
+    function step1() {
+        initializeRemoveProduct();
+        initializeAddProduct();
         updateProductPriceOnQuantityChange();
         updateTotalProductPrice();
         updateTotalPrice();
-        autoCompleteDataUserForm();
+    }
+
+    function step2() {
         addCountryToShippingZone();
         showShippingMethodByZone();
+        autoCompleteDataUserForm();
+    }
+
+    function step3() {
         updateTotalPriceWithShipping();
         initializePaymentMethodSelection();
+        autoCompleteDataPaymentForm();
+    }
+
+    function step4() {
+        showConfirmationView();
+
+        // document.getElementById('continue-button').addEventListener('click', (event) => {
+        //     event.preventDefault();
+        // });
     }
 
     function initializeContinueButton() {
@@ -28,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 handleStep3ContinueClick();
             } else if (currentStep.id === "step4") {
                 showConfirmationView();
-                alert("Compra finalizada. Gracias por su compra.");
             }
         });
     }
@@ -111,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function initializeRemoveButtons() {
+    function initializeRemoveProduct() {
         const removeButtons = document.querySelectorAll(".remove-product");
 
         removeButtons.forEach((button) => {
@@ -125,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function initializeAddProductButtons() {
+    function initializeAddProduct() {
         const addProductButtons = document.querySelectorAll(".add-product");
 
         addProductButtons.forEach((button) => {
@@ -267,6 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const nameInput = document.getElementById("name");
         const surname1Input = document.getElementById("surname1");
         const surname2Input = document.getElementById("surname2");
+        const nationality = document.getElementById("nationality");
         const emailInput = document.getElementById("email");
         const emailConfirmInput = document.getElementById("email-confirm");
         const phonePrefixInput = document.getElementById("phone-prefix");
@@ -275,11 +293,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const cityInput = document.getElementById("city");
         const countryInput = document.getElementById("country");
         const postalCodeInput = document.getElementById("postal-code");
+        const shippingMethodSelect = document.getElementById("shipping-method");
+        const firstOption = shippingMethodSelect.options[1];
 
         dniInput.value = "12345678Z";
         nameInput.value = "Juan";
         surname1Input.value = "García";
         surname2Input.value = "Pérez";
+        nationality.value = "spanish";
         emailInput.value = "test@email.com";
         emailConfirmInput.value = "test@email.com";
         phonePrefixInput.value = "+34";
@@ -288,6 +309,9 @@ document.addEventListener("DOMContentLoaded", function () {
         countryInput.value = "spain";
         postalCodeInput.value = "28080";
         mobilePhoneInput.value = "666777888";
+        if (firstOption) {
+            firstOption.selected = true;
+        }
     }
 
     function validateClientData() {
@@ -411,20 +435,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const cardDetails = document.getElementById("card-details");
         const paypalDetails = document.getElementById("paypal-details");
         const bankTransferDetails = document.getElementById("bank-transfer-details");
-    
+
         if (!paymentMethodSelect || !cardDetails || !paypalDetails || !bankTransferDetails) {
             console.error("One or more payment method elements are missing");
             return;
         }
-    
+
         paymentMethodSelect.addEventListener("change", function () {
             const selectedMethod = paymentMethodSelect.value;
-    
+
             // Hide all payment details sections
             cardDetails.classList.add("hidden");
             paypalDetails.classList.add("hidden");
             bankTransferDetails.classList.add("hidden");
-    
+
             // Show the selected payment method details
             if (selectedMethod === "card") {
                 cardDetails.classList.remove("hidden");
@@ -516,100 +540,181 @@ document.addEventListener("DOMContentLoaded", function () {
         return errors;
     }
 
+    function autoCompleteDataPaymentForm() {
+        const cardNameInput = document.getElementById("card-name");
+        const cardNumberInput = document.getElementById("card-number");
+        const cardExpirationInput = document.getElementById("card-expiration");
+        const cardCvvInput = document.getElementById("card-cvv");
+        // const paypalEmailInput = document.getElementById("paypal-email");
+
+        cardNameInput.value = "Juan García";
+        cardNumberInput.value = "1234567812345678";
+        cardExpirationInput.value = "12/23";
+        cardCvvInput.value = "123";
+        // paypalEmailInput.value = "test@paypal.com";
+
+    }
+
     // --- Confirmation ZONE ---
-    showConfirmationView = () => {
+    // Felicitar por la compra
+    // Mostrar los datos de la compra
+
+    function showConfirmationView() {
         const step4 = document.getElementById("step4");
-        step4.classList.remove("active");
-        step4.setAttribute("aria-hidden", "true");
+        if (step4) {
+            step4.classList.remove("active");
+            step4.setAttribute("aria-hidden", "true");
+        }
 
-        const confirmationView = document.getElementById("confirmation");
-        confirmationView.classList.add("active");
-        confirmationView.setAttribute("aria-hidden", "false");
-
-        // Mostrar los datos de la compra
+        showCongratulations();
         showPurchaseData();
     };
 
-    showPurchaseData = () => {
-        const selectedProducts = document.getElementById("selected-products");
-        const confirmationProducts = document.getElementById("confirmation-products");
-        const products = selectedProducts.querySelectorAll("article.product");
-
-        products.forEach((product) => {
-            const productId = product.id.replace("-cart", "");
-            const productName = product.querySelector(".product-name h2").textContent;
-            const productPrice = product.querySelector(".product-pricing span").textContent;
-            const productQuantity = product.querySelector(".product-quantity input").value;
-            const productTotal = product.querySelector(".product-pricing p:last-child span").textContent;
-
-            const productTemplate = `
-            <article class="product" id="${productId}-confirmation">
-              <div class="product-info">
-                <h2>${productName}</h2>
-                <p>Precio por unidad: ${productPrice}</p>
-                <p>Cantidad: ${productQuantity}</p>
-                <p>Total: ${productTotal}</p>
-              </div>
-            </article>
-            `;
-
-            confirmationProducts.insertAdjacentHTML("beforeend", productTemplate);
-        });
-
-        // Mostrar el resto de datos de la compra
-        showPurchaseDetails();
+    function showCongratulations() {
+        const divStep4 = document.getElementById("step4");
+        const congratulationsMessage = document.createElement("div");
+        congratulationsMessage.classList.add("congratulations-message");
+        congratulationsMessage.innerHTML = `
+            <h2>¡Gracias por tu compra!</h2>
+            <p>Aquí tienes un resumen de tu compra.</p>
+        `;
+        divStep4.appendChild(congratulationsMessage);
     }
 
-    showPurchaseDetails = () => {
-        const clientDataForm = document.getElementById("client-data-form");
-        const formData = new FormData(clientDataForm);
+    function showPurchaseData() {
         const confirmationDetails = document.getElementById("confirmation-details");
-
-        const clientData = [
-            { name: "name", label: "Nombre" },
-            { name: "surname1", label: "Apellido 1" },
-            { name: "surname2", label: "Apellido 2" },
-            { name: "dni", label: "DNI" },
-            { name: "email", label: "Correo electrónico" },
-            { name: "phone-prefix", label: "Prefijo telefónico" },
-            { name: "mobile-phone", label: "Número de móvil" },
-            { name: "address", label: "Dirección" },
-            { name: "city", label: "Ciudad" },
-            { name: "country", label: "País" },
-            { name: "postal-code", label: "Código postal" },
+        const selectedProducts = document.getElementById("selected-products");
+        const products = selectedProducts.querySelectorAll("article.product");
+        const productsData = [
+            // { id: 1, name: "Producto 1", price: 10, quantity: 2 },
+            // { id: 2, name: "Producto 2", price: 20, quantity: 1 }
         ];
 
-        clientData.forEach(field => {
-            const fieldValue = formData.get(field.name);
-            const fieldLabel = field.label;
-            const fieldTemplate = `
-            <p><strong>${fieldLabel}:</strong> ${fieldValue}</p>
-            `;
+        // Obtener información de los productos y almacenarlos en array de productos
+        products.forEach((product) => {
+            const productId = product.id; // product-1
+            const productName = product.querySelector(".product-name h2").textContent; // product-1-name
+            const productPrice = parseFloat(product.querySelector(".product-pricing span[id$='-price']").textContent.replace("€", "")); // product-1-price
+            const productQuantity = parseInt(product.querySelector(".product-quantity input").value); // product-1-quantity
 
-            confirmationDetails.insertAdjacentHTML("beforeend", fieldTemplate);
+            productsData.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                quantity: productQuantity
+            });
         });
 
-        // Mostrar el resto de datos de la compra
-        showShippingMethod();
-        showTotalPrice();
-    }
-
-    showShippingMethod = () => {
-        const shippingMethodSelect = document.getElementById("shipping-method");
-        const selectedMethod = shippingMethodSelect.options[shippingMethodSelect.selectedIndex].textContent;
-        const confirmationShippingMethod = document.getElementById("confirmation-shipping-method");
-
-        confirmationShippingMethod.innerHTML = `<p><strong>Método de envío:</strong> ${selectedMethod}</p>`;
-    }
-
-    showTotalPrice = () => {
-        const subtotalPrice = document.getElementById("subtotal-price").textContent;
-        const totalPrice = document.getElementById("total-price").textContent;
-        const confirmationTotalPrice = document.getElementById("confirmation-total-price");
-
-        confirmationTotalPrice.innerHTML = `
-        <p><strong>Subtotal:</strong> ${subtotalPrice}</p>
-        <p><strong>Total:</strong> ${totalPrice}</p>
+        // Insertar productos del carrito
+        const purchaseData = document.createElement("div");
+        purchaseData.id = "purchase-data";
+        const purchaseTitle = document.createElement("h3");
+        purchaseTitle.textContent = "Resumen de la compra";
+        purchaseData.appendChild(purchaseTitle);
+        const productContainer = document.createElement("div");
+        productContainer.classList.add("product-container");
+        const headerRow = document.createElement("div");
+        headerRow.classList.add("row", "header");
+        headerRow.innerHTML = `
+        <div class="cell">Nombre</div>
+        <div class="cell">Precio</div>
+        <div class="cell">Cantidad</div>
         `;
+        productContainer.appendChild(headerRow);
+
+        productsData.forEach((product) => {
+            const productRow = document.createElement("div");
+            productRow.classList.add("row");
+            productRow.innerHTML = `
+            <div class="cell">${product.name}</div>
+            <div class="cell">${product.price.toFixed(2)}€</div>
+            <div class="cell">${product.quantity}</div>
+        `;
+            productContainer.appendChild(productRow);
+        });
+
+        purchaseData.appendChild(productContainer);
+
+        // Subtotal
+        const subtotalElement = document.createElement("div");
+        subtotalElement.classList.add("data-row");
+        subtotalElement.textContent = `Subtotal: ${document.getElementById("subtotal-price").textContent}`;
+        purchaseData.appendChild(subtotalElement);
+
+        // Porcentaje de impuesto IGIC
+        const igic = 0.07;
+        const igicElement = document.createElement("div");
+        igicElement.classList.add("data-row");
+        igicElement.textContent = `IGIC: ${(igic * 100).toFixed(2)}%`;
+        purchaseData.appendChild(igicElement);
+
+        // Descuento aplicado
+        const discountElement = document.createElement("div");
+        const discount = document.getElementById("discount") ? parseFloat(document.getElementById("discount").textContent) : 0;
+        discountElement.classList.add("data-row");
+        discountElement.textContent = `Descuento: ${discount.toFixed(2)}€`;
+        purchaseData.appendChild(discountElement);
+
+        // Insertar el total
+        const totalElement = document.createElement("div");
+        totalElement.classList.add("data-row");
+        totalElement.textContent = `Total: ${document.getElementById("total-price").textContent}`;
+        purchaseData.appendChild(totalElement);
+        confirmationDetails.appendChild(purchaseData);
+
+        // Insertar datos del cliente y dirección de envío
+        const clientData = document.createElement("div");
+        clientData.id = "client-data";
+        clientData.innerHTML = `
+        <h3>Datos del cliente</h3>
+        <div>Nombre: ${document.getElementById("name").value} ${document.getElementById("surname1").value} ${document.getElementById("surname2").value}</div>
+        <div>Nacionalidad: ${document.getElementById("nationality").value}</div>
+        <div>DNI: ${document.getElementById("dni").value}</div>
+        <div>Correo electrónico: ${document.getElementById("email").value}</div>
+        <div>Teléfono: ${document.getElementById("phone-prefix").value} ${document.getElementById("mobile-phone").value}</div>
+        <div>Dirección: ${document.getElementById("address").value}</div>
+        <div>Ciudad: ${document.getElementById("city").value}</div>
+        <div>País: ${document.getElementById("country").value}</div>
+        <div>Código postal: ${document.getElementById("postal-code").value}</div>
+        `;
+        confirmationDetails.appendChild(clientData);
+
+        // Insertar datos de pago
+        const paymentData = document.createElement("div");
+        paymentData.id = "payment-data";
+
+        if (document.getElementById("payment-method").value === "card") {
+            paymentData.innerHTML = `
+            <h3>Datos de pago</h3>
+            <div>Método de pago: ${document.getElementById("payment-method").value}</div>
+            `;
+        }
+        else if (document.getElementById("payment-method").value === "paypal") {
+            paymentData.innerHTML = `
+            <h3>Datos de pago</h3>
+            <div>Método de pago: ${document.getElementById("payment-method").value}</div>
+            `;
+        }
+        else if (document.getElementById("payment-method").value === "bank-transfer") {
+            paymentData.innerHTML = `
+            <h3>Datos de pago</h3>
+            <div>Método de pago: ${document.getElementById("payment-method").value}</div>
+            `;
+        }
+        confirmationDetails.appendChild(paymentData);
+
+        // Insertar datos de la empresa
+        const companyData = document.createElement("div");
+        companyData.id = "company-data";
+        companyData.innerHTML = `
+        <h3>Datos de la empresa</h3>
+        <div>Nombre de la empresa: Guanxe</div>
+        <div>CIF: B12345678</div>
+        <div>Dirección: Calle Falsa 123</div>
+        <div>Ciudad: Madrid</div>
+        <div>País: España</div>
+        <div>Código postal: 28080</div>
+        `;
+        confirmationDetails.appendChild(companyData);
     }
 });

@@ -1,14 +1,14 @@
 # guanxe-web-interface
 
-- validar pago y descuento
-- mostrar confirmación
+- JS
+  - mostrar vista de confirmación (felicitar y mostrar resumen)
 
-- agregar header y footer
-- agregar colores
-- mejorar css y js
+- CSS
+  - agregar header y footer
+  - agregar colores
+  - mejorar css
 
+---
 
-Seleccione un metodo de pago muestra todo, debe estar sin seleccionar por defecto.
-payment-form no valida ni muestra errores
-
-
+- Actualizar precio total al aumentar producto
+- Eliminar producto al bajar unidades
