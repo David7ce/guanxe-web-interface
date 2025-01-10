@@ -7,28 +7,91 @@
   <link rel="shortcut icon" href="../../img/icon/favicon.ico" type="image/x-icon">
   <title>Carrito de la compra</title>
   <link rel="stylesheet" href="../../css/checkout.css" />
+  <link rel="stylesheet" href="../../css/component/header+nav.css" />
+  <link rel="stylesheet" href="../../css/component/footer.css" />
+  <link rel="stylesheet" href="../../css/component/palette.css" />
+  <link rel="stylesheet" href="../../css/component/font-size.css" />
   <script src="../../js/checkout.js"></script>
+  <script src="../../js/theme-and-font-size.js"></script>
 </head>
 
 <body>
-  <main>
-    <h1>Completa tu compra</h1>
+  <header>
+    <div class="logo icon">
+      <a href="../../../index.html" aria-label="Guanxe Home">
+        <img src="../../img/icon/guanxe-logo.svg" alt="guanxe" />
+      </a>
+    </div>
+    <div class="search">
+      <input type="search" name="" id="" placeholder="Tenis de vestir" aria-label="Buscar productos" />
+    </div>
+    <div class="flag zona-geo">
+      <a href="../../../index.html#" aria-label="Región Canarias">
+        <img src="../../img/icon/canary-islands.svg" alt="Canarias" />
+        <p>Canarias</p>
+      </a>
+    </div>
+    <div class="icon user-account">
+      <a href="../../../index.html#" aria-label="Cuenta de usuario">
+        <img src="../../img/icon/user.svg" alt="user" />
+        <p>Cuenta</p>
+      </a>
+    </div>
+    <div class="icon shopping-cart">
+      <a href="../../../index.html#" aria-label="Carrito de compras">
+        <img src="../../img/icon/shopping-cart.svg" alt="shopping-cart" />
+        <p>Cesta</p>
+      </a>
+    </div>
+  </header>
 
+  <div class="accessibility">
+    <div class="theme-settings">
+      <!-- Theme Switcher (Light/Dark) -->
+      <img id="sun-icon" class="theme-icon" src="../../img/icon/sun.svg" alt="Tema claro" />
+      <img id="moon-icon" class="theme-icon" src="../../img/icon/moon-stars.svg" alt="Tema oscuro" />
+
+      <div class="change-font-size">
+        <button class="font-size-icon" id="decrease-font-size" aria-label="Disminuir tamaño de letra">
+          A-
+        </button>
+
+        <button class="font-size-icon" id="reset-font-size" aria-label="Resetear tamaño de letra">
+          ⥻
+        </button>
+        <button class="font-size-icon" id="increase-font-size" aria-label="Aumentar tamaño de letra">
+          A+
+        </button>
+      </div>
+
+      <!-- Contrast Switcher -->
+      <img id="high-contrast-icon" class="contrast-icon" src="../../img/icon/high-contrast.svg" alt="Alto contraste" />
+      <img id="low-contrast-icon" class="contrast-icon" src="../../img/icon/low-contrast.svg" alt="Bajo contraste" />
+    </div>
+  </div>
+
+  <main>
     <!-- Navegación entre las secciones -->
-    <nav class="navegation">
+    <nav class="steps-checkout">
       <ul>
-        <li>
-          <a href="#" id="step1-nav" class="active">Carrito de la compra</a>
+        <li class="active">
+          <a href="#" id="step1-nav">Carrito de la compra</a>
         </li>
-        <li><a href="#" id="step2-nav">Datos del cliente</a></li>
-        <li><a href="#" id="step3-nav">Pago y descuento</a></li>
-        <li><a href="#" id="step4-nav">Confirmación</a></li>
+        <li>
+          <a href="#" id="step2-nav">Datos del cliente</a>
+        </li>
+        <li>
+          <a href="#" id="step3-nav">Pago y descuento</a>
+        </li>
+        <li>
+          <a href="#" id="step4-nav">Confirmación</a>
+        </li>
       </ul>
     </nav>
 
-    <span>
+    <div class="return-to-store">
       <a href="../../index.html" aria-label="Volver a la tienda">Seguir comprando</a>
-    </span>
+    </div>
 
     <div class="checkout">
       <div class="cart-main">
@@ -36,7 +99,7 @@
           <!-- Sección Carrito de la Compra -->
           <div class="shopping-cart section checkout active" id="step1" aria-label="Carrito de la compra">
             <div class="selected-products" id="selected-products">
-              <h2>Carrito de la compra</h2>
+              <h1>Carrito de la compra</h1>
               <article class="product out-of-stock" id="product-1">
                 <figure class="product-img">
                   <img src="../../img/products/zapatillas/vans-old-skool-1.png" alt="Zapatillas Vans Old Skool" />
@@ -89,7 +152,6 @@
                 </section>
               </article>
 
-              <!-- Additional products -->
               <article class="product" id="product-3" aria-labelledby="product-name">
                 <figure class="product-img">
                   <img src="../../img/products/camiseta-asillas.jpg" alt="Camiseta de asillas" />
@@ -168,7 +230,7 @@
 
             <!-- Productos recomendados -->
             <div class="recommended-products">
-              <h3>Productos recomendados</h3>
+              <h2>Productos recomendados</h2>
 
               <article class="product" id="product-6" aria-labelledby="product-6-name">
                 <figure class="product-img">
@@ -557,7 +619,7 @@
                   <input type="text" id="card-name" name="card-name" required aria-required="true"
                     placeholder="Nombre completo" />
                   <label for="card-number">Número de tarjeta:</label>
-                    <input type="text" id="card-number" name="card-number" required aria-required="true"
+                  <input type="text" id="card-number" name="card-number" required aria-required="true"
                     placeholder="1234 5678 9012" pattern="\d{4} \d{4} \d{4}" maxlength="16" />
                   <label for="card-expiration">Fecha de caducidad:</label>
                   <input type="text" id="card-expiration" name="card-expiration" required aria-required="true"
@@ -583,13 +645,14 @@
 
         <!-- Confirmación de compra -->
         <div class="section purchase-confirmation" id="step4" aria-label="Confirmación de compra" aria-hidden="true">
-          <h2>Confirmación de compra</h2>
-          <div id="confirmation-details">
-            <!-- Detalles de la confirmación se cargarán aquí dinámicamente -->
-          </div>
+          <!-- Detalles de la confirmación se cargarán aquí dinámicamente -->
         </div>
       </div>
       <div class="cart-side">
+        <div class="cart-side-title">
+          <h2>Datos de la compra</h2>
+        </div>
+
         <div class="cart-summary-item">
           <p>Subtotal: <span id="subtotal-price"></span></p>
         </div>
@@ -605,6 +668,32 @@
       </div>
     </div>
   </main>
+
+  <footer>
+    <div class="conditions-and-legal">
+      <span>Condiciones</span>
+      <p><a href="#">Condiciones de contratación</a></p>
+      <p><a href="#">Condiciones de uso</a></p>
+      <span>Legalidad</span>
+      <p><a href="#">Aviso legal</a></p>
+      <p><a href="#">Reclamaciones</a></p>
+    </div>
+    <div class="help">
+      <span>Ayuda</span>
+      <p><a href="#">Cómo comprar</a></p>
+      <p><a href="#">Envíos</a></p>
+      <p><a href="#">Devoluciones</a></p>
+      <p><a href="#">Bases promocionales</a></p>
+    </div>
+    <div class="corpo-side">
+      <span>Quiénes somos</span>
+      <p><a href="#">Misión</a></p>
+      <p><a href="#">Visión</a></p>
+      <p><a href="#">Valores</a></p>
+      <p><a href="#">Responsabilidad social</a></p>
+      <p><a href="#">Tiendas</a></p>
+    </div>
+  </footer>
 </body>
 
 </html>

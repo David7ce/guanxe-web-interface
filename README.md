@@ -1,7 +1,12 @@
-# guanxe-web-interface
+# TODO
+
+- HTML
+  - Añadir header y footer
+  - Añadir botones de "Continuar"
+  - Añadir aplicar descuentos
 
 - JS
-  - mostrar vista de confirmación (felicitar y mostrar resumen)
+  - Mejorar JS
 
 - CSS
   - agregar header y footer
@@ -12,3 +17,4 @@
 
 - Actualizar precio total al aumentar producto
 - Eliminar producto al bajar unidades
+f

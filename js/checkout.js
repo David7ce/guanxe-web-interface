@@ -575,14 +575,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const congratulationsMessage = document.createElement("div");
         congratulationsMessage.classList.add("congratulations-message");
         congratulationsMessage.innerHTML = `
-            <h2>¡Gracias por tu compra!</h2>
+            <h2>Confirmación de compra</h2>
             <p>Aquí tienes un resumen de tu compra.</p>
         `;
         divStep4.appendChild(congratulationsMessage);
     }
 
     function showPurchaseData() {
-        const confirmationDetails = document.getElementById("confirmation-details");
+        const divStep4 = document.getElementById("step4");
+        const confirmationDetails = document.createElement("div");
+        confirmationDetails.id = "confirmation-details";
+        divStep4.appendChild(confirmationDetails);
         const selectedProducts = document.getElementById("selected-products");
         const products = selectedProducts.querySelectorAll("article.product");
         const productsData = [
