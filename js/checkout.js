@@ -28,10 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function step4() {
         showConfirmationView();
-
-        // document.getElementById('continue-button').addEventListener('click', (event) => {
-        //     event.preventDefault();
-        // });
     }
 
     function initializeContinueButton() {
@@ -39,9 +35,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const currentStep = document.querySelector(".section.active");
 
             if (currentStep.id === "step1") {
-                handleStep1ContinueClick(currentStep);
+                handleStep1ContinueClick();
             } else if (currentStep.id === "step2") {
-                handleStep2ContinueClick(currentStep);
+                handleStep2ContinueClick();
             } else if (currentStep.id === "step3") {
                 handleStep3ContinueClick();
             } else if (currentStep.id === "step4") {
@@ -50,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function goToNextStep(currentStep) {
+    function showNextStep(currentStep) {
         const currentStepElement = document.getElementById(`step${currentStep}`);
         const nextStepElement = document.getElementById(`step${parseInt(currentStep) + 1}`);
 
@@ -122,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const products = selectedProducts.querySelectorAll("article.product");
 
         if (products.length > 0) {
-            goToNextStep('1');
+            showNextStep('1');
         } else {
             alert("La cesta está vacía. Por favor, añade productos antes de continuar.");
         }
@@ -275,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (errors.length > 0) {
             generateErrorList(errors, "step2");
         } else {
-            goToNextStep('2');
+            showNextStep('2');
         }
     }
 
@@ -426,7 +422,7 @@ document.addEventListener("DOMContentLoaded", function () {
             generateErrorList(errors, "payment-details");
         } else {
             // Proceed to the next step
-            goToNextStep('3');
+            showNextStep('3');
         }
     }
 
@@ -441,21 +437,26 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // Hide all payment details sections by default
+        cardDetails.style.display = "none";
+        paypalDetails.style.display = "none";
+        bankTransferDetails.style.display = "none";
+
         paymentMethodSelect.addEventListener("change", function () {
             const selectedMethod = paymentMethodSelect.value;
 
             // Hide all payment details sections
-            cardDetails.classList.add("hidden");
-            paypalDetails.classList.add("hidden");
-            bankTransferDetails.classList.add("hidden");
+            cardDetails.style.display = "none";
+            paypalDetails.style.display = "none";
+            bankTransferDetails.style.display = "none";
 
             // Show the selected payment method details
             if (selectedMethod === "card") {
-                cardDetails.classList.remove("hidden");
+                cardDetails.style.display = "block";
             } else if (selectedMethod === "paypal") {
-                paypalDetails.classList.remove("hidden");
+                paypalDetails.style.display = "block";
             } else if (selectedMethod === "bank-transfer") {
-                bankTransferDetails.classList.remove("hidden");
+                bankTransferDetails.style.display = "block";
             }
         });
     }

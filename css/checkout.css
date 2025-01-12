@@ -10,17 +10,39 @@ section[aria-hidden="false"] {
     display: block;
 }
 
+.checkout {
+    display: block;
+}
+
+.cart-main {
+    display: block;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
 .cart-side {
+    display: block;
     background-color: var(--color-bg-element);
     margin: 10px;
     padding: 10px;
     width: 70%;
+    height: max-content;
 }
 
 .cart-side div {
-    
+    font-weight: bold;
 }
 
+.cart-side div span {
+    font-weight: normal;
+}
+
+.steps-checkout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .steps-checkout ul {
     list-style: none;
     display: flex;
@@ -45,6 +67,7 @@ section[aria-hidden="false"] {
 .steps-checkout li.active a {
     color: var(--color-text-button);
 }
+
 .return-to-store a {
     width: 3em;
     padding: 5px;
@@ -54,9 +77,11 @@ section[aria-hidden="false"] {
     text-decoration: none;
 }
 
-.products-cart-main {
-    display: block;
-    /* Change from flex to block */
+.selected-products article,
+.recommended-products article {
+    background-color: var(--color-bg-element);
+    width: 490px;
+    height: fit-content
 }
 
 .section {
@@ -84,18 +109,8 @@ section[aria-hidden="false"] {
     cursor: not-allowed;
 }
 
-/* Productos */
-.selected-products article, .recommended-products article {
-    background-color: var(--color-bg-element);
-    width: 490px;
-    height: fit-content
-}
 
-
-/* Article */
-
-
-
+/* Products */
 .product {
     display: flex;
     border: 1px solid #ddd;
@@ -124,7 +139,6 @@ section[aria-hidden="false"] {
 .product-img img {
     width: 100px;
     height: auto;
-    /* Ensure images maintain aspect ratio */
     margin-right: 1em;
     flex-shrink: 0;
     border-radius: 8px;
@@ -133,12 +147,9 @@ section[aria-hidden="false"] {
 .product-info {
     flex-grow: 1;
     margin-left: 0;
-    /* Remove left margin */
     display: flex;
     flex-direction: column;
-    /* Ensure product info is displayed in a column */
 }
-
 
 .product-name {
     display: flex;
@@ -160,18 +171,15 @@ section[aria-hidden="false"] {
     border: none;
     cursor: pointer;
     margin-left: 1em;
-    /* Add margin to separate from title */
 }
 
 .icon-trash {
     width: 20px;
     height: auto;
-    /* Ensure icons maintain aspect ratio */
 }
 
 .recommended-products .product {
     flex-direction: row;
-    /* Ensure recommended products are displayed in a row */
     align-items: center;
 }
 
@@ -185,8 +193,6 @@ section[aria-hidden="false"] {
     width: 120px;
     border-radius: 15px;
 }
-
-/* More */
 
 .invalid {
     border: 1px solid red;
@@ -202,9 +208,7 @@ section[aria-hidden="false"] {
     display: none;
 }
 
-
 @media (min-width: 776px) {
-
     .checkout {
         display: flex;
     }

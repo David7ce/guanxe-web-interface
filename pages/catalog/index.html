@@ -8,7 +8,7 @@
   <link rel="shortcut icon" href="../../img/icon/favicon.ico" type="image/x-icon">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="../../css/component/header+nav.css" />
+  <link rel="stylesheet" href="../../css/component/header.css" />
   <link rel="stylesheet" href="../../css/component/footer.css" />
   <link rel="stylesheet" href="../../css/component/palette.css" />
   <link rel="stylesheet" href="../../css/component/font-size.css" />
@@ -19,29 +19,30 @@
 
 <body>
   <header>
-    <div class="logo icon">
+    <div class="icon-item visible">
       <a href="../../../index.html" aria-label="Guanxe Home">
-        <img src="../../img/icon/guanxe-logo.svg" alt="guanxe" />
+        <img src="../../img/icon/guanxe-logo.svg" alt="guanxe" class="guanxe-logo" />
       </a>
     </div>
     <div class="search">
-      <input type="search" name="" id="" placeholder="Tenis de vestir" aria-label="Buscar productos" />
+      <input type="search" name="search" id="search" placeholder="Buscar productos" aria-label="Buscar productos" />
+      <!-- <img src="../../img/icon/search.svg" alt="search" class="search-icon" /> -->
     </div>
-    <div class="flag zona-geo">
-      <a href="../../../index.html#" aria-label="Región Canarias">
-        <img src="../../img/icon/canary-islands.svg" alt="Canarias" />
+    <div class="icon-item">
+      <a href="#" aria-label="Región Canarias">
+        <img src="../../img/icon/canary-islands.svg" alt="Canarias" class="canary-flag-icon" />
         <p>Canarias</p>
       </a>
     </div>
-    <div class="icon user-account">
-      <a href="../../../index.html#" aria-label="Cuenta de usuario">
-        <img src="../../img/icon/user.svg" alt="user" />
+    <div class="icon-item">
+      <a href="#" aria-label="Cuenta de usuario">
+        <img src="../../img/icon/user.svg" alt="user" class="user-account" />
         <p>Cuenta</p>
       </a>
     </div>
-    <div class="icon shopping-cart">
-      <a href="../../../index.html#" aria-label="Carrito de compras">
-        <img src="../../img/icon/shopping-cart.svg" alt="shopping-cart" />
+    <div class="icon-item visible">
+      <a href="../../pages/checkout/index.html" aria-label="Carrito de compras">
+        <img src="../../img/icon/shopping-cart.svg" alt="shopping-cart" class="shopping-cart-icon" />
         <p>Cesta</p>
       </a>
     </div>

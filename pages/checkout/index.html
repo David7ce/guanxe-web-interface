@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="../../img/icon/favicon.ico" type="image/x-icon">
   <title>Carrito de la compra</title>
   <link rel="stylesheet" href="../../css/checkout.css" />
-  <link rel="stylesheet" href="../../css/component/header+nav.css" />
+  <link rel="stylesheet" href="../../css/component/header.css" />
   <link rel="stylesheet" href="../../css/component/footer.css" />
   <link rel="stylesheet" href="../../css/component/palette.css" />
   <link rel="stylesheet" href="../../css/component/font-size.css" />
@@ -17,29 +17,30 @@
 
 <body>
   <header>
-    <div class="logo icon">
+    <div class="icon-item visible">
       <a href="../../../index.html" aria-label="Guanxe Home">
-        <img src="../../img/icon/guanxe-logo.svg" alt="guanxe" />
+        <img src="../../img/icon/guanxe-logo.svg" alt="guanxe" class="guanxe-logo" />
       </a>
     </div>
     <div class="search">
-      <input type="search" name="" id="" placeholder="Tenis de vestir" aria-label="Buscar productos" />
+      <input type="search" name="search" id="search" placeholder="Buscar productos" aria-label="Buscar productos" />
+      <!-- <img src="../../img/icon/search.svg" alt="search" class="search-icon" /> -->
     </div>
-    <div class="flag zona-geo">
-      <a href="../../../index.html#" aria-label="Región Canarias">
-        <img src="../../img/icon/canary-islands.svg" alt="Canarias" />
+    <div class="icon-item">
+      <a href="#" aria-label="Región Canarias">
+        <img src="../../img/icon/canary-islands.svg" alt="Canarias" class="canary-flag-icon" />
         <p>Canarias</p>
       </a>
     </div>
-    <div class="icon user-account">
-      <a href="../../../index.html#" aria-label="Cuenta de usuario">
-        <img src="../../img/icon/user.svg" alt="user" />
+    <div class="icon-item">
+      <a href="#" aria-label="Cuenta de usuario">
+        <img src="../../img/icon/user.svg" alt="user" class="user-account" />
         <p>Cuenta</p>
       </a>
     </div>
-    <div class="icon shopping-cart">
-      <a href="../../../index.html#" aria-label="Carrito de compras">
-        <img src="../../img/icon/shopping-cart.svg" alt="shopping-cart" />
+    <div class="icon-item visible">
+      <a href="../checkout/index.html" aria-label="Carrito de compras">
+        <img src="../../img/icon/shopping-cart.svg" alt="shopping-cart" class="shopping-cart-icon" />
         <p>Cesta</p>
       </a>
     </div>
@@ -73,18 +74,18 @@
   <main>
     <!-- Navegación entre las secciones -->
     <nav class="steps-checkout">
-      <ul>
-        <li class="active">
-          <a href="#" id="step1-nav">Carrito de la compra</a>
+      <ul id="list-item-nav">
+        <li>
+          <a href="#" class="step">Carrito de la compra</a>
         </li>
         <li>
-          <a href="#" id="step2-nav">Datos del cliente</a>
+          <a href="#" class="step">Datos del cliente</a>
         </li>
         <li>
-          <a href="#" id="step3-nav">Pago y descuento</a>
+          <a href="#" class="step">Pago y descuento</a>
         </li>
         <li>
-          <a href="#" id="step4-nav">Confirmación</a>
+          <a href="#" class="step">Confirmación</a>
         </li>
       </ul>
     </nav>
@@ -97,7 +98,7 @@
       <div class="cart-main">
         <div class="products-cart-main" id="products-cart-main">
           <!-- Sección Carrito de la Compra -->
-          <div class="shopping-cart section checkout active" id="step1" aria-label="Carrito de la compra">
+          <div class="shopping-cart section active" id="step1" aria-label="Carrito de la compra">
             <div class="selected-products" id="selected-products">
               <h1>Carrito de la compra</h1>
               <article class="product out-of-stock" id="product-1">
@@ -607,7 +608,7 @@
               <legend>Método de pago</legend>
               <label for="payment-method">Seleccione un método de pago:</label>
               <select id="payment-method" name="payment-method" required aria-required="true">
-                <option value="">Seleccione un método de pago</option>
+                <option value="" selected>Seleccione un método de pago</option>
                 <option value="card">Tarjeta de débito/crédito</option>
                 <option value="paypal">Paypal</option>
                 <option value="bank-transfer">Transferencia bancaria</option>

@@ -1,4 +1,29 @@
-/* Estilos básicos de variables de color para los temas */
+.navegation {
+  font-family: "Playwrite GB S", sans-serif;
+  background-color: var(--color-nav-element);
+  margin-bottom: 1em;
+}
+
+.navegation ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  gap: 2em;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: thin;
+  margin: 0;
+}
+
+.navegation ul li {
+  font-size: 1.2em;
+}
+
+.navegation a {
+  text-decoration: none;
+  color: var(--color-nav-text);
+  transition: color 0.3s ease;
+}
 
 .section-title {
   margin: 2em;

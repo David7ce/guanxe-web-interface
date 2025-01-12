@@ -1,0 +1,136 @@
+@import url('./palette.css');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna&family=Sora&display=swap');
+
+@font-face {
+  font-family: "Playwrite GB S";
+  src: url("../../fonts/Playwrite.woff2") format("woff2"),
+    url("https://fonts.gstatic.com/s/playwriteitmoderna/v5/xyz-font-url.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: var(--color-bg);
+}
+
+/*  ----- Cabecera  ----- */
+header {
+  display: flex;
+  justify-content: flex-start;
+  gap: 2em;
+  overflow-x: auto;
+  padding: 1em;
+  margin: 2em;
+  align-items: center;
+  border-radius: 8px;
+  scrollbar-width: thin;
+  background-color: var(--color-bg-element);
+}
+
+.icon-item img {
+  height: 30px;
+  filter: var(--icon-color-light);
+}
+
+/* Ocultar nombres */
+.icon-item p {
+  display: none;
+}
+
+.logo {
+  height: 40px;
+}
+
+.search {
+  flex-grow: 1;
+}
+
+.search input {
+  border-radius: 10px;
+  width: 93%;
+  height: 3em;
+  padding: 0.5em 1em;
+  background-color: var(--color-bg-element);
+  border: 3px solid;
+}
+
+.search img {
+  height: 30px;
+}
+
+
+.icon-item a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.icon-item {
+  display: none;
+}
+
+.icon-item:first-child,
+.icon-item:last-child {
+  display: block;
+}
+
+/* .icon-item:not(:first-child):not(:last-child) {
+  display: none;
+} */
+
+/* --- Selección de tema con paleta de colores --- */
+.theme-settings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.theme-icon,
+.contrast-icon {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.theme-icon:hover,
+.contrast-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Botones */
+.font-size-icon {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.font-size-icon:hover {
+  background-color: #0056b3;
+}
+
+/* --- Pantallas de ancho mínimo 576px --- */
+@media (min-width: 576px) {
+
+  /* Zonas de buscador, geo, cuenta y cesta */
+  .icon-item {
+    display: flex;
+    align-items: center;
+    height: max-content;
+    width: max-content;
+  }
+
+  .search {
+    flex-grow: 1;
+    color: unset;
+  }
+}
+
+/* @media (min-width: 912px), (min-width: 576px) and (orientation: landscape) { } */
+
+/* @media (min-width: 1024px) { } */
