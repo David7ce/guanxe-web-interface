@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     initializeContinueButton();
+    initializeNavigationMenu();
     step1();
     step2();
     step3();
@@ -23,11 +24,16 @@ document.addEventListener("DOMContentLoaded", function () {
     function step3() {
         updateTotalPriceWithShipping();
         initializePaymentMethodSelection();
+        showBillingAddress();
         autoCompleteDataPaymentForm();
     }
 
     function step4() {
         showConfirmationView();
+    }
+
+    function congratulationsMessage() {
+        alert("Felicidades. Has realizado la compra exitosamente.")
     }
 
     function initializeContinueButton() {
@@ -42,28 +48,63 @@ document.addEventListener("DOMContentLoaded", function () {
                 handleStep3ContinueClick();
             } else if (currentStep.id === "step4") {
                 showConfirmationView();
+                congratulationsMessage();
+            }
+        });
+    }
+
+    function initializeNavigationMenu() {
+        const navLinks = document.querySelectorAll(".steps-checkout a");
+
+        navLinks.forEach((link, index) => {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                const currentStep = document.querySelector(".section.active").id.replace("step", "");
+                if (index + 1 <= parseInt(currentStep)) {
+                    showStep(index + 1);
+                }
+            });
+        });
+    }
+
+    function showStep(stepNumber) {
+        const steps = document.querySelectorAll(".section");
+        const navItems = document.querySelectorAll(".steps-checkout li");
+
+        steps.forEach((step, index) => {
+            if (index + 1 === stepNumber) {
+                step.classList.add("active");
+                step.setAttribute("aria-hidden", "false");
+                navItems[index].classList.add("active-step");
+            } else {
+                step.classList.remove("active");
+                step.setAttribute("aria-hidden", "true");
+                navItems[index].classList.remove("active-step");
             }
         });
     }
 
     function showNextStep(currentStep) {
-        const currentStepElement = document.getElementById(`step${currentStep}`);
-        const nextStepElement = document.getElementById(`step${parseInt(currentStep) + 1}`);
-
-        if (!currentStepElement) {
-            console.error(`Current step element not found: step${currentStep}`);
+        const getElement = (id) => document.getElementById(id);
+        const getNavElement = (step) => document.querySelector(`.steps-checkout li:nth-child(${step})`);
+    
+        const currentStepElement = getElement(`step${currentStep}`);
+        const nextStepElement = getElement(`step${parseInt(currentStep) + 1}`);
+        const currentNavElement = getNavElement(parseInt(currentStep));
+        const nextNavElement = getNavElement(parseInt(currentStep) + 1);
+    
+        if (!currentStepElement || !nextStepElement) {
+            console.error(`Step element not found: step${currentStep} or step${parseInt(currentStep) + 1}`);
             return;
         }
-
-        if (!nextStepElement) {
-            console.error(`Next step element not found: step${parseInt(currentStep) + 1}`);
-            return;
-        }
-
+    
         currentStepElement.classList.remove("active");
         currentStepElement.setAttribute("aria-hidden", "true");
+        currentNavElement.classList.remove("active-step");
+    
         nextStepElement.classList.add("active");
         nextStepElement.setAttribute("aria-hidden", "false");
+        nextNavElement.classList.add("active-step");
     }
 
     // --- Utility functions ---
@@ -142,7 +183,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const addProductButtons = document.querySelectorAll(".add-product");
 
         addProductButtons.forEach((button) => {
-            button.addEventListener("click", addProductToCart);
+            button.addEventListener("click", function (event) {
+                const product = event.target.closest("article.product");
+                const stock = parseInt(product.querySelector(".product-quantity span").textContent);
+                if (stock > 0) {
+                    addProductToCart(product);
+                } else {
+                    alert("Este producto está fuera de stock.");
+                }
+            });
         });
     }
 
@@ -169,13 +218,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
                 const totalPrice = quantity * productPrice;
                 document.getElementById(`${productId}-total`).textContent = `${totalPrice.toFixed(2)}€`;
+
+                if (quantity === 0) {
+                    const productArticle = event.target.closest("article.product");
+                    if (productArticle) {
+                        productArticle.remove();
+                    }
+                }
+
                 updateTotalProductPrice();
+                updateTotalPrice();
             });
         });
     }
 
-    function addProductToCart(event) {
-        const product = event.target.closest("article.product");
+    function addProductToCart(product) {
         const productId = product.id;
         const productName = product.querySelector(".product-name h2").textContent;
         const productPrice = parseFloat(
@@ -185,13 +242,18 @@ document.addEventListener("DOMContentLoaded", function () {
         );
         const selectedProducts = document.getElementById("selected-products");
         const imgSrc = product.querySelector(".product-img img").getAttribute("src");
+        const stock = parseInt(product.querySelector(".product-quantity span").textContent);
 
         // Check if the product is already in the cart
         let cartItem = selectedProducts.querySelector(`#${productId}-cart`);
         if (cartItem) {
             // If the product is already in the cart, increase the quantity
             let quantityInput = cartItem.querySelector(".product-quantity input");
-            quantityInput.value = parseInt(quantityInput.value) + 1;
+            if (parseInt(quantityInput.value) < stock) {
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+            } else {
+                alert("No puedes añadir más unidades de este producto.");
+            }
         } else {
             // Create a new product element
             const productTemplate = `
@@ -208,7 +270,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
                 <div class="product-quantity">
                   <label for="${productId}-quantity">Unidades:</label>
-                  <input type="number" id="${productId}-quantity" value="1" min="0" max="99" aria-label="Número de unidades disponibles" />
+                  <input type="number" id="${productId}-quantity" value="1" min="0" max="${stock}" aria-label="Número de unidades disponibles" />
+                  <p>Unidades en stock: <span id="${productId}-stock">${stock}</span></p>
                 </div>
                 <div class="product-pricing">
                   <p>Precio por unidad: <span id="${productId}-price">${productPrice.toFixed(2)}€</span></p>
@@ -224,18 +287,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Update the total price with the added number
         updateProductPriceOnQuantityChange();
-    }
-
-    function updateTotalProductPrice() {
-        const totalUnitPrice = document.querySelectorAll(".product-pricing span[id$='-total']");
-
-        totalUnitPrice.forEach((totalUnitePrice) => {
-            const productId = totalUnitePrice.id.replace("-total", "");
-            const quantity = parseInt(document.getElementById(`${productId}-quantity`).value);
-            const unitPrice = parseFloat(document.getElementById(`${productId}-price`).textContent.replace("€", ""));
-            const modifiedPrice = unitPrice * quantity;
-            totalUnitePrice.textContent = `${modifiedPrice.toFixed(2)}€`;
-        });
+        initializeRemoveProduct(); // Reinitialize remove product buttons for new items
     }
 
     function updateTotalPrice() {
@@ -461,6 +513,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    function showBillingAddress() {
+        const sameAddressCheckbox = document.getElementById('same-address');
+        const billingAddressFields = document.getElementById('billing-address-fields');
+    
+        sameAddressCheckbox.addEventListener('change', () => {
+            if (sameAddressCheckbox.checked) {
+                billingAddressFields.style.display = 'none';
+            } else {
+                billingAddressFields.style.display = 'block';
+            }
+        });
+    }
+
     function validatePaymentMethodSelection() {
         const paymentMethodSelect = document.getElementById("payment-method");
         const selectedMethod = paymentMethodSelect.value;
@@ -567,20 +632,8 @@ document.addEventListener("DOMContentLoaded", function () {
             step4.setAttribute("aria-hidden", "true");
         }
 
-        showCongratulations();
         showPurchaseData();
     };
-
-    function showCongratulations() {
-        const divStep4 = document.getElementById("step4");
-        const congratulationsMessage = document.createElement("div");
-        congratulationsMessage.classList.add("congratulations-message");
-        congratulationsMessage.innerHTML = `
-            <h2>Confirmación de compra</h2>
-            <p>Aquí tienes un resumen de tu compra.</p>
-        `;
-        divStep4.appendChild(congratulationsMessage);
-    }
 
     function showPurchaseData() {
         const divStep4 = document.getElementById("step4");

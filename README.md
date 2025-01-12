@@ -1,17 +1,15 @@
 # TODO
 
 - HTML
-  - Añadir header y footer
-  - Añadir botones de "Continuar"
   - Añadir aplicar descuentos
 
 - JS
   - Mejorar JS
+  - Codigo de descuentos
+  - Añadir producto
 
 - CSS
   - Cambiar input number con - y +
-  - agregar header y footer
-  - agregar colores
   - mejorar css
 
 ---
