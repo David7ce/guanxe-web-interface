@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector('#continue-button').addEventListener("click", function () {
             const currentStep = document.querySelector(".section.active");
 
+            // TODO: pasar a switch
             if (currentStep.id === "step1") {
                 handleStep1ContinueClick();
             } else if (currentStep.id === "step2") {
@@ -184,9 +185,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         addProductButtons.forEach((button) => {
             button.addEventListener("click", function (event) {
-                const product = event.target.closest("article.product");
-                const stock = parseInt(product.querySelector(".product-quantity span").textContent);
-                if (stock > 0) {
+                const product = event.target.closest("article");
+                const stock = product.querySelector(".product-quantity span");
+                if (parseInt(stock.textContent) > 0) {
                     addProductToCart(product);
                 } else {
                     alert("Este producto está fuera de stock.");
@@ -243,6 +244,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedProducts = document.getElementById("selected-products");
         const imgSrc = product.querySelector(".product-img img").getAttribute("src");
         const stock = parseInt(product.querySelector(".product-quantity span").textContent);
+        const realStock = product.querySelector(".product-quantity span");
+        realStock.innerHTML = parseInt(realStock.textContent) - 1;
 
         // Check if the product is already in the cart
         let cartItem = selectedProducts.querySelector(`#${productId}-cart`);
@@ -443,7 +446,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const methods = shippingMethods[zone] || [];
 
             shippingMethod.innerHTML = '<option value="">Seleccione un método de envío</option>';
-            shippingMethod.disabled = methods.length === 0;
+            // shippingMethod.disabled = methods.length === 0;
 
             methods.forEach(method => {
                 const option = document.createElement("option");
@@ -511,6 +514,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 bankTransferDetails.style.display = "block";
             }
         });
+
+        /* TODO:
+        - Añadir campo de descuento
+            Crear caampo de input text alfanumerico
+            Crear un array con 4 codigos hardcodeados en la función del código JS
+            Tomar el valor del campo y comprobar si alguno de los arrays contiene el valor, y aplicamos un descuento sobre el total
+        */
     }
 
     function showBillingAddress() {

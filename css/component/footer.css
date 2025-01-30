@@ -31,10 +31,12 @@ footer p {
 footer a {
   color: var(--color-text);
   text-decoration: none;
+  position: relative;
+  transition: all 0.1s ease-in-out;
 }
 
 footer a:hover {
-  text-decoration: underline;
+  border-bottom: 1.8px solid var(--color-text);
 }
 
 /* --- Pantallas de ancho mínimo 576px --- */

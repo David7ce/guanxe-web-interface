@@ -1,0 +1,52 @@
+.team {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.employee-rec {
+    height: 300px;
+}
+
+.employee-rec img {
+    height: 200px;
+    border-radius: 150px;
+    border-radius: 3px solid black;
+}
+
+.employee-data .name,
+.employee-data .job-position {
+    text-align: center;
+}
+
+.video-presentation video,
+.video-presentation iframe {
+    width: 100%;
+    height: auto;
+}
+
+
+.employee-rec {
+    margin: 0 auto;
+}
+
+@media (min-width: 700px) {
+    .video-presentation video {
+        display: block;
+        max-width: 650px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .video-presentation iframe {
+        display: block;
+        max-width: 650px;
+        height: 350px;
+        margin: 25px auto;
+    }
+
+    .transcript-link {
+        text-align: center;
+    }
+}
