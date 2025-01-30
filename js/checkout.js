@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const continueButtons = document.querySelectorAll('.continue-button');
+
     initializeContinueButton();
     initializeNavigationMenu();
     step1();
@@ -32,25 +34,34 @@ document.addEventListener("DOMContentLoaded", function () {
         showConfirmationView();
     }
 
-    function congratulationsMessage() {
-        alert("Felicidades. Has realizado la compra exitosamente.")
-    }
+    // function congratulationsMessage() {
+    //     alert("Felicidades. Has realizado la compra exitosamente.")
+    // }
 
     function initializeContinueButton() {
-        document.querySelector('#continue-button').addEventListener("click", function () {
-            const currentStep = document.querySelector(".section.active");
-
-            // TODO: pasar a switch
-            if (currentStep.id === "step1") {
-                handleStep1ContinueClick();
-            } else if (currentStep.id === "step2") {
-                handleStep2ContinueClick();
-            } else if (currentStep.id === "step3") {
-                handleStep3ContinueClick();
-            } else if (currentStep.id === "step4") {
-                showConfirmationView();
-                congratulationsMessage();
-            }
+        const continueButtons = document.querySelectorAll('.continue-button');
+        continueButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                const currentStep = document.querySelector(".section.active");
+        
+                switch (currentStep.id) {
+                    case "step1":
+                        handleStep1ContinueClick();
+                        break;
+                    case "step2":
+                        handleStep2ContinueClick();
+                        break;
+                    case "step3":
+                        handleStep3ContinueClick();
+                        break;
+                    case "step4":
+                        showConfirmationView();
+                        congratulationsMessage();
+                        break;
+                    default:
+                        console.error("Paso no reconocido:", currentStep.id);
+                }
+            });
         });
     }
 

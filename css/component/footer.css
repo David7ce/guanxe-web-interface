@@ -40,15 +40,9 @@ footer a:hover {
 }
 
 /* --- Pantallas de ancho mínimo 576px --- */
-@media (min-width: 576px) {
+@media (min-width: 660px) {
   footer {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
 }
-
-/* --- Pantallas entre 912px y 1023 px, o entre 576 y 1023 px --- */
-/* @media (min-width: 912px), (min-width: 576px) and (orientation: landscape) { } */
-
-/* --- Pantallas de mínimo 1024px de ancho --- */
-/* @media (min-width: 1024px) { } */

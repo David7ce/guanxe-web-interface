@@ -89,7 +89,9 @@
       </ul>
     </nav>
     <div class="return-to-store">
-      <a href="../../index.html" aria-label="Volver a la tienda">Seguir comprando</a>
+      <a href="../../index.html" aria-label="Volver a la tienda">
+        <img src="../../img/icon/return.svg" alt="return">
+      </a>
     </div>
   </div>
 
@@ -114,7 +116,8 @@
                 </div>
                 <div class="product-quantity">
                   <label for="product-1-quantity">Unidades:</label>
-                  <input type="number" id="product-1-quantity" value="1" min="0" max="10" aria-label="Número de unidades disponibles" />
+                  <input type="number" id="product-1-quantity" value="1" min="0" max="10"
+                    aria-label="Número de unidades disponibles" />
                   <p>Unidades en stock: <span id="product-1-stock">10</span></p>
                 </div>
                 <div class="product-pricing">
@@ -140,7 +143,8 @@
                 </div>
                 <div class="product-quantity">
                   <label for="product-2-quantity">Unidades:</label>
-                  <input type="number" id="product-2-quantity" value="1" min="0" max="10" aria-label="Número de unidades disponibles" />
+                  <input type="number" id="product-2-quantity" value="1" min="0" max="10"
+                    aria-label="Número de unidades disponibles" />
                   <p>Unidades en stock: <span id="product-2-stock">10</span></p>
                 </div>
                 <div class="product-pricing">
@@ -165,7 +169,8 @@
                 </div>
                 <div class="product-quantity">
                   <label for="product-3-quantity">Unidades:</label>
-                  <input type="number" id="product-3-quantity" value="1" min="0" max="5" aria-label="Número de unidades disponibles" />
+                  <input type="number" id="product-3-quantity" value="1" min="0" max="5"
+                    aria-label="Número de unidades disponibles" />
                   <p>Unidades en stock: <span id="product-3-stock">5</span></p>
                 </div>
                 <div class="product-pricing">
@@ -227,46 +232,54 @@
               </section>
             </article>
           </div>
+
+          <div class="section-button">
+            <button type="button" class="btn-continue continue-button" aria-label="Continuar">
+              Continuar
+              <img src="../../img/icon/forward-double-arrow.svg" alt="">
+            </button>
+          </div>
+
           <div class="recommended-products">
             <h2>Productos recomendados</h2>
 
             <article class="product out-of-stock" id="product-6" aria-labelledby="product-6-name">
               <figure class="product-img">
-              <img src="../../img/products/gorra.jpg" alt="Gorra" />
+                <img src="../../img/products/gorra.jpg" alt="Gorra" />
               </figure>
               <section class="product-info">
-              <div class="product-name">
-                <h2 id="product-6-name">Gorra</h2>
-              </div>
-              <div class="product-pricing">
-                <p>
-                Precio por unidad: <span id="product-6-price">30€</span>
-                </p>
-                <p>Unidades en stock: <span id="product-6-stock">0</span></p>
-              </div>
-              <button class="add-product" aria-label="Agregar producto recomendado al carrito">
-                Agregar
-              </button>
+                <div class="product-name">
+                  <h2 id="product-6-name">Gorra</h2>
+                </div>
+                <div class="product-pricing">
+                  <p>
+                    Precio por unidad: <span id="product-6-price">30€</span>
+                  </p>
+                  <p>Unidades en stock: <span id="product-6-stock">0</span></p>
+                </div>
+                <button class="add-product" aria-label="Agregar producto recomendado al carrito">
+                  Agregar
+                </button>
               </section>
             </article>
 
             <article class="product" id="product-7" aria-labelledby="product-7-name">
               <figure class="product-img">
-              <img src="../../img/products/anorak.jpg" alt="Anorak" />
+                <img src="../../img/products/anorak.jpg" alt="Anorak" />
               </figure>
               <section class="product-info">
-              <div class="product-name">
-                <h2 id="product-7-name">Anorak</h2>
-              </div>
-              <div class="product-pricing">
-                <p>
-                Precio por unidad: <span id="product-7-price">30€</span>
-                </p>
-                <p class="product-quantity">Unidades en stock: <span id="product-7-stock">5</span></p>
-              </div>
-              <button class="add-product" aria-label="Agregar producto recomendado al carrito">
-                Agregar
-              </button>
+                <div class="product-name">
+                  <h2 id="product-7-name">Anorak</h2>
+                </div>
+                <div class="product-pricing">
+                  <p>
+                    Precio por unidad: <span id="product-7-price">30€</span>
+                  </p>
+                  <p class="product-quantity">Unidades en stock: <span id="product-7-stock">5</span></p>
+                </div>
+                <button class="add-product" aria-label="Agregar producto recomendado al carrito">
+                  Agregar
+                </button>
               </section>
             </article>
           </div>
@@ -568,11 +581,12 @@
                 <input type="checkbox" id="same-address" name="billing-option" value="same" checked>
                 <label for="same-address">Usar la misma dirección para la facturación</label>
               </div>
-            
+
               <div id="billing-address-fields" style="display: none;">
                 <div class="row-fieldset">
                   <label for="billing-address">Calle:</label>
-                  <input type="text" id="billing-address" name="billing-address" placeholder="Calle Pepito Pérez, 12, 2º Der." />
+                  <input type="text" id="billing-address" name="billing-address"
+                    placeholder="Calle Pepito Pérez, 12, 2º Der." />
                 </div>
                 <div class="row-fieldset">
                   <label for="billing-city">Ciudad:</label>
@@ -588,7 +602,8 @@
                 </div>
                 <div class="row-fieldset">
                   <label for="billing-postal-code">Código postal:</label>
-                  <input type="text" id="billing-postal-code" name="billing-postal-code" placeholder="38132" pattern="^38\d{3}$" />
+                  <input type="text" id="billing-postal-code" name="billing-postal-code" placeholder="38132"
+                    pattern="^38\d{3}$" />
                 </div>
               </div>
             </fieldset>
@@ -670,8 +685,9 @@
         <div class="cart-summary-item">
           <p>Precio total: <span id="total-price"></span></p>
         </div>
-        <button type="button" id="continue-button" aria-label="Continuar">
+        <button type="button" class="btn-continue continue-button" aria-label="Continuar">
           Continuar
+          <img src="../../img/icon/forward-double-arrow.svg" alt="">
         </button>
       </div>
     </div>

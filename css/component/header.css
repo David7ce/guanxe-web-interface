@@ -19,7 +19,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   gap: 0.5em;
-  padding: 0.6em;
+  padding: 1em;
   margin: 2em;
   border-radius: 8px;
   background-color: var(--color-bg-element);
@@ -27,19 +27,15 @@ body {
   scrollbar-width: thin;
 }
 
-.icon-item:nth-last-child(3) {
-  margin-left: auto;
+.icon-item {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 0 auto;
 }
 
 .icon-item .user-account {
   display: none;
-}
-
-.icon-item a {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
 }
 
 .icon-item img {
@@ -47,12 +43,22 @@ body {
   filter: var(--icon-color-light);
 }
 
-.icon-item p {
-  display: none;
+.icon-item a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .icon-item .canary-flag-icon {
   display: none;
+}
+
+/* Ocultar nombres */
+.icon-item p {
+  display: none;
+}
+
+.icon-item.shopping-cart-icon-item {
+  justify-content: center;
 }
 
 .logo {
@@ -60,18 +66,17 @@ body {
 }
 
 .search {
-  margin-left: 5%;
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
 }
 
 .search::after {
   content: "";
   display: block;
-  width: 25px;
-  height: 25px;
+  width: 28px;
+  height: 28px;
   background-image: url('../../img/icon/search.svg');
   background-size: contain;
   background-repeat: no-repeat;
@@ -139,17 +144,15 @@ body {
   background-color: lighten(var(--color-text), 20%);
 }
 
-@media (min-width: 490px) {
-  .icon-item .user-account,
-  .icon-item .canary-flag-icon {
+@media (min-width: 410px) {
+  .icon-item .user-account {
     display: block;
   }
 }
 
 /* --- Pantallas de ancho mínimo 576px --- */
-@media (min-width: 620px) {
+@media (min-width: 576px) {
   .header-section {
-    padding: 1em;
     gap: 1.1em;
   }
 
@@ -164,10 +167,11 @@ body {
     align-items: center;
     height: max-content;
     width: max-content;
-    justify-content: center;
   }
 
-
+  .icon-item .canary-flag-icon {
+    display: block;
+  }
 
   .search {
     width: auto;
