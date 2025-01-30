@@ -1,168 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Guanche" />
-    <link rel="shortcut icon" href="./img/icon/favicon.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="./css/component/header.css" />
-    <link rel="stylesheet" href="./css/component/footer.css" />
-    <link rel="stylesheet" href="./css/component/font-size.css" />
-    <link rel="stylesheet" href="./css/home.css" />
-    <script src="./js/theme-and-font-size.js"></script>
-    <title>Guanxe.com</title>
-  </head>
 
-  <body>
-    <header>
-      <div class="icon-item visible">
-        <a href="#" aria-label="Guanxe Home">
-          <img src="../../img/icon/guanxe-logo.svg" alt="guanxe" class="guanxe-logo" />
-        </a>
-      </div>
-      <div class="search">
-        <input type="search" name="search" id="search" placeholder="Buscar productos" aria-label="Buscar productos" />
-        <!-- <img src="../../img/icon/search.svg" alt="search" class="search-icon" /> -->
-      </div>
-      <div class="icon-item">
-        <a href="#" aria-label="Región Canarias">
-          <img src="../../img/icon/canary-islands.svg" alt="Canarias" class="canary-flag-icon" />
-          <p>Canarias</p>
-        </a>
-      </div>
-      <div class="icon-item">
-        <a href="#" aria-label="Cuenta de usuario">
-          <img src="../../img/icon/user.svg" alt="user" class="user-account" />
-          <p>Cuenta</p>
-        </a>
-      </div>
-      <div class="icon-item visible">
-        <a href="./pages/checkout/index.html" aria-label="Carrito de compras">
-          <img src="../../img/icon/shopping-cart.svg" alt="shopping-cart" class="shopping-cart-icon" />
-          <p>Cesta</p>
-        </a>
-      </div>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Guanche" />
+  <link rel="shortcut icon" href="./img/icon/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="./css/component/header.css" />
+  <link rel="stylesheet" href="./css/component/footer.css" />
+  <link rel="stylesheet" href="./css/component/font-size.css" />
+  <link rel="stylesheet" href="./css/home.css" />
+  <script src="./js/theme-and-font-size.js"></script>
+  <title>Guanxe.com</title>
+</head>
 
-    <div class="accessibility">
-      <div class="theme-settings">
-        <!-- Theme Switcher (Light/Dark) -->
-        <img
-          id="sun-icon"
-          class="theme-icon"
-          src="./img/icon/sun.svg"
-          alt="Tema claro"
-          aria-label="Cambiar a tema claro"
-        />
-        <img
-          id="moon-icon"
-          class="theme-icon"
-          src="./img/icon/moon-stars.svg"
-          alt="Tema oscuro"
-          aria-label="Cambiar a tema oscuro"
-        />
-
-        <div class="change-font-size">
-          <button
-            class="font-size-icon"
-            id="decrease-font-size"
-            aria-label="Disminuir tamaño de letra"
-          >
-            A-
-          </button>
-
-          <button
-            class="font-size-icon"
-            id="reset-font-size"
-            aria-label="Resetear tamaño de letra"
-          >
-            ⥻
-          </button>
-          <button
-            class="font-size-icon"
-            id="increase-font-size"
-            aria-label="Aumentar tamaño de letra"
-          >
-            A+
-          </button>
-        </div>
-
-        <!-- Contrast Switcher -->
-        <img
-          id="high-contrast-icon"
-          class="contrast-icon"
-          src="./img/icon/high-contrast.svg"
-          alt="Alto contraste"
-          aria-label="Cambiar a alto contraste"
-        />
-        <img
-          id="low-contrast-icon"
-          class="contrast-icon"
-          src="./img/icon/low-contrast.svg"
-          alt="Bajo contraste"
-          aria-label="Cambiar a bajo contraste"
-        />
-      </div>
+<body>
+  <header class="header-section">
+    <div class="icon-item visible">
+      <a href="#" aria-label="Guanxe Home">
+        <img src="../../img/icon/guanxe-logo.svg" alt="guanxe" class="guanxe-logo" />
+      </a>
     </div>
+    <div class="icon-item search">
+      <input type="search" name="search" id="search" placeholder="Buscar productos" aria-label="Buscar productos" />
+      <!-- <img src="../../img/icon/search.svg" alt="search" class="search-icon" /> -->
+    </div>
+    <div class="icon-item">
+      <a href="#" aria-label="Región Canarias">
+        <img src="../../img/icon/canary-flag.svg" alt="Canarias" class="canary-flag-icon" />
+        <p>Canarias</p>
+      </a>
+    </div>
+    <div class="icon-item">
+      <a href="#" aria-label="Cuenta de usuario">
+        <img src="../../img/icon/user.svg" alt="user" class="user-account" />
+        <p>Cuenta</p>
+      </a>
+    </div>
+    <div class="icon-item visible">
+      <a href="./pages/checkout/index.html" aria-label="Carrito de compras">
+        <img src="../../img/icon/shopping-cart.svg" alt="shopping-cart" class="shopping-cart-icon" />
+        <p>Cesta</p>
+      </a>
+    </div>
+  </header>
 
-    <div class="grid-container">
-      <!-- secciones destacadas -->
-      <nav class="navegation" aria-label="Navegación principal">
-        <ul>
-          <li><a href="#" aria-label="Ofertas">Ofertas</a></li>
-          <li><a href="#" aria-label="Nuevos">Nuevos</a></li>
-          <li><a href="#" aria-label="Tendencias">Tendencias</a></li>
-          <li><a href="#" aria-label="Top ventas">Top ventas</a></li>
-          <li><a href="#" aria-label="Top valorados">Top valorados</a></li>
-          <li><a href="#" aria-label="Top visitas">Top visitas</a></li>
-        </ul>
-      </nav>
+  <div class="accessibility">
+    <div class="theme-settings">
+      <!-- Theme Switcher (Light/Dark) -->
+      <img id="sun-icon" class="theme-icon" src="./img/icon/sun.svg" alt="Tema claro"
+        aria-label="Cambiar a tema claro" />
+      <img id="moon-icon" class="theme-icon" src="./img/icon/moon-stars.svg" alt="Tema oscuro"
+        aria-label="Cambiar a tema oscuro" />
 
-      <main>
-        <div class="sidebar">
-          <div class="categories-title">
-            <span>Categorías</span>
-          </div>
-          <div class="categories">
-            <ul>
-              <li>
-                <a href="./pages/catalog/index.html" aria-label="Abrigos">Abrigos</a>
-              </li>
-              <li>
-                <a href="./pages/catalog/index.html" aria-label="Bañadores">Bañadores</a>
-              </li>
-              <li>
-                <a href="./pages/catalog/index.html" aria-label="Calcetines">Calcetines</a>
-              </li>
-              <li>
-                <a href="./pages/catalog/index.html" aria-label="Camiseta">Camiseta</a>
-              </li>
-              <li>
-                <a href="./pages/catalog/index.html" aria-label="Pantalones">Pantalones</a>
-              </li>
-              <li>
-                <a href="./pages/catalog/index.html" aria-label="Ropa interior">Ropa interior</a>
-              </li>
-              <li>
-                <a href="./pages/catalog/index.html" aria-label="Trajes">Trajes</a>
-              </li>
-              <li>
-                <a href="./pages/catalog/index.html" aria-label="Uniformes">Uniformes</a>
-              </li>
-              <li>
-                <a href="./pages/catalog/index.html" aria-label="Vestidos">Vestidos</a>
-              </li>
-              <li>
-                <a href="./pages/catalog/index.html" aria-label="Zapatos">Zapatos</a>
-              </li>
-            </ul>
-          </div>
+      <div class="change-font-size">
+        <button class="font-size-icon" id="decrease-font-size" aria-label="Disminuir tamaño de letra">
+          A-
+        </button>
+
+        <button class="font-size-icon" id="reset-font-size" aria-label="Resetear tamaño de letra">
+          ⥻
+        </button>
+        <button class="font-size-icon" id="increase-font-size" aria-label="Aumentar tamaño de letra">
+          A+
+        </button>
+      </div>
+
+      <!-- Contrast Switcher -->
+      <img id="high-contrast-icon" class="contrast-icon" src="./img/icon/high-contrast.svg" alt="Alto contraste"
+        aria-label="Cambiar a alto contraste" />
+      <img id="low-contrast-icon" class="contrast-icon" src="./img/icon/low-contrast.svg" alt="Bajo contraste"
+        aria-label="Cambiar a bajo contraste" />
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <!-- secciones destacadas -->
+    <nav class="navegation" aria-label="Navegación principal">
+      <ul>
+        <li><a href="#" aria-label="Ofertas">Ofertas</a></li>
+        <li><a href="#" aria-label="Nuevos">Nuevos</a></li>
+        <li><a href="#" aria-label="Tendencias">Tendencias</a></li>
+        <li><a href="#" aria-label="Top ventas">Top ventas</a></li>
+        <li><a href="#" aria-label="Top valorados">Top valorados</a></li>
+        <li><a href="#" aria-label="Top visitas">Top visitas</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <div class="sidebar">
+        <div class="categories-title">
+          <span>Categorías</span>
         </div>
+        <div class="categories">
+          <ul>
+            <li>
+              <a href="./pages/catalog/index.html" aria-label="Abrigos">Abrigos</a>
+            </li>
+            <li>
+              <a href="./pages/catalog/index.html" aria-label="Bañadores">Bañadores</a>
+            </li>
+            <li>
+              <a href="./pages/catalog/index.html" aria-label="Calcetines">Calcetines</a>
+            </li>
+            <li>
+              <a href="./pages/catalog/index.html" aria-label="Camiseta">Camiseta</a>
+            </li>
+            <li>
+              <a href="./pages/catalog/index.html" aria-label="Pantalones">Pantalones</a>
+            </li>
+            <li>
+              <a href="./pages/catalog/index.html" aria-label="Ropa interior">Ropa interior</a>
+            </li>
+            <li>
+              <a href="./pages/catalog/index.html" aria-label="Trajes">Trajes</a>
+            </li>
+            <li>
+              <a href="./pages/catalog/index.html" aria-label="Uniformes">Uniformes</a>
+            </li>
+            <li>
+              <a href="./pages/catalog/index.html" aria-label="Vestidos">Vestidos</a>
+            </li>
+            <li>
+              <a href="./pages/catalog/index.html" aria-label="Zapatos">Zapatos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-        <div class="main-content">
-          <!-- <div class="banners">
+      <div class="main-content">
+        <!-- <div class="banners">
             <div class="banner">
               <a href="#">
                 <img src="img/banner/banner-books.jpg" alt="" />
@@ -180,136 +149,106 @@
             </div>
           </div> -->
 
-          <div class="section-title">
-            <span>Tendencias</span>
+        <div class="section-title">
+          <span>Tendencias</span>
+        </div>
+
+        <div class="trend-categories">
+          <div class="category-title">
+            <span>Ofertas</span>
           </div>
 
-          <div class="trend-categories">
-            <div class="category-title">
-              <span>Ofertas</span>
-            </div>
-
-            <div class="trend-category">
-              <article class="product">
-                <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
-                  <img
-                    src="img/products/zapatillas/vans-old-skool-4.png"
-                    alt="zapatillas"
-                  />
-                  <p class="name">Zapatillas Vans Old Skool</p>
-                  <p class="price">99.90€</p>
-                  <p class="price-offer">-10%</p>
-                </a>
-              </article>
-              <article class="product">
-                <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
-                  <img
-                    src="img/products/zapatillas/vans-old-skool-4.png"
-                    alt="zapatillas"
-                  />
-                  <p class="name">Zapatillas Vans Old Skool</p>
-                  <p class="price">99.90€</p>
-                  <p class="price-offer">-10%</p>
-                </a>
-              </article>
-              <article class="product">
-                <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
-                  <img
-                    src="img/products/zapatillas/vans-old-skool-4.png"
-                    alt="zapatillas"
-                  />
-                  <p class="name">Zapatillas Vans Old Skool</p>
-                  <p class="price">99.90€</p>
-                  <p class="price-offer">-10%</p>
-                </a>
-              </article>
-              <article class="product">
-                <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
-                  <img
-                    src="img/products/zapatillas/vans-old-skool-4.png"
-                    alt="zapatillas"
-                  />
-                  <p class="name">Zapatillas Vans Old Skool</p>
-                  <p class="price">99.90€</p>
-                  <p class="price-offer">-10%</p>
-                </a>
-              </article>
-              <article class="product">
-                <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
-                  <img
-                    src="img/products/zapatillas/vans-old-skool-4.png"
-                    alt="zapatillas"
-                  />
-                  <p class="name">Zapatillas Vans Old Skool</p>
-                  <p class="price">99.90€</p>
-                  <p class="price-offer">-10%</p>
-                </a>
-              </article>
-            </div>
-
-            <div class="category-title">
-              <span>Destacados</span>
-            </div>
-            <div class="trend-category">
-              <article class="product">
-                <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
-                  <img
-                    src="img/products/zapatillas/vans-old-skool-4.png"
-                    alt="zapatillas"
-                  />
-                  <p class="name">Zapatillas Vans Old Skool</p>
-                  <p class="price">99.90€</p>
-                  <p class="price-offer">-10%</p>
-                </a>
-              </article>
-              <article class="product">
-                <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
-                  <img
-                    src="img/products/zapatillas/vans-old-skool-4.png"
-                    alt="zapatillas"
-                  />
-                  <p class="name">Zapatillas Vans Old Skool</p>
-                  <p class="price">99.90€</p>
-                  <p class="price-offer">-10%</p>
-                </a>
-              </article>
-              <article class="product">
-                <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
-                  <img
-                    src="img/products/zapatillas/vans-old-skool-4.png"
-                    alt="zapatillas"
-                  />
-                  <p class="name">Zapatillas Vans Old Skool</p>
-                  <p class="price">99.90€</p>
-                  <p class="price-offer">-10%</p>
-                </a>
-              </article>
-              <article class="product">
-                <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
-                  <img
-                    src="img/products/zapatillas/vans-old-skool-4.png"
-                    alt="zapatillas"
-                  />
-                  <p class="name">Zapatillas Vans Old Skool</p>
-                  <p class="price">99.90€</p>
-                  <p class="price-offer">-10%</p>
-                </a>
-              </article>
-              <article class="product">
-                <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
-                  <img
-                    src="img/products/zapatillas/vans-old-skool-4.png"
-                    alt="zapatillas"
-                  />
-                  <p class="name">Zapatillas Vans Old Skool</p>
-                  <p class="price">99.90€</p>
-                  <p class="price-offer">-10%</p>
-                </a>
-              </article>
-            </div>
+          <div class="trend-category">
+            <article class="product">
+              <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
+                <img src="img/products/zapatillas/vans-old-skool-4.png" alt="zapatillas" />
+                <p class="name">Zapatillas Vans Old Skool</p>
+                <p class="price">99.90€</p>
+                <p class="price-offer">-10%</p>
+              </a>
+            </article>
+            <article class="product">
+              <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
+                <img src="img/products/zapatillas/vans-old-skool-4.png" alt="zapatillas" />
+                <p class="name">Zapatillas Vans Old Skool</p>
+                <p class="price">99.90€</p>
+                <p class="price-offer">-10%</p>
+              </a>
+            </article>
+            <article class="product">
+              <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
+                <img src="img/products/zapatillas/vans-old-skool-4.png" alt="zapatillas" />
+                <p class="name">Zapatillas Vans Old Skool</p>
+                <p class="price">99.90€</p>
+                <p class="price-offer">-10%</p>
+              </a>
+            </article>
+            <article class="product">
+              <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
+                <img src="img/products/zapatillas/vans-old-skool-4.png" alt="zapatillas" />
+                <p class="name">Zapatillas Vans Old Skool</p>
+                <p class="price">99.90€</p>
+                <p class="price-offer">-10%</p>
+              </a>
+            </article>
+            <article class="product">
+              <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
+                <img src="img/products/zapatillas/vans-old-skool-4.png" alt="zapatillas" />
+                <p class="name">Zapatillas Vans Old Skool</p>
+                <p class="price">99.90€</p>
+                <p class="price-offer">-10%</p>
+              </a>
+            </article>
           </div>
 
-          <!-- <div class="section-title">
+          <div class="category-title">
+            <span>Destacados</span>
+          </div>
+          <div class="trend-category">
+            <article class="product">
+              <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
+                <img src="img/products/zapatillas/vans-old-skool-4.png" alt="zapatillas" />
+                <p class="name">Zapatillas Vans Old Skool</p>
+                <p class="price">99.90€</p>
+                <p class="price-offer">-10%</p>
+              </a>
+            </article>
+            <article class="product">
+              <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
+                <img src="img/products/zapatillas/vans-old-skool-4.png" alt="zapatillas" />
+                <p class="name">Zapatillas Vans Old Skool</p>
+                <p class="price">99.90€</p>
+                <p class="price-offer">-10%</p>
+              </a>
+            </article>
+            <article class="product">
+              <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
+                <img src="img/products/zapatillas/vans-old-skool-4.png" alt="zapatillas" />
+                <p class="name">Zapatillas Vans Old Skool</p>
+                <p class="price">99.90€</p>
+                <p class="price-offer">-10%</p>
+              </a>
+            </article>
+            <article class="product">
+              <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
+                <img src="img/products/zapatillas/vans-old-skool-4.png" alt="zapatillas" />
+                <p class="name">Zapatillas Vans Old Skool</p>
+                <p class="price">99.90€</p>
+                <p class="price-offer">-10%</p>
+              </a>
+            </article>
+            <article class="product">
+              <a href="pages/catalog/zapatillas-vans-oldskool.html" aria-label="Zapatillas Vans Old Skool">
+                <img src="img/products/zapatillas/vans-old-skool-4.png" alt="zapatillas" />
+                <p class="name">Zapatillas Vans Old Skool</p>
+                <p class="price">99.90€</p>
+                <p class="price-offer">-10%</p>
+              </a>
+            </article>
+          </div>
+        </div>
+
+        <!-- <div class="section-title">
             <span>Packs de ofertas</span>
           </div>
           <div class="offer-packs">
@@ -336,61 +275,62 @@
             </div>
           </div> -->
 
-          <div class="section-title">
-            <span>Marcas</span>
+        <div class="section-title">
+          <span>Marcas</span>
+        </div>
+        <div class="brands">
+          <div class="brand">
+            <a href="#" aria-label="Converse">
+              <img src="img/brand/converse.png" alt="Nike" />
+              <p>Converse</p>
+            </a>
           </div>
-          <div class="brands">
-            <div class="brand">
-              <a href="#" aria-label="Converse">
-                <img src="img/brand/converse.png" alt="Nike" />
-                <p>Converse</p>
-              </a>
-            </div>
-            <div class="brand">
-              <a href="#" aria-label="New Balance">
-                <img src="img/brand/new-balance.png" alt="New Balance" />
-                <p>New Balance</p>
-              </a>
-            </div>
-            <div class="brand">
-              <a href="#" aria-label="Nike">
-                <img src="img/brand/nike.png" alt="Nike" />
-                <p>Nike</p>
-              </a>
-            </div>
-            <div class="brand">
-              <a href="#" aria-label="Vans">
-                <img src="img/brand/vans.png" alt="Vans" />
-                <p>Vans</p>
-              </a>
-            </div>
+          <div class="brand">
+            <a href="#" aria-label="New Balance">
+              <img src="img/brand/new-balance.png" alt="New Balance" />
+              <p>New Balance</p>
+            </a>
+          </div>
+          <div class="brand">
+            <a href="#" aria-label="Nike">
+              <img src="img/brand/nike.png" alt="Nike" />
+              <p>Nike</p>
+            </a>
+          </div>
+          <div class="brand">
+            <a href="#" aria-label="Vans">
+              <img src="img/brand/vans.png" alt="Vans" />
+              <p>Vans</p>
+            </a>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
+  </div>
 
-    <footer>
-      <div class="conditions-and-legal">
-        <span>Condiciones</span>
-        <p><a href="#" aria-label="Condiciones de contratación">Condiciones de contratación</a></p>
-        <p><a href="#" aria-label="Condiciones de uso">Condiciones de uso</a></p>
-        <span>Legalidad</span>
-        <p><a href="#" aria-label="Aviso legal">Aviso legal</a></p>
-        <p><a href="#" aria-label="Reclamaciones">Reclamaciones</a></p>
-      </div>
-      <div class="help">
-        <span>Ayuda</span>
-        <p><a href="#" aria-label="Cómo comprar">Cómo comprar</a></p>
-        <p><a href="#" aria-label="Envíos">Envíos</a></p>
-        <p><a href="#" aria-label="Devoluciones">Devoluciones</a></p>
-        <p><a href="#" aria-label="Bases promocionales">Bases promocionales</a></p>
-      </div>
-      <div class="corpo-side">
-        <span>Quiénes somos</span>
-        <p><a href="./pages/about.html">Sobre nosotros</a></p>
-        <p><a href="#" aria-label="Responsabilidad social">Responsabilidad social</a></p>
-        <p><a href="#" aria-label="Tiendas">Tiendas</a></p>
-      </div>
-    </footer>
-  </body>
+  <footer>
+    <div class="conditions-and-legal">
+      <span>Condiciones</span>
+      <p><a href="#" aria-label="Condiciones de contratación">Condiciones de contratación</a></p>
+      <p><a href="#" aria-label="Condiciones de uso">Condiciones de uso</a></p>
+      <span>Legalidad</span>
+      <p><a href="#" aria-label="Aviso legal">Aviso legal</a></p>
+      <p><a href="#" aria-label="Reclamaciones">Reclamaciones</a></p>
+    </div>
+    <div class="help">
+      <span>Ayuda</span>
+      <p><a href="#" aria-label="Cómo comprar">Cómo comprar</a></p>
+      <p><a href="#" aria-label="Envíos">Envíos</a></p>
+      <p><a href="#" aria-label="Devoluciones">Devoluciones</a></p>
+      <p><a href="#" aria-label="Bases promocionales">Bases promocionales</a></p>
+    </div>
+    <div class="corpo-side">
+      <span>Quiénes somos</span>
+      <p><a href="./pages/about.html">Sobre nosotros</a></p>
+      <p><a href="#" aria-label="Responsabilidad social">Responsabilidad social</a></p>
+      <p><a href="#" aria-label="Tiendas">Tiendas</a></p>
+    </div>
+  </footer>
+</body>
+
 </html>
