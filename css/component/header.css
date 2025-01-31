@@ -38,6 +38,10 @@ body {
   display: none;
 }
 
+.icon-item .shopping-cart-icon {
+  bottom: 18px;
+}
+
 .icon-item img {
   height: 30px;
   filter: var(--icon-color-light);
@@ -57,9 +61,7 @@ body {
   display: none;
 }
 
-.icon-item.shopping-cart-icon-item {
-  justify-content: center;
-}
+
 
 .logo {
   height: 40px;

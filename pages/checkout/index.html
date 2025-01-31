@@ -17,7 +17,7 @@
 
 <body>
   <header class="header-section">
-    <div class="icon-item visible">
+    <div class="icon-item">
       <a href="../../../index.html" aria-label="Guanxe Home">
         <img src="../../img/icon/guanxe-logo.svg" alt="guanxe" class="guanxe-logo" />
       </a>
@@ -27,18 +27,18 @@
       <!-- <img src="../../img/icon/search.svg" alt="search" class="search-icon" /> -->
     </div>
     <div class="icon-item">
-      <a href="#" aria-label="Región Canarias">
+      <a href="#" aria-label="Región: Canarias">
         <img src="../../img/icon/canary-flag.svg" alt="Canarias" class="canary-flag-icon" />
         <p>Canarias</p>
       </a>
     </div>
     <div class="icon-item">
-      <a href="#" aria-label="Cuenta de usuario">
+      <a href="#" aria-label="Cuenta de usuario: Iniciar sesión">
         <img src="../../img/icon/user.svg" alt="user" class="user-account" />
         <p>Cuenta</p>
       </a>
     </div>
-    <div class="icon-item visible">
+    <div class="icon-item">
       <a href="../checkout/index.html" aria-label="Carrito de compras">
         <img src="../../img/icon/shopping-cart.svg" alt="shopping-cart" class="shopping-cart-icon" />
         <p>Cesta</p>
@@ -666,6 +666,13 @@
               </div>
             </fieldset>
           </form>
+          <h2>>Zona de descuento</h2>
+          <div class="discount-zone">
+            <label for="discount-code">Código de descuento:</label>
+            <input type="text" name="discount-code" id="discount-code" placeholder="Introduce tu código">
+            <button type="button" id="check-discount-button"
+              aria-label="Comprobar código de descuento">Comprobar</button>
+          </div>
         </div>
         <div class="section purchase-confirmation" id="step4" aria-label="Confirmación de compra" aria-hidden="true">
           <!-- Detalles de la confirmación se cargarán aquí dinámicamente -->

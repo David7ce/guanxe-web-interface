@@ -1,5 +1,28 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const continueButtons = document.querySelectorAll('.continue-button');
+    const DOM = {
+        continueButtons: document.querySelectorAll('.continue-button'),
+        navLinks: document.querySelectorAll(".steps-checkout a"),
+        steps: document.querySelectorAll(".section"),
+        navItems: document.querySelectorAll(".steps-checkout li"),
+        selectedProducts: document.getElementById("selected-products"),
+        subtotalElement: document.getElementById("subtotal-price"),
+        totalElement: document.getElementById("total-price"),
+        shippingMethodSelect: document.getElementById("shipping-method"),
+        countrySelect: document.getElementById("country"),
+        shippingZone: document.getElementById("shipping-zone"),
+        paymentMethodSelect: document.getElementById("payment-method"),
+        cardDetails: document.getElementById("card-details"),
+        paypalDetails: document.getElementById("paypal-details"),
+        bankTransferDetails: document.getElementById("bank-transfer-details"),
+        discountInput: document.getElementById("discount-code"),
+        discountButton: document.getElementById("check-discount-button"),
+        sameAddressCheckbox: document.getElementById('same-address'),
+        billingAddressFields: document.getElementById('billing-address-fields'),
+        clientDataForm: document.getElementById("client-data-form"),
+        step4: document.getElementById("step4"),
+        confirmationDetails: document.createElement("div"),
+        discountCodes: ["GUANXE10", "GUANXE-DOR", "GUANCHE-TFE", "GUANXE-2025"]
+    };
 
     initializeContinueButton();
     initializeNavigationMenu();
@@ -20,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function step2() {
         addCountryToShippingZone();
         showShippingMethodByZone();
-        autoCompleteDataUserForm();
+        // autoCompleteDataUserForm();
     }
 
     function step3() {
@@ -34,16 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
         showConfirmationView();
     }
 
-    // function congratulationsMessage() {
-    //     alert("Felicidades. Has realizado la compra exitosamente.")
-    // }
-
     function initializeContinueButton() {
-        const continueButtons = document.querySelectorAll('.continue-button');
-        continueButtons.forEach(button => {
+        DOM.continueButtons.forEach(button => {
             button.addEventListener("click", function () {
                 const currentStep = document.querySelector(".section.active");
-        
+
                 switch (currentStep.id) {
                     case "step1":
                         handleStep1ContinueClick();
@@ -66,9 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function initializeNavigationMenu() {
-        const navLinks = document.querySelectorAll(".steps-checkout a");
-
-        navLinks.forEach((link, index) => {
+        DOM.navLinks.forEach((link, index) => {
             link.addEventListener("click", function (event) {
                 event.preventDefault();
                 const currentStep = document.querySelector(".section.active").id.replace("step", "");
@@ -80,18 +96,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showStep(stepNumber) {
-        const steps = document.querySelectorAll(".section");
-        const navItems = document.querySelectorAll(".steps-checkout li");
-
-        steps.forEach((step, index) => {
+        DOM.steps.forEach((step, index) => {
             if (index + 1 === stepNumber) {
                 step.classList.add("active");
                 step.setAttribute("aria-hidden", "false");
-                navItems[index].classList.add("active-step");
+                DOM.navItems[index].classList.add("active-step");
             } else {
                 step.classList.remove("active");
                 step.setAttribute("aria-hidden", "true");
-                navItems[index].classList.remove("active-step");
+                DOM.navItems[index].classList.remove("active-step");
             }
         });
     }
@@ -99,21 +112,21 @@ document.addEventListener("DOMContentLoaded", function () {
     function showNextStep(currentStep) {
         const getElement = (id) => document.getElementById(id);
         const getNavElement = (step) => document.querySelector(`.steps-checkout li:nth-child(${step})`);
-    
+
         const currentStepElement = getElement(`step${currentStep}`);
         const nextStepElement = getElement(`step${parseInt(currentStep) + 1}`);
         const currentNavElement = getNavElement(parseInt(currentStep));
         const nextNavElement = getNavElement(parseInt(currentStep) + 1);
-    
+
         if (!currentStepElement || !nextStepElement) {
             console.error(`Step element not found: step${currentStep} or step${parseInt(currentStep) + 1}`);
             return;
         }
-    
+
         currentStepElement.classList.remove("active");
         currentStepElement.setAttribute("aria-hidden", "true");
         currentNavElement.classList.remove("active-step");
-    
+
         nextStepElement.classList.add("active");
         nextStepElement.setAttribute("aria-hidden", "false");
         nextNavElement.classList.add("active-step");
@@ -167,8 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // --- Products ZONE ---
     function handleStep1ContinueClick() {
-        const selectedProducts = document.getElementById("selected-products");
-        const products = selectedProducts.querySelectorAll("article.product");
+        const products = DOM.selectedProducts.querySelectorAll("article.product");
 
         if (products.length > 0) {
             showNextStep('1');
@@ -252,14 +264,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 .querySelector(".product-pricing span")
                 .textContent.replace("€", "")
         );
-        const selectedProducts = document.getElementById("selected-products");
         const imgSrc = product.querySelector(".product-img img").getAttribute("src");
         const stock = parseInt(product.querySelector(".product-quantity span").textContent);
         const realStock = product.querySelector(".product-quantity span");
         realStock.innerHTML = parseInt(realStock.textContent) - 1;
 
         // Check if the product is already in the cart
-        let cartItem = selectedProducts.querySelector(`#${productId}-cart`);
+        let cartItem = DOM.selectedProducts.querySelector(`#${productId}-cart`);
         if (cartItem) {
             // If the product is already in the cart, increase the quantity
             let quantityInput = cartItem.querySelector(".product-quantity input");
@@ -296,7 +307,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
 
             // Append the new product to the selected products
-            selectedProducts.insertAdjacentHTML("beforeend", productTemplate);
+            DOM.selectedProducts.insertAdjacentHTML("beforeend", productTemplate);
         }
 
         // Update the total price with the added number
@@ -305,28 +316,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateTotalPrice() {
-        const subtotalElement = document.getElementById("subtotal-price");
-        const totalElement = document.getElementById("total-price");
         const totalUnitPrice = document.querySelectorAll(".product-pricing span[id$='-total']");
-        const shippingMethodSelect = document.getElementById("shipping-method");
         const igic = 0.07;
         let subtotal = 0;
 
         totalUnitPrice.forEach((totalUnitePrice) => {
             const price = parseFloat(totalUnitePrice.textContent.replace("€", ""));
-            subtotal += price;
+            subtotal += price / (1 + igic); // Calculate subtotal without IGIC
         });
 
-        subtotalElement.textContent = `${subtotal.toFixed(2)}€`;
+        DOM.subtotalElement.textContent = `${subtotal.toFixed(2)}€`;
 
         let total = (igic + 1) * subtotal;
 
-        const selectedMethod = shippingMethodSelect.options[shippingMethodSelect.selectedIndex];
+        const selectedMethod = DOM.shippingMethodSelect.options[DOM.shippingMethodSelect.selectedIndex];
         if (selectedMethod && selectedMethod.dataset.price) {
             total += parseFloat(selectedMethod.dataset.price);
         }
 
-        totalElement.textContent = `${total.toFixed(2)}€`;
+        DOM.totalElement.textContent = `${total.toFixed(2)}€`;
     }
 
 
@@ -341,48 +349,47 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function autoCompleteDataUserForm() {
-        const dniInput = document.getElementById("dni");
-        const nameInput = document.getElementById("name");
-        const surname1Input = document.getElementById("surname1");
-        const surname2Input = document.getElementById("surname2");
-        const nationality = document.getElementById("nationality");
-        const emailInput = document.getElementById("email");
-        const emailConfirmInput = document.getElementById("email-confirm");
-        const phonePrefixInput = document.getElementById("phone-prefix");
-        const mobilePhoneInput = document.getElementById("mobile-phone");
-        const addressInput = document.getElementById("address");
-        const cityInput = document.getElementById("city");
-        const countryInput = document.getElementById("country");
-        const postalCodeInput = document.getElementById("postal-code");
-        const shippingMethodSelect = document.getElementById("shipping-method");
-        const firstOption = shippingMethodSelect.options[1];
+    // function autoCompleteDataUserForm() {
+    //     const dniInput = document.getElementById("dni");
+    //     const nameInput = document.getElementById("name");
+    //     const surname1Input = document.getElementById("surname1");
+    //     const surname2Input = document.getElementById("surname2");
+    //     const nationality = document.getElementById("nationality");
+    //     const emailInput = document.getElementById("email");
+    //     const emailConfirmInput = document.getElementById("email-confirm");
+    //     const phonePrefixInput = document.getElementById("phone-prefix");
+    //     const mobilePhoneInput = document.getElementById("mobile-phone");
+    //     const addressInput = document.getElementById("address");
+    //     const cityInput = document.getElementById("city");
+    //     const countryInput = document.getElementById("country");
+    //     const postalCodeInput = document.getElementById("postal-code");
+    //     const shippingMethodSelect = document.getElementById("shipping-method");
+    //     const firstOption = shippingMethodSelect.options[1];
 
-        dniInput.value = "12345678Z";
-        nameInput.value = "Juan";
-        surname1Input.value = "García";
-        surname2Input.value = "Pérez";
-        nationality.value = "spanish";
-        emailInput.value = "test@email.com";
-        emailConfirmInput.value = "test@email.com";
-        phonePrefixInput.value = "+34";
-        addressInput.value = "Calle Falsa 123";
-        cityInput.value = "Madrid";
-        countryInput.value = "spain";
-        postalCodeInput.value = "28080";
-        mobilePhoneInput.value = "666777888";
-        if (firstOption) {
-            firstOption.selected = true;
-        }
-    }
+    //     dniInput.value = "12345678Z";
+    //     nameInput.value = "Juan";
+    //     surname1Input.value = "García";
+    //     surname2Input.value = "Pérez";
+    //     nationality.value = "spanish";
+    //     emailInput.value = "test@email.com";
+    //     emailConfirmInput.value = "test@email.com";
+    //     phonePrefixInput.value = "+34";
+    //     addressInput.value = "Calle Falsa 123";
+    //     cityInput.value = "Madrid";
+    //     countryInput.value = "spain";
+    //     postalCodeInput.value = "28080";
+    //     mobilePhoneInput.value = "666777888";
+    //     if (firstOption) {
+    //         firstOption.selected = true;
+    //     }
+    // }
 
     function validateClientData() {
-        const clientDataForm = document.getElementById("client-data-form");
-        const formData = new FormData(clientDataForm);
+        const formData = new FormData(DOM.clientDataForm);
         const errors = [];
 
         // Clear previous error markings
-        unmarkInvalidFields(clientDataForm);
+        unmarkInvalidFields(DOM.clientDataForm);
 
         const requiredFields = [
             { name: "name", label: "Nombre", validate: value => value.length >= 3 && value.length <= 20, errorMessage: "El nombre debe tener entre 3 y 20 caracteres." },
@@ -408,10 +415,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const fieldValue = formData.get(field.name);
             if (!fieldValue || !fieldValue.trim()) {
                 errors.push(`El campo '${field.label}' es obligatorio.`);
-                markInvalidField(clientDataForm, field.name);
+                markInvalidField(DOM.clientDataForm, field.name);
             } else if (field.validate && !field.validate(fieldValue.trim())) {
                 errors.push(field.errorMessage);
-                markInvalidField(clientDataForm, field.name);
+                markInvalidField(DOM.clientDataForm, field.name);
             }
         });
 
@@ -419,21 +426,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function addCountryToShippingZone() {
-        const countrySelect = document.getElementById("country");
-        const shippingZone = document.getElementById("shipping-zone");
-
-        countrySelect.addEventListener("change", function () {
-            const selectedCountry = countrySelect.value;
-            shippingZone.textContent = selectedCountry;
+        DOM.countrySelect.addEventListener("change", function () {
+            const selectedCountry = DOM.countrySelect.value;
+            DOM.shippingZone.textContent = selectedCountry;
         });
 
         // Set the value of the shipping zone
-        shippingZone.textContent = countrySelect.value;
+        DOM.shippingZone.textContent = DOM.countrySelect.value;
     }
 
     function showShippingMethodByZone() {
-        const shippingMethod = document.getElementById("shipping-method");
-        const countrySelect = document.getElementById("country");
         const shippingZones = {
             spain: "zone1",
             andorra: "zone2",
@@ -452,32 +454,30 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
         function updateShippingMethods() {
-            const selectedCountry = countrySelect.value;
+            const selectedCountry = DOM.countrySelect.value;
             const zone = shippingZones[selectedCountry] || "zone3";
             const methods = shippingMethods[zone] || [];
 
-            shippingMethod.innerHTML = '<option value="">Seleccione un método de envío</option>';
-            // shippingMethod.disabled = methods.length === 0;
+            DOM.shippingMethodSelect.innerHTML = '<option value="">Seleccione un método de envío</option>';
+            // DOM.shippingMethodSelect.disabled = methods.length === 0;
 
             methods.forEach(method => {
                 const option = document.createElement("option");
                 option.value = method.method;
                 option.textContent = `${method.method} (${method.price}€)`;
                 option.dataset.price = method.price;
-                shippingMethod.appendChild(option);
+                DOM.shippingMethodSelect.appendChild(option);
             });
         }
 
         // Comentar si no uso autocompletado
-        countrySelect.addEventListener("change", updateShippingMethods);
+        DOM.countrySelect.addEventListener("change", updateShippingMethods);
         updateShippingMethods();
     }
 
     function updateTotalPriceWithShipping() {
-        const shippingMethod = document.getElementById("shipping-method");
-
         // valor del option seleccionado con dataset.price
-        shippingMethod.addEventListener("change", updateTotalPrice);
+        DOM.shippingMethodSelect.addEventListener("change", updateTotalPrice);
     }
 
     // -- Payment method ZONE --
@@ -493,63 +493,62 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function initializePaymentMethodSelection() {
-        const paymentMethodSelect = document.getElementById("payment-method");
-        const cardDetails = document.getElementById("card-details");
-        const paypalDetails = document.getElementById("paypal-details");
-        const bankTransferDetails = document.getElementById("bank-transfer-details");
-
-        if (!paymentMethodSelect || !cardDetails || !paypalDetails || !bankTransferDetails) {
+        if (!DOM.paymentMethodSelect || !DOM.cardDetails || !DOM.paypalDetails || !DOM.bankTransferDetails) {
             console.error("One or more payment method elements are missing");
             return;
         }
 
         // Hide all payment details sections by default
-        cardDetails.style.display = "none";
-        paypalDetails.style.display = "none";
-        bankTransferDetails.style.display = "none";
+        DOM.cardDetails.style.display = "none";
+        DOM.paypalDetails.style.display = "none";
+        DOM.bankTransferDetails.style.display = "none";
 
-        paymentMethodSelect.addEventListener("change", function () {
-            const selectedMethod = paymentMethodSelect.value;
+        DOM.paymentMethodSelect.addEventListener("change", function () {
+            const selectedMethod = DOM.paymentMethodSelect.value;
 
             // Hide all payment details sections
-            cardDetails.style.display = "none";
-            paypalDetails.style.display = "none";
-            bankTransferDetails.style.display = "none";
+            DOM.cardDetails.style.display = "none";
+            DOM.paypalDetails.style.display = "none";
+            DOM.bankTransferDetails.style.display = "none";
 
             // Show the selected payment method details
             if (selectedMethod === "card") {
-                cardDetails.style.display = "block";
+                DOM.cardDetails.style.display = "block";
             } else if (selectedMethod === "paypal") {
-                paypalDetails.style.display = "block";
+                DOM.paypalDetails.style.display = "block";
             } else if (selectedMethod === "bank-transfer") {
-                bankTransferDetails.style.display = "block";
+                DOM.bankTransferDetails.style.display = "block";
             }
         });
 
-        /* TODO:
-        - Añadir campo de descuento
-            Crear caampo de input text alfanumerico
-            Crear un array con 4 codigos hardcodeados en la función del código JS
-            Tomar el valor del campo y comprobar si alguno de los arrays contiene el valor, y aplicamos un descuento sobre el total
-        */
+        DOM.discountButton.addEventListener("click", function () {
+            if (DOM.discountCodes.includes(DOM.discountInput.value)) {
+                let total = parseFloat(DOM.totalElement.textContent.replace("€", ""));
+                let discount = total * 0.1;
+                DOM.totalElement.textContent = `${(total - discount).toFixed(2)}€`;
+                DOM.discountInput.disabled = true;
+
+                // Insertart mensaje debajo del botón de aplicar descuento
+                let discountMessage = document.createElement("p");
+                discountMessage.textContent = "Descuento aplicado correctamente.";
+                discountMessage.style.color = "green";
+                DOM.discountButton.insertAdjacentElement("afterned", discountMessage);
+            }
+        });
     }
 
     function showBillingAddress() {
-        const sameAddressCheckbox = document.getElementById('same-address');
-        const billingAddressFields = document.getElementById('billing-address-fields');
-    
-        sameAddressCheckbox.addEventListener('change', () => {
-            if (sameAddressCheckbox.checked) {
-                billingAddressFields.style.display = 'none';
+        DOM.sameAddressCheckbox.addEventListener('change', () => {
+            if (DOM.sameAddressCheckbox.checked) {
+                DOM.billingAddressFields.style.display = 'none';
             } else {
-                billingAddressFields.style.display = 'block';
+                DOM.billingAddressFields.style.display = 'block';
             }
         });
     }
 
     function validatePaymentMethodSelection() {
-        const paymentMethodSelect = document.getElementById("payment-method");
-        const selectedMethod = paymentMethodSelect.value;
+        const selectedMethod = DOM.paymentMethodSelect.value;
         let errors = [];
 
         if (selectedMethod === "card") {
@@ -647,22 +646,18 @@ document.addEventListener("DOMContentLoaded", function () {
     // Mostrar los datos de la compra
 
     function showConfirmationView() {
-        const step4 = document.getElementById("step4");
-        if (step4) {
-            step4.classList.remove("active");
-            step4.setAttribute("aria-hidden", "true");
+        if (DOM.step4) {
+            DOM.step4.classList.remove("active");
+            DOM.step4.setAttribute("aria-hidden", "true");
         }
 
         showPurchaseData();
     };
 
     function showPurchaseData() {
-        const divStep4 = document.getElementById("step4");
-        const confirmationDetails = document.createElement("div");
-        confirmationDetails.id = "confirmation-details";
-        divStep4.appendChild(confirmationDetails);
-        const selectedProducts = document.getElementById("selected-products");
-        const products = selectedProducts.querySelectorAll("article.product");
+        DOM.confirmationDetails.id = "confirmation-details";
+        DOM.step4.appendChild(DOM.confirmationDetails);
+        const products = DOM.selectedProducts.querySelectorAll("article.product");
         const productsData = [
             // { id: 1, name: "Producto 1", price: 10, quantity: 2 },
             // { id: 2, name: "Producto 2", price: 20, quantity: 1 }
@@ -738,7 +733,7 @@ document.addEventListener("DOMContentLoaded", function () {
         totalElement.classList.add("data-row");
         totalElement.textContent = `Total: ${document.getElementById("total-price").textContent}`;
         purchaseData.appendChild(totalElement);
-        confirmationDetails.appendChild(purchaseData);
+        DOM.confirmationDetails.appendChild(purchaseData);
 
         // Insertar datos del cliente y dirección de envío
         const clientData = document.createElement("div");
@@ -755,7 +750,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div>País: ${document.getElementById("country").value}</div>
         <div>Código postal: ${document.getElementById("postal-code").value}</div>
         `;
-        confirmationDetails.appendChild(clientData);
+        DOM.confirmationDetails.appendChild(clientData);
 
         // Insertar datos de pago
         const paymentData = document.createElement("div");
@@ -779,7 +774,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div>Método de pago: ${document.getElementById("payment-method").value}</div>
             `;
         }
-        confirmationDetails.appendChild(paymentData);
+        DOM.confirmationDetails.appendChild(paymentData);
 
         // Insertar datos de la empresa
         const companyData = document.createElement("div");
@@ -793,6 +788,6 @@ document.addEventListener("DOMContentLoaded", function () {
         <div>País: España</div>
         <div>Código postal: 28080</div>
         `;
-        confirmationDetails.appendChild(companyData);
+        DOM.confirmationDetails.appendChild(companyData);
     }
 });
