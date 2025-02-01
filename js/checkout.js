@@ -94,14 +94,14 @@ document.addEventListener("DOMContentLoaded", function () {
     function step2() {
         addCountryToShippingZone();
         showShippingMethodByZone();
-        autoCompleteDataUserForm();
+        // autoCompleteDataUserForm();
     }
 
     function step3() {
         updateTotalPriceWithShipping();
         initializePaymentMethodSelection();
         showBillingAddress();
-        autoCompleteDataPaymentForm();
+        // autoCompleteDataPaymentForm();
     }
 
     function step4() {
