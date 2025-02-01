@@ -16,12 +16,14 @@ body {
 /*  ----- Cabecera  ----- */
 .header-section {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 0.5em;
-  padding: 1em;
+  /* justify-content: flex-start; */
+  /* align-items: center; */
+  /* gap: 0.5em; */
+  /* padding: 1em;
   margin: 2em;
-  border-radius: 8px;
+  border-radius: 8px; */
+  padding: 20px 30px;
+  margin-bottom: 10px;
   background-color: var(--color-bg-element);
   overflow-x: auto;
   scrollbar-width: thin;
@@ -32,8 +34,10 @@ body {
   align-items: center;
   flex-shrink: 0;
   margin: 0 auto;
+  padding: 0;
 }
 
+.icon-item .canary-flag-icon,
 .icon-item .user-account {
   display: none;
 }
@@ -50,21 +54,16 @@ body {
 .icon-item a {
   text-decoration: none;
   color: inherit;
+  height: 30px;
+  width: 30px;
 }
 
-.icon-item .canary-flag-icon {
-  display: none;
+.logo a {
+  width: 95px;
 }
 
-/* Ocultar nombres */
 .icon-item p {
   display: none;
-}
-
-
-
-.logo {
-  height: 40px;
 }
 
 .search {
@@ -136,24 +135,28 @@ body {
   margin: 3px;
   padding: 4px 8px;
   cursor: pointer;
-  background-color: var(--color-text);
-  color: var(--color-bg);
+  background-color: var(--color-bg-element);
+  color: var(--color-text);
   border: none;
   border-radius: 5px;
 }
 
 .font-size-icon:hover {
-  background-color: lighten(var(--color-text), 20%);
+  filter: brightness(1.2);
 }
 
 @media (min-width: 410px) {
   .icon-item .user-account {
     display: block;
   }
+
+  .icon-item .canary-flag-icon {
+    display: block;
+  }
 }
 
 /* --- Pantallas de ancho mínimo 576px --- */
-@media (min-width: 576px) {
+@media (min-width: 600px) {
   .header-section {
     gap: 1.1em;
   }
@@ -171,9 +174,7 @@ body {
     width: max-content;
   }
 
-  .icon-item .canary-flag-icon {
-    display: block;
-  }
+
 
   .search {
     width: auto;

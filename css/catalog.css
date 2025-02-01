@@ -25,6 +25,14 @@
   transition: color 0.3s ease;
 }
 
+.nav-bar {
+  margin-left: 20px;
+}
+
+.nav-bar a {
+  color: var(--color-text);
+}
+
 .section-title {
   margin: 2em;
 }

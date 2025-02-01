@@ -53,6 +53,7 @@ section[aria-hidden="false"] {
     border: none;
     cursor: pointer;
     border-radius: 2em;
+    color: var(--color-text-button);
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
@@ -127,18 +128,22 @@ section[aria-hidden="false"] {
     font-weight: normal;
 }
 
+
+
 /* -- Product -- */
 .icon-trash {
+    background-color: var(--color-bg-element);
+    padding: 5px;
     width: 20px;
     height: auto;
 }
 
 .product {
-    border: 1px solid #ddd;
+        background-color: var(--color-bg);
     padding: 1em;
     margin-bottom: 1em;
     width: 90%;
-    border: 1px solid black;
+    color: var(--color-text);
 }
 
 .product-img img {

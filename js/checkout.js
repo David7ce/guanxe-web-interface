@@ -24,6 +24,57 @@ document.addEventListener("DOMContentLoaded", function () {
         discountCodes: ["GUANXE10", "GUANXE-DOR", "GUANCHE-TFE", "GUANXE-2025"]
     };
 
+    const initialProducts = [
+        {
+            id: "product-1",
+            name: "Vans Old Skool",
+            price: 15,
+            quantity: 1,
+            imgSrc: "../../img/products/zapatillas/vans-old-skool-1.png",
+            stock: 10
+        },
+        {
+            id: "product-2",
+            name: "Bolso",
+            price: 15,
+            quantity: 1,
+            imgSrc: "../../img/products/bolso.webp",
+            stock: 10
+        },
+        {
+            id: "product-3",
+            name: "Camiseta de asillas",
+            price: 20,
+            quantity: 1,
+            imgSrc: "../../img/products/camiseta-asillas.jpg",
+            stock: 5
+        },
+        {
+            id: "product-4",
+            name: "Jersey Hackett",
+            price: 25,
+            quantity: 1,
+            imgSrc: "../../img/products/jersey-hackett.jpg",
+            stock: 99
+        },
+        {
+            id: "product-5",
+            name: "Sandalias",
+            price: 30,
+            quantity: 1,
+            imgSrc: "../../img/products/sandalias.jpg",
+            stock: 99
+        }
+    ];
+
+    try {
+        if (!localStorage.getItem("selectedProducts")) {
+            localStorage.setItem("selectedProducts", JSON.stringify(initialProducts));
+        }
+    } catch (e) {
+        console.error('localStorage error:', e);
+    }
+
     initializeContinueButton();
     initializeNavigationMenu();
     step1();
@@ -43,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function step2() {
         addCountryToShippingZone();
         showShippingMethodByZone();
-        // autoCompleteDataUserForm();
+        autoCompleteDataUserForm();
     }
 
     function step3() {
@@ -55,6 +106,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function step4() {
         showConfirmationView();
+    }
+
+    function autoCompleteDataUserForm() {
+        const dniInput = document.getElementById("dni");
+        const nameInput = document.getElementById("name");
+        const surname1Input = document.getElementById("surname1");
+        const surname2Input = document.getElementById("surname2");
+        const nationality = document.getElementById("nationality");
+        const emailInput = document.getElementById("email");
+        const emailConfirmInput = document.getElementById("email-confirm");
+        const phonePrefixInput = document.getElementById("phone-prefix");
+        const mobilePhoneInput = document.getElementById("mobile-phone");
+        const addressInput = document.getElementById("address");
+        const cityInput = document.getElementById("city");
+        const countryInput = document.getElementById("country");
+        const postalCodeInput = document.getElementById("postal-code");
+        const shippingMethodSelect = document.getElementById("shipping-method");
+        const firstOption = shippingMethodSelect.options[1];
+
+        dniInput.value = "12345678Z";
+        nameInput.value = "Juan";
+        surname1Input.value = "García";
+        surname2Input.value = "Pérez";
+        nationality.value = "spanish";
+        emailInput.value = "test@email.com";
+        emailConfirmInput.value = "test@email.com";
+        phonePrefixInput.value = "+34";
+        addressInput.value = "Calle Falsa 123";
+        cityInput.value = "Madrid";
+        countryInput.value = "spain";
+        postalCodeInput.value = "28080";
+        mobilePhoneInput.value = "666777888";
+        if (firstOption) {
+            firstOption.selected = true;
+        }
+    }
+
+    function autoCompleteDataPaymentForm() {
+        const cardNameInput = document.getElementById("card-name");
+        const cardNumberInput = document.getElementById("card-number");
+        const cardExpirationInput = document.getElementById("card-expiration");
+        const cardCvvInput = document.getElementById("card-cvv");
+        // const paypalEmailInput = document.getElementById("paypal-email");
+
+        cardNameInput.value = "Juan García";
+        cardNumberInput.value = "1234567812345678";
+        cardExpirationInput.value = "12/23";
+        cardCvvInput.value = "123";
+        // paypalEmailInput.value = "test@paypal.com";
+
     }
 
     function initializeContinueButton() {
@@ -180,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // --- Products ZONE ---
     function handleStep1ContinueClick() {
-        const products = DOM.selectedProducts.querySelectorAll("article.product");
+        const products = JSON.parse(localStorage.getItem("selectedProducts")) || [];
 
         if (products.length > 0) {
             showNextStep('1');
@@ -196,6 +297,8 @@ document.addEventListener("DOMContentLoaded", function () {
             button.addEventListener("click", function (event) {
                 const productArticle = event.target.closest("article.product");
                 if (productArticle) {
+                    const productId = productArticle.id.replace("-cart", "");
+                    removeProductFromCart(productId);
                     productArticle.remove();
                     updateTotalPrice();
                 }
@@ -252,6 +355,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 updateTotalProductPrice();
                 updateTotalPrice();
+                updateCartInLocalStorage();
             });
         });
     }
@@ -310,7 +414,7 @@ document.addEventListener("DOMContentLoaded", function () {
             DOM.selectedProducts.insertAdjacentHTML("beforeend", productTemplate);
         }
 
-        // Update the total price with the added number
+        updateCartInLocalStorage();
         updateProductPriceOnQuantityChange();
         initializeRemoveProduct(); // Reinitialize remove product buttons for new items
     }
@@ -337,6 +441,36 @@ document.addEventListener("DOMContentLoaded", function () {
         DOM.totalElement.textContent = `${total.toFixed(2)}€`;
     }
 
+    function updateCartInLocalStorage() {
+        const products = [];
+        const productElements = DOM.selectedProducts.querySelectorAll("article.product");
+
+        productElements.forEach(product => {
+            const productId = product.id.replace("-cart", "");
+            const productName = product.querySelector(".product-name h2").textContent;
+            const productPrice = parseFloat(product.querySelector(".product-pricing span[id$='-price']").textContent.replace("€", ""));
+            const productQuantity = parseInt(product.querySelector(".product-quantity input").value);
+            const imgSrc = product.querySelector(".product-img img").getAttribute("src");
+            const stock = parseInt(product.querySelector(".product-quantity span").textContent);
+
+            products.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                quantity: productQuantity,
+                imgSrc: imgSrc,
+                stock: stock
+            });
+        });
+
+        localStorage.setItem("selectedProducts", JSON.stringify(products));
+    }
+
+    function removeProductFromCart(productId) {
+        let products = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+        products = products.filter(product => product.id !== productId);
+        localStorage.setItem("selectedProducts", JSON.stringify(products));
+    }
 
     // --- Client data ZONE ---
     function handleStep2ContinueClick() {
@@ -345,44 +479,34 @@ document.addEventListener("DOMContentLoaded", function () {
         if (errors.length > 0) {
             generateErrorList(errors, "step2");
         } else {
+            saveClientDataToLocalStorage();
             showNextStep('2');
         }
     }
 
-    // function autoCompleteDataUserForm() {
-    //     const dniInput = document.getElementById("dni");
-    //     const nameInput = document.getElementById("name");
-    //     const surname1Input = document.getElementById("surname1");
-    //     const surname2Input = document.getElementById("surname2");
-    //     const nationality = document.getElementById("nationality");
-    //     const emailInput = document.getElementById("email");
-    //     const emailConfirmInput = document.getElementById("email-confirm");
-    //     const phonePrefixInput = document.getElementById("phone-prefix");
-    //     const mobilePhoneInput = document.getElementById("mobile-phone");
-    //     const addressInput = document.getElementById("address");
-    //     const cityInput = document.getElementById("city");
-    //     const countryInput = document.getElementById("country");
-    //     const postalCodeInput = document.getElementById("postal-code");
-    //     const shippingMethodSelect = document.getElementById("shipping-method");
-    //     const firstOption = shippingMethodSelect.options[1];
+    function saveClientDataToLocalStorage() {
+        const formData = new FormData(DOM.clientDataForm);
+        const clientData = {};
 
-    //     dniInput.value = "12345678Z";
-    //     nameInput.value = "Juan";
-    //     surname1Input.value = "García";
-    //     surname2Input.value = "Pérez";
-    //     nationality.value = "spanish";
-    //     emailInput.value = "test@email.com";
-    //     emailConfirmInput.value = "test@email.com";
-    //     phonePrefixInput.value = "+34";
-    //     addressInput.value = "Calle Falsa 123";
-    //     cityInput.value = "Madrid";
-    //     countryInput.value = "spain";
-    //     postalCodeInput.value = "28080";
-    //     mobilePhoneInput.value = "666777888";
-    //     if (firstOption) {
-    //         firstOption.selected = true;
-    //     }
-    // }
+        formData.forEach((value, key) => {
+            clientData[key] = value;
+        });
+
+        localStorage.setItem("clientData", JSON.stringify(clientData));
+    }
+
+    function loadClientDataFromLocalStorage() {
+        const clientData = JSON.parse(localStorage.getItem("clientData")) || {};
+
+        for (const key in clientData) {
+            if (clientData.hasOwnProperty(key)) {
+                const input = DOM.clientDataForm.querySelector(`[name='${key}']`);
+                if (input) {
+                    input.value = clientData[key];
+                }
+            }
+        }
+    }
 
     function validateClientData() {
         const formData = new FormData(DOM.clientDataForm);
@@ -470,13 +594,11 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        // Comentar si no uso autocompletado
         DOM.countrySelect.addEventListener("change", updateShippingMethods);
         updateShippingMethods();
     }
 
     function updateTotalPriceWithShipping() {
-        // valor del option seleccionado con dataset.price
         DOM.shippingMethodSelect.addEventListener("change", updateTotalPrice);
     }
 
@@ -624,21 +746,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         return errors;
-    }
-
-    function autoCompleteDataPaymentForm() {
-        const cardNameInput = document.getElementById("card-name");
-        const cardNumberInput = document.getElementById("card-number");
-        const cardExpirationInput = document.getElementById("card-expiration");
-        const cardCvvInput = document.getElementById("card-cvv");
-        // const paypalEmailInput = document.getElementById("paypal-email");
-
-        cardNameInput.value = "Juan García";
-        cardNumberInput.value = "1234567812345678";
-        cardExpirationInput.value = "12/23";
-        cardCvvInput.value = "123";
-        // paypalEmailInput.value = "test@paypal.com";
-
     }
 
     // --- Confirmation ZONE ---
