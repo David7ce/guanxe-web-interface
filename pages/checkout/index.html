@@ -103,134 +103,7 @@
         <div class="section shopping-cart active" id="step1" aria-label="Carrito de la compra">
           <div class="selected-products" id="selected-products">
             <h1>Carrito de la compra</h1>
-            <article class="product" id="product-1">
-              <figure class="product-img">
-                <img src="../../img/products/zapatillas/vans-old-skool-1.png" alt="Zapatillas Vans Old Skool" />
-              </figure>
-              <section class="product-info">
-                <div class="product-name">
-                  <h2 id="product-1-name">Vans Old Skool</h2>
-                  <button class="remove-product" id="remove-product-1" aria-label="Eliminar producto">
-                    <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
-                  </button>
-                </div>
-                <div class="product-quantity">
-                  <label for="product-1-quantity">Unidades:</label>
-                  <input type="number" id="product-1-quantity" value="1" min="0" max="10"
-                    aria-label="Número de unidades disponibles" />
-                  <p>Unidades en stock: <span id="product-1-stock">10</span></p>
-                </div>
-                <div class="product-pricing">
-                  <p>
-                    Precio por unidad: <span id="product-1-price">15€</span>
-                  </p>
-                  <p>Total: <span id="product-1-total"></span></p>
-                </div>
-              </section>
-            </article>
-
-            <article class="product" id="product-2">
-              <figure class="product-img">
-                <img src="../../img/products/bolso.webp" alt="Bolso" />
-              </figure>
-              <section class="product-info">
-                <div class="product-name">
-                  <h2 id="product-2-name">Bolso</h2>
-                  <button class="remove-product" id="remove-product-2"
-                    aria-label="Producto fuera de stock no se puede eliminar">
-                    <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
-                  </button>
-                </div>
-                <div class="product-quantity">
-                  <label for="product-2-quantity">Unidades:</label>
-                  <input type="number" id="product-2-quantity" value="1" min="0" max="10"
-                    aria-label="Número de unidades disponibles" />
-                  <p>Unidades en stock: <span id="product-2-stock">10</span></p>
-                </div>
-                <div class="product-pricing">
-                  <p>
-                    Precio por unidad: <span id="product-2-price">15€</span>
-                  </p>
-                  <p>Total: <span id="product-2-total"></span></p>
-                </div>
-              </section>
-            </article>
-
-            <article class="product" id="product-3" aria-labelledby="product-name">
-              <figure class="product-img">
-                <img src="../../img/products/camiseta-asillas.jpg" alt="Camiseta de asillas" />
-              </figure>
-              <section class="product-info">
-                <div class="product-name">
-                  <h2 id="product-3-name">Camiseta de asillas</h2>
-                  <button class="remove-product" id="remove-product-3" aria-label="Eliminar producto">
-                    <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
-                  </button>
-                </div>
-                <div class="product-quantity">
-                  <label for="product-3-quantity">Unidades:</label>
-                  <input type="number" id="product-3-quantity" value="1" min="0" max="5"
-                    aria-label="Número de unidades disponibles" />
-                  <p>Unidades en stock: <span id="product-3-stock">5</span></p>
-                </div>
-                <div class="product-pricing">
-                  <p>
-                    Precio por unidad: <span id="product-3-price">20€</span>
-                  </p>
-                  <p>Total: <span id="product-3-total"></span></p>
-                </div>
-              </section>
-            </article>
-
-            <article class="product" id="product-4" aria-labelledby="product-4-name">
-              <figure class="product-img">
-                <img src="../../img/products/jersey-hackett.jpg" alt="Jersey Hackett" />
-              </figure>
-              <section class="product-info">
-                <div class="product-name">
-                  <h2 id="product-4-name">Jersey Hackett</h2>
-                  <button class="remove-product" id="remove-product-4" aria-label="Eliminar producto">
-                    <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
-                  </button>
-                </div>
-                <div class="product-quantity">
-                  <label for="product-4-quantity">Unidades:</label>
-                  <input type="number" id="product-4-quantity" value="1" min="0" max="99"
-                    aria-label="Número de unidades disponibles" />
-                </div>
-                <div class="product-pricing">
-                  <p>
-                    Precio por unidad: <span id="product-4-price">25€</span>
-                  </p>
-                  <p>Total: <span id="product-4-total"></span></p>
-                </div>
-              </section>
-            </article>
-
-            <article class="product" id="product-5" aria-labelledby="product-5-name">
-              <figure class="product-img">
-                <img src="../../img/products/sandalias.jpg" alt="Sandalias" />
-              </figure>
-              <section class="product-info">
-                <div class="product-name">
-                  <h2 id="product-5-name">Sandalias</h2>
-                  <button class="remove-product" id="remove-product-5" aria-label="Eliminar producto">
-                    <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
-                  </button>
-                </div>
-                <div class="product-quantity">
-                  <label for="product-5-quantity">Unidades:</label>
-                  <input type="number" id="product-5-quantity" value="1" min="0" max="99"
-                    aria-label="Número de unidades disponibles" />
-                </div>
-                <div class="product-pricing">
-                  <p>
-                    Precio por unidad: <span id="product-5-price">30€</span>
-                  </p>
-                  <p>Total: <span id="product-5-total"></span></p>
-                </div>
-              </section>
-            </article>
+            <!-- Los productos del carrito se generan dinámicamente desde localStorage (ver js/checkout.js) -->
           </div>
 
           <div class="section-button">
@@ -645,7 +518,7 @@
                     placeholder="Nombre completo" />
                   <label for="card-number">Número de tarjeta:</label>
                   <input type="text" id="card-number" name="card-number" required aria-required="true"
-                    placeholder="1234 5678 9012" pattern="\d{4} \d{4} \d{4}" maxlength="16" />
+                    placeholder="1234 5678 9012 3456" maxlength="19" />
                   <label for="card-expiration">Fecha de caducidad:</label>
                   <input type="text" id="card-expiration" name="card-expiration" required aria-required="true"
                     placeholder="MM/AA" pattern="\d{2}/\d{2}" />

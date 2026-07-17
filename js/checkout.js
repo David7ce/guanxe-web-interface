@@ -24,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
         discountCodes: ["GUANXE10", "GUANXE-DOR", "GUANCHE-TFE", "GUANXE-2025"]
     };
 
+    let appliedDiscountRate = 0;
+
     const initialProducts = [
         {
             id: "product-1",
@@ -77,13 +79,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     initializeContinueButton();
     initializeNavigationMenu();
+    preventFormSubmission();
     step1();
     step2();
     step3();
     step4();
 
     // -- Inicilization functions --
+    function preventFormSubmission() {
+        document.querySelectorAll("form").forEach(form => {
+            form.addEventListener("submit", (event) => event.preventDefault());
+        });
+    }
+
     function step1() {
+        renderCart();
         initializeRemoveProduct();
         initializeAddProduct();
         updateProductPriceOnQuantityChange();
@@ -174,7 +184,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         handleStep3ContinueClick();
                         break;
                     case "step4":
-                        showConfirmationView();
                         congratulationsMessage();
                         break;
                     default:
@@ -290,6 +299,41 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function renderCart() {
+        const products = JSON.parse(localStorage.getItem("selectedProducts")) || [];
+
+        DOM.selectedProducts.querySelectorAll("article.product").forEach((article) => article.remove());
+
+        products.forEach((product) => {
+            const elementId = `${product.id}-cart`;
+            const productTemplate = `
+            <article class="product" id="${elementId}" aria-labelledby="${elementId}-name">
+              <figure class="product-img">
+                <img src="${product.imgSrc}" alt="${product.name}" />
+              </figure>
+              <section class="product-info">
+                <div class="product-name">
+                  <h2 id="${elementId}-name">${product.name}</h2>
+                  <button class="remove-product" aria-label="Eliminar producto">
+                    <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
+                  </button>
+                </div>
+                <div class="product-quantity">
+                  <label for="${elementId}-quantity">Unidades:</label>
+                  <input type="number" id="${elementId}-quantity" value="${product.quantity}" min="0" max="${product.stock}" aria-label="Número de unidades disponibles" />
+                  <p>Unidades en stock: <span id="${elementId}-stock">${product.stock}</span></p>
+                </div>
+                <div class="product-pricing">
+                  <p>Precio por unidad: <span id="${elementId}-price">${product.price.toFixed(2)}€</span></p>
+                  <p>Total: <span id="${elementId}-total">${(product.price * product.quantity).toFixed(2)}€</span></p>
+                </div>
+              </section>
+            </article>
+            `;
+            DOM.selectedProducts.insertAdjacentHTML("beforeend", productTemplate);
+        });
+    }
+
     function initializeRemoveProduct() {
         const removeButtons = document.querySelectorAll(".remove-product");
 
@@ -312,8 +356,8 @@ document.addEventListener("DOMContentLoaded", function () {
         addProductButtons.forEach((button) => {
             button.addEventListener("click", function (event) {
                 const product = event.target.closest("article");
-                const stock = product.querySelector(".product-quantity span");
-                if (parseInt(stock.textContent) > 0) {
+                const stockSpan = product.querySelector("span[id$='-stock']");
+                if (stockSpan && parseInt(stockSpan.textContent) > 0) {
                     addProductToCart(product);
                 } else {
                     alert("Este producto está fuera de stock.");
@@ -365,13 +409,13 @@ document.addEventListener("DOMContentLoaded", function () {
         const productName = product.querySelector(".product-name h2").textContent;
         const productPrice = parseFloat(
             product
-                .querySelector(".product-pricing span")
+                .querySelector("span[id$='-price']")
                 .textContent.replace("€", "")
         );
         const imgSrc = product.querySelector(".product-img img").getAttribute("src");
-        const stock = parseInt(product.querySelector(".product-quantity span").textContent);
-        const realStock = product.querySelector(".product-quantity span");
-        realStock.innerHTML = parseInt(realStock.textContent) - 1;
+        const stockSpan = product.querySelector("span[id$='-stock']");
+        const stock = parseInt(stockSpan.textContent);
+        stockSpan.textContent = stock - 1;
 
         // Check if the product is already in the cart
         let cartItem = DOM.selectedProducts.querySelector(`#${productId}-cart`);
@@ -385,26 +429,27 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         } else {
             // Create a new product element
+            const elementId = `${productId}-cart`;
             const productTemplate = `
-            <article class="product" id="${productId}-cart" aria-labelledby="${productId}-name">
+            <article class="product" id="${elementId}" aria-labelledby="${elementId}-name">
               <figure class="product-img">
                 <img src="${imgSrc}" alt="${productName}" />
               </figure>
               <section class="product-info">
                 <div class="product-name">
-                  <h2 id="${productId}-name">${productName}</h2>
+                  <h2 id="${elementId}-name">${productName}</h2>
                   <button class="remove-product" aria-label="Eliminar producto">
                     <img src="../../img/icon/trash.svg" alt="Eliminar producto" class="icon-trash" />
                   </button>
                 </div>
                 <div class="product-quantity">
-                  <label for="${productId}-quantity">Unidades:</label>
-                  <input type="number" id="${productId}-quantity" value="1" min="0" max="${stock}" aria-label="Número de unidades disponibles" />
-                  <p>Unidades en stock: <span id="${productId}-stock">${stock}</span></p>
+                  <label for="${elementId}-quantity">Unidades:</label>
+                  <input type="number" id="${elementId}-quantity" value="1" min="0" max="${stock}" aria-label="Número de unidades disponibles" />
+                  <p>Unidades en stock: <span id="${elementId}-stock">${stock}</span></p>
                 </div>
                 <div class="product-pricing">
-                  <p>Precio por unidad: <span id="${productId}-price">${productPrice.toFixed(2)}€</span></p>
-                  <p>Total: <span id="${productId}-total">${productPrice.toFixed(2)}€</span></p> <!-- Initialize total price -->
+                  <p>Precio por unidad: <span id="${elementId}-price">${productPrice.toFixed(2)}€</span></p>
+                  <p>Total: <span id="${elementId}-total">${productPrice.toFixed(2)}€</span></p> <!-- Initialize total price -->
                 </div>
               </section>
             </article>
@@ -436,6 +481,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedMethod = DOM.shippingMethodSelect.options[DOM.shippingMethodSelect.selectedIndex];
         if (selectedMethod && selectedMethod.dataset.price) {
             total += parseFloat(selectedMethod.dataset.price);
+        }
+
+        if (appliedDiscountRate > 0) {
+            total -= total * appliedDiscountRate;
         }
 
         DOM.totalElement.textContent = `${total.toFixed(2)}€`;
@@ -527,7 +576,7 @@ document.addEventListener("DOMContentLoaded", function () {
             { name: "address", label: "Dirección", validate: value => value.split(' ').length >= 2 && value.split(' ').length <= 11, errorMessage: "La dirección debe tener entre 2 y 11 palabras." },
             { name: "city", label: "Ciudad", validate: value => /^[a-zA-Z\s]{2,}$/.test(value), errorMessage: "La ciudad debe tener al menos 2 caracteres y solo contener letras y espacios." },
             { name: "country", label: "País" },
-            { name: "postal-code", label: "Código postal", validate: value => /^\d{5}$/.test(value), errorMessage: "El código postal debe tener 5 dígitos." },
+            { name: "postal-code", label: "Código postal", validate: value => /^38\d{3}$/.test(value), errorMessage: "El código postal debe tener 5 dígitos y empezar por 38 (Canarias)." },
         ];
 
         const shippingMethodElement = document.getElementById("shipping-method");
@@ -644,17 +693,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         DOM.discountButton.addEventListener("click", function () {
-            if (DOM.discountCodes.includes(DOM.discountInput.value)) {
-                let total = parseFloat(DOM.totalElement.textContent.replace("€", ""));
-                let discount = total * 0.1;
-                DOM.totalElement.textContent = `${(total - discount).toFixed(2)}€`;
-                DOM.discountInput.disabled = true;
+            if (appliedDiscountRate > 0) return;
 
-                // Insertart mensaje debajo del botón de aplicar descuento
+            const existingMessage = DOM.discountButton.parentElement.querySelector(".discount-message, .discount-error");
+            if (existingMessage) existingMessage.remove();
+
+            if (DOM.discountCodes.includes(DOM.discountInput.value.trim())) {
+                appliedDiscountRate = 0.1;
+                updateTotalPrice();
+                DOM.discountInput.disabled = true;
+                DOM.discountButton.disabled = true;
+
                 let discountMessage = document.createElement("p");
                 discountMessage.textContent = "Descuento aplicado correctamente.";
-                discountMessage.style.color = "green";
-                DOM.discountButton.insertAdjacentElement("afterned", discountMessage);
+                discountMessage.classList.add("discount-message");
+                DOM.discountButton.insertAdjacentElement("afterend", discountMessage);
+            } else {
+                let errorMessage = document.createElement("p");
+                errorMessage.textContent = "Código de descuento no válido.";
+                errorMessage.classList.add("discount-error");
+                DOM.discountButton.insertAdjacentElement("afterend", errorMessage);
             }
         });
     }
@@ -699,7 +757,7 @@ document.addEventListener("DOMContentLoaded", function () {
             markInvalidField(document.getElementById("payment-details"), "card-holder");
         }
 
-        if (!cardNumberInput.value || !/^\d{16}$/.test(cardNumberInput.value)) {
+        if (!cardNumberInput.value || !/^\d{16}$/.test(cardNumberInput.value.replace(/\s/g, ""))) {
             errors.push("El número de tarjeta debe tener 16 dígitos.");
             markInvalidField(document.getElementById("payment-details"), "card-number");
         }
@@ -753,16 +811,24 @@ document.addEventListener("DOMContentLoaded", function () {
     // Mostrar los datos de la compra
 
     function showConfirmationView() {
-        if (DOM.step4) {
-            DOM.step4.classList.remove("active");
-            DOM.step4.setAttribute("aria-hidden", "true");
-        }
-
         showPurchaseData();
     };
 
+    function congratulationsMessage() {
+        if (document.getElementById("congratulations-message")) return;
+
+        const message = document.createElement("div");
+        message.id = "congratulations-message";
+        message.innerHTML = `
+        <h3>¡Gracias por tu compra!</h3>
+        <p>Hemos recibido tu pedido correctamente.</p>
+        `;
+        DOM.step4.appendChild(message);
+    }
+
     function showPurchaseData() {
         DOM.confirmationDetails.id = "confirmation-details";
+        DOM.confirmationDetails.innerHTML = "";
         DOM.step4.appendChild(DOM.confirmationDetails);
         const products = DOM.selectedProducts.querySelectorAll("article.product");
         const productsData = [

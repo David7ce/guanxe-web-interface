@@ -1,18 +1,10 @@
 # TODO
 
-- HTML
-  - Añadir aplicar descuentos
-
-- JS
-  - Mejorar JS
-  - Codigo de descuentos
-  - Añadir producto
-
 - CSS
   - Cambiar input number con - y +
-  - mejorar css
 
 ---
 
-- Actualizar precio total al aumentar producto
-- Eliminar producto al bajar unidades
+Hecho: aplicar código de descuento, añadir producto recomendado al carrito,
+actualizar precio total al cambiar cantidad, eliminar producto al bajar
+unidades a 0, persistencia del carrito en localStorage entre recargas.

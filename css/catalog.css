@@ -62,9 +62,7 @@
   width: 100%;
 }
 
-.product {
-  a {
-    text-decoration: none;
-    color: var(--color-text);
-  }
+.product a {
+  text-decoration: none;
+  color: var(--color-text);
 }

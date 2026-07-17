@@ -225,6 +225,14 @@ section[aria-hidden="false"] {
     border: 1px solid red;
 }
 
+.discount-message {
+    color: green;
+}
+
+.discount-error {
+    color: red;
+}
+
 .validation-error-list {
     color: red;
     font-size: 0.875em;

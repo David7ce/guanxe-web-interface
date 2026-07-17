@@ -12,7 +12,7 @@
 .employee-rec img {
     height: 200px;
     border-radius: 150px;
-    border-radius: 3px solid black;
+    border: 3px solid black;
 }
 
 .employee-data .name,
