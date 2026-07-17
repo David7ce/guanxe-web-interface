@@ -12,69 +12,13 @@
   <link rel="stylesheet" href="../css/component/footer.css" />
   <link rel="stylesheet" href="../css/component/font-size.css" />
   <link rel="stylesheet" href="../css/about.css" />
+  <script src="../js/layout.js"></script>
   <script src="../js/theme-and-font-size.js"></script>
   <title>Guanxe.com</title>
 </head>
 
 <body>
-  <header class="header-section">
-    <div class="icon-item visible logo">
-      <a href="#" aria-label="Guanxe Home">
-        <img src="../img/icon/guanxe-logo.svg" alt="guanxe" class="guanxe-logo" />
-      </a>
-    </div>
-    <div class="icon-item search">
-      <input type="search" name="search" id="search" placeholder="Buscar productos" aria-label="Buscar productos" />
-      <!-- <img src="../img/icon/search.svg" alt="search" class="search-icon" /> -->
-    </div>
-    <div class="icon-item">
-      <a href="#" aria-label="Región Canarias">
-        <img src="../img/icon/canary-flag.svg" alt="Canarias" class="canary-flag-icon" />
-        <p>Canarias</p>
-      </a>
-    </div>
-    <div class="icon-item">
-      <a href="#" aria-label="Cuenta de usuario">
-        <img src="../img/icon/user.svg" alt="user" class="user-account" />
-        <p>Cuenta</p>
-      </a>
-    </div>
-    <div class="icon-item visible">
-      <a href="./checkout/index.html" aria-label="Carrito de compras">
-        <img src="../img/icon/shopping-cart.svg" alt="shopping-cart" class="shopping-cart-icon" />
-        <p>Cesta</p>
-      </a>
-    </div>
-  </header>
-
-  <div class="accessibility">
-    <div class="theme-settings">
-      <!-- Theme Switcher (Light/Dark) -->
-      <img id="sun-icon" class="theme-icon" src="../img/icon/sun.svg" alt="Tema claro"
-        aria-label="Cambiar a tema claro" />
-      <img id="moon-icon" class="theme-icon" src="../img/icon/moon-stars.svg" alt="Tema oscuro"
-        aria-label="Cambiar a tema oscuro" />
-
-      <div class="change-font-size">
-        <button class="font-size-icon" id="decrease-font-size" aria-label="Disminuir tamaño de letra">
-          A-
-        </button>
-
-        <button class="font-size-icon" id="reset-font-size" aria-label="Resetear tamaño de letra">
-          ⥻
-        </button>
-        <button class="font-size-icon" id="increase-font-size" aria-label="Aumentar tamaño de letra">
-          A+
-        </button>
-      </div>
-
-      <!-- Contrast Switcher -->
-      <img id="high-contrast-icon" class="contrast-icon" src="../img/icon/high-contrast.svg" alt="Alto contraste"
-        aria-label="Cambiar a alto contraste" />
-      <img id="low-contrast-icon" class="contrast-icon" src="../img/icon/low-contrast.svg" alt="Bajo contraste"
-        aria-label="Cambiar a bajo contraste" />
-    </div>
-  </div>
+  <div id="site-header"></div>
 
   <main>
     <div class="title">
@@ -175,29 +119,7 @@
 
   </main>
 
-  <footer>
-    <div class="conditions-and-legal">
-      <span>Condiciones</span>
-      <p><a href="#" aria-label="Condiciones de contratación">Condiciones de contratación</a></p>
-      <p><a href="#" aria-label="Condiciones de uso">Condiciones de uso</a></p>
-      <span>Legalidad</span>
-      <p><a href="#" aria-label="Aviso legal">Aviso legal</a></p>
-      <p><a href="#" aria-label="Reclamaciones">Reclamaciones</a></p>
-    </div>
-    <div class="help">
-      <span>Ayuda</span>
-      <p><a href="#" aria-label="Cómo comprar">Cómo comprar</a></p>
-      <p><a href="#" aria-label="Envíos">Envíos</a></p>
-      <p><a href="#" aria-label="Devoluciones">Devoluciones</a></p>
-      <p><a href="#" aria-label="Bases promocionales">Bases promocionales</a></p>
-    </div>
-    <div class="corpo-side">
-      <span>Quiénes somos</span>
-      <p><a href="./about.html">Sobre nosotros</a></p>
-      <p><a href="#" aria-label="Responsabilidad social">Responsabilidad social</a></p>
-      <p><a href="#" aria-label="Tiendas">Tiendas</a></p>
-    </div>
-  </footer>
+  <div id="site-footer"></div>
 </body>
 
 </html>
