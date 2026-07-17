@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function step1() {
         renderCart();
+        applyStoredRecommendedStock();
         initializeRemoveProduct();
         initializeAddProduct();
         updateProductPriceOnQuantityChange();
@@ -104,68 +105,16 @@ document.addEventListener("DOMContentLoaded", function () {
     function step2() {
         addCountryToShippingZone();
         showShippingMethodByZone();
-        // autoCompleteDataUserForm();
     }
 
     function step3() {
         updateTotalPriceWithShipping();
         initializePaymentMethodSelection();
         showBillingAddress();
-        // autoCompleteDataPaymentForm();
     }
 
     function step4() {
         showConfirmationView();
-    }
-
-    function autoCompleteDataUserForm() {
-        const dniInput = document.getElementById("dni");
-        const nameInput = document.getElementById("name");
-        const surname1Input = document.getElementById("surname1");
-        const surname2Input = document.getElementById("surname2");
-        const nationality = document.getElementById("nationality");
-        const emailInput = document.getElementById("email");
-        const emailConfirmInput = document.getElementById("email-confirm");
-        const phonePrefixInput = document.getElementById("phone-prefix");
-        const mobilePhoneInput = document.getElementById("mobile-phone");
-        const addressInput = document.getElementById("address");
-        const cityInput = document.getElementById("city");
-        const countryInput = document.getElementById("country");
-        const postalCodeInput = document.getElementById("postal-code");
-        const shippingMethodSelect = document.getElementById("shipping-method");
-        const firstOption = shippingMethodSelect.options[1];
-
-        dniInput.value = "12345678Z";
-        nameInput.value = "Juan";
-        surname1Input.value = "García";
-        surname2Input.value = "Pérez";
-        nationality.value = "spanish";
-        emailInput.value = "test@email.com";
-        emailConfirmInput.value = "test@email.com";
-        phonePrefixInput.value = "+34";
-        addressInput.value = "Calle Falsa 123";
-        cityInput.value = "Madrid";
-        countryInput.value = "spain";
-        postalCodeInput.value = "28080";
-        mobilePhoneInput.value = "666777888";
-        if (firstOption) {
-            firstOption.selected = true;
-        }
-    }
-
-    function autoCompleteDataPaymentForm() {
-        const cardNameInput = document.getElementById("card-name");
-        const cardNumberInput = document.getElementById("card-number");
-        const cardExpirationInput = document.getElementById("card-expiration");
-        const cardCvvInput = document.getElementById("card-cvv");
-        // const paypalEmailInput = document.getElementById("paypal-email");
-
-        cardNameInput.value = "Juan García";
-        cardNumberInput.value = "1234567812345678";
-        cardExpirationInput.value = "12/23";
-        cardCvvInput.value = "123";
-        // paypalEmailInput.value = "test@paypal.com";
-
     }
 
     function initializeContinueButton() {
@@ -279,15 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
         stepElement.appendChild(errorList); // añadir al final del formulario
     }
 
-    function validateFields(fields, formData, errors) {
-        fields.forEach(field => {
-            const value = formData.get(field);
-            if (!value) {
-                errors.push(`El campo ${field} es obligatorio.`);
-            }
-        });
-    }
-
     // --- Products ZONE ---
     function handleStep1ContinueClick() {
         const products = JSON.parse(localStorage.getItem("selectedProducts")) || [];
@@ -332,6 +272,22 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
             DOM.selectedProducts.insertAdjacentHTML("beforeend", productTemplate);
         });
+    }
+
+    function applyStoredRecommendedStock() {
+        const stored = JSON.parse(localStorage.getItem("recommendedStock")) || {};
+        document.querySelectorAll(".recommended-products article.product").forEach((article) => {
+            const stockSpan = article.querySelector("span[id$='-stock']");
+            if (stockSpan && stored[article.id] !== undefined) {
+                stockSpan.textContent = stored[article.id];
+            }
+        });
+    }
+
+    function saveRecommendedStock(productId, stock) {
+        const stored = JSON.parse(localStorage.getItem("recommendedStock")) || {};
+        stored[productId] = stock;
+        localStorage.setItem("recommendedStock", JSON.stringify(stored));
     }
 
     function initializeRemoveProduct() {
@@ -416,6 +372,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const stockSpan = product.querySelector("span[id$='-stock']");
         const stock = parseInt(stockSpan.textContent);
         stockSpan.textContent = stock - 1;
+        if (product.closest(".recommended-products")) {
+            saveRecommendedStock(product.id, stock - 1);
+        }
 
         // Check if the product is already in the cart
         let cartItem = DOM.selectedProducts.querySelector(`#${productId}-cart`);
@@ -544,19 +503,6 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("clientData", JSON.stringify(clientData));
     }
 
-    function loadClientDataFromLocalStorage() {
-        const clientData = JSON.parse(localStorage.getItem("clientData")) || {};
-
-        for (const key in clientData) {
-            if (clientData.hasOwnProperty(key)) {
-                const input = DOM.clientDataForm.querySelector(`[name='${key}']`);
-                if (input) {
-                    input.value = clientData[key];
-                }
-            }
-        }
-    }
-
     function validateClientData() {
         const formData = new FormData(DOM.clientDataForm);
         const errors = [];
@@ -582,6 +528,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const shippingMethodElement = document.getElementById("shipping-method");
         if (shippingMethodElement) {
             requiredFields.push({ name: "shipping-method", label: "Método de envío" });
+        }
+
+        if (DOM.sameAddressCheckbox && !DOM.sameAddressCheckbox.checked) {
+            requiredFields.push(
+                { name: "billing-address", label: "Calle de facturación", validate: value => value.split(' ').length >= 2 && value.split(' ').length <= 11, errorMessage: "La dirección de facturación debe tener entre 2 y 11 palabras." },
+                { name: "billing-city", label: "Ciudad de facturación", validate: value => /^[a-zA-Z\s]{2,}$/.test(value), errorMessage: "La ciudad de facturación debe tener al menos 2 caracteres y solo contener letras y espacios." },
+                { name: "billing-country", label: "País de facturación" },
+                { name: "billing-postal-code", label: "Código postal de facturación", validate: value => /^38\d{3}$/.test(value), errorMessage: "El código postal de facturación debe tener 5 dígitos y empezar por 38 (Canarias)." }
+            );
         }
 
         requiredFields.forEach(field => {
@@ -632,7 +587,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const methods = shippingMethods[zone] || [];
 
             DOM.shippingMethodSelect.innerHTML = '<option value="">Seleccione un método de envío</option>';
-            // DOM.shippingMethodSelect.disabled = methods.length === 0;
 
             methods.forEach(method => {
                 const option = document.createElement("option");
@@ -641,6 +595,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 option.dataset.price = method.price;
                 DOM.shippingMethodSelect.appendChild(option);
             });
+
+            const existingNotice = document.getElementById("no-shipping-notice");
+            if (existingNotice) existingNotice.remove();
+
+            if (selectedCountry && methods.length === 0) {
+                DOM.shippingMethodSelect.disabled = true;
+                const notice = document.createElement("p");
+                notice.id = "no-shipping-notice";
+                notice.classList.add("validation-error-list");
+                notice.textContent = "No realizamos envíos a este país todavía.";
+                DOM.shippingMethodSelect.insertAdjacentElement("afterend", notice);
+            } else {
+                DOM.shippingMethodSelect.disabled = false;
+            }
         }
 
         DOM.countrySelect.addEventListener("change", updateShippingMethods);

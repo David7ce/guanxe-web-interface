@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />
@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="../../css/product.css" />
   <script src="../../js/layout.js"></script>
   <script src="../../js/theme-and-font-size.js"></script>
+  <script src="../../js/product-page.js"></script>
   <title>Guanxe.com</title>
 </head>
 
@@ -40,7 +41,9 @@
     </div>
 
     <main>
-      <div class="product">
+      <div class="product" data-product-id="product-vans-old-skool" data-product-name="Tenis deportivos Vans"
+        data-product-price="80" data-product-img="../../img/products/zapatillas/vans-old-skool-1.png"
+        data-product-stock="10">
         <div class="product-images">
           <img src="../../img/products/zapatillas/vans-old-skool-1.png" alt="Zapatillas Vans Old Skool - Imagen 1" />
           <div class="list-img">
@@ -86,16 +89,15 @@
           <p class="ship-info">Envío gratis para pedidos superiores a 50€</p>
 
           <!-- Botones de acción -->
-          <button type="button" class="button buy-now">
-            <a href="#" aria-label="Comprar ahora">Comprar ahora</a>
+          <button type="button" class="button buy-now" id="buy-now-button" aria-label="Comprar ahora">
+            Comprar ahora
           </button>
 
-          <button type="button" class="button add-to-cart">
-            <a href="#" aria-label="Añadir al carrito">Añadir al carrito</a>
+          <button type="button" class="button add-to-cart" id="add-to-cart-button" aria-label="Añadir al carrito">
+            Añadir al carrito
           </button>
-          <button type="button" class="button add-to-favs">
-            <a href="#" aria-label="Añadir a favoritos"><img src="../../img/icon/heart.svg"
-                alt="Añadir a favoritos" /></a>
+          <button type="button" class="button add-to-favs" aria-label="Añadir a favoritos">
+            <img src="../../img/icon/heart.svg" alt="" />
           </button>
         </div>
         <div class="product-description">

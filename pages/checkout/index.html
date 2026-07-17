@@ -112,12 +112,14 @@
               <div class="row-fieldset">
                 <legend>Datos personales</legend>
                 <label for="name">Nombre:</label>
-                <input type="text" id="name" name="name" required aria-required="true" placeholder="Nombre completo" />
+                <input type="text" id="name" name="name" required aria-required="true" placeholder="Nombre completo"
+                  autocomplete="given-name" />
                 <label for="surname1">Apellido 1:</label>
                 <input type="text" id="surname1" name="surname1" required aria-required="true"
-                  placeholder="Primer apellido" />
+                  placeholder="Primer apellido" autocomplete="family-name" />
                 <label for="surname2">Apellido 2:</label>
-                <input type="text" id="surname2" name="surname2" placeholder="Segundo apellido" />
+                <input type="text" id="surname2" name="surname2" placeholder="Segundo apellido"
+                  autocomplete="additional-name" />
               </div>
               <div class="row-fieldset">
                 <label for="nationality">Nacionalidad:</label>
@@ -157,14 +159,15 @@
               <div class="row-fieldset">
                 <label for="email">Correo electrónico:</label>
                 <input type="email" id="email" name="email" required aria-required="true"
-                  placeholder="correo@email.com" />
+                  placeholder="correo@email.com" autocomplete="email" />
                 <label for="email-confirm">Confirmar correo electrónico:</label>
                 <input type="email" id="email-confirm" name="email-confirm" required aria-required="true"
-                  placeholder="Repite el correo electrónico" />
+                  placeholder="Repite el correo electrónico" autocomplete="off" />
               </div>
               <div class="row-fieldset">
                 <label for="phone-prefix">Prefijo telefónico:</label>
-                <select id="phone-prefix" name="phone-prefix" required aria-required="true">
+                <select id="phone-prefix" name="phone-prefix" required aria-required="true"
+                  autocomplete="tel-country-code">
                   <option value="">Seleccione un prefijo</option>
                   <option value="+1">+1 (Estados Unidos)</option>
                   <option value="+7">+7 (Rusia)</option>
@@ -366,7 +369,7 @@
 
                 <label for="mobile-phone">Número de móvil:</label>
                 <input type="tel" id="mobile-phone" name="mobile-phone" required aria-required="true"
-                  placeholder="600123400" />
+                  placeholder="600123400" autocomplete="tel-national" />
               </div>
             </fieldset>
 
@@ -375,13 +378,14 @@
               <div class="row-fieldset">
                 <label for="address">Calle:</label>
                 <input type="text" id="address" name="address" required aria-required="true"
-                  placeholder="Calle Pepito Pérez, 12, 2º Der." />
+                  placeholder="Calle Pepito Pérez, 12, 2º Der." autocomplete="street-address" />
               </div>
               <div class="row-fieldset">
                 <label for="city">Ciudad:</label>
-                <input type="text" id="city" name="city" required aria-required="true" placeholder="Ciudad" />
+                <input type="text" id="city" name="city" required aria-required="true" placeholder="Ciudad"
+                  autocomplete="address-level2" />
                 <label for="country">País:</label>
-                <select id="country" name="country" required aria-required="true">
+                <select id="country" name="country" required aria-required="true" autocomplete="country">
                   <option value="">Seleccione un país</option>
                   <option value="andorra">Andorra</option>
                   <option value="spain">España</option>
@@ -392,7 +396,7 @@
               <div class="row-fieldset">
                 <label for="postal-code">Código postal:</label>
                 <input type="text" id="postal-code" name="postal-code" required aria-required="true" placeholder="38132"
-                  required pattern="^38\d{3}$" />
+                  required pattern="^38\d{3}$" autocomplete="postal-code" />
               </div>
             </fieldset>
 
@@ -407,13 +411,14 @@
                 <div class="row-fieldset">
                   <label for="billing-address">Calle:</label>
                   <input type="text" id="billing-address" name="billing-address"
-                    placeholder="Calle Pepito Pérez, 12, 2º Der." />
+                    placeholder="Calle Pepito Pérez, 12, 2º Der." autocomplete="street-address" />
                 </div>
                 <div class="row-fieldset">
                   <label for="billing-city">Ciudad:</label>
-                  <input type="text" id="billing-city" name="billing-city" placeholder="Ciudad" />
+                  <input type="text" id="billing-city" name="billing-city" placeholder="Ciudad"
+                    autocomplete="address-level2" />
                   <label for="billing-country">País:</label>
-                  <select id="billing-country" name="billing-country">
+                  <select id="billing-country" name="billing-country" autocomplete="country">
                     <option value="">Seleccione un país</option>
                     <option value="andorra">Andorra</option>
                     <option value="spain">España</option>
@@ -424,7 +429,7 @@
                 <div class="row-fieldset">
                   <label for="billing-postal-code">Código postal:</label>
                   <input type="text" id="billing-postal-code" name="billing-postal-code" placeholder="38132"
-                    pattern="^38\d{3}$" />
+                    pattern="^38\d{3}$" autocomplete="postal-code" />
                 </div>
               </div>
             </fieldset>
@@ -435,7 +440,7 @@
                 <p>Envíos express y standard a España, envío standar a Portugal y Andorra. No enviamos a más sitios.</p>
               </div>
               <div class="row-fieldset">
-                <label for="shipping-zone">Zona de envío: <span id="shipping-zone"></span></label>
+                <p>Zona de envío: <span id="shipping-zone"></span></p>
               </div>
               <div class="row-fieldset">
                 <label for="shipping-method">Método de envío:</label>
@@ -463,21 +468,21 @@
                 <div id="card-details" class="payment-detail">
                   <label for="card-name">Nombre del propietario de la tarjeta:</label>
                   <input type="text" id="card-name" name="card-name" required aria-required="true"
-                    placeholder="Nombre completo" />
+                    placeholder="Nombre completo" autocomplete="cc-name" />
                   <label for="card-number">Número de tarjeta:</label>
                   <input type="text" id="card-number" name="card-number" required aria-required="true"
-                    placeholder="1234 5678 9012 3456" maxlength="19" />
+                    placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number" />
                   <label for="card-expiration">Fecha de caducidad:</label>
                   <input type="text" id="card-expiration" name="card-expiration" required aria-required="true"
-                    placeholder="MM/AA" pattern="\d{2}/\d{2}" />
+                    placeholder="MM/AA" pattern="\d{2}/\d{2}" autocomplete="cc-exp" />
                   <label for="card-cvv">CVV:</label>
                   <input type="text" id="card-cvv" name="card-cvv" required aria-required="true" placeholder="123"
-                    pattern="\d{3}" />
+                    pattern="\d{3}" autocomplete="cc-csc" />
                 </div>
                 <div id="paypal-details" class="payment-detail">
                   <label for="paypal-email">Correo electrónico (PayPal):</label>
                   <input type="email" id="paypal-email" name="paypal-email" required aria-required="true"
-                    placeholder="correo@paypal.com" />
+                    placeholder="correo@paypal.com" autocomplete="email" />
                 </div>
                 <div id="bank-transfer-details" class="payment-detail hidden">
                   <label for="bank-transfer-proof">Subir justificante de transferencia bancaria (PDF):</label>
